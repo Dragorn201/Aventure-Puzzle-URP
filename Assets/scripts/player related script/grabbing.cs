@@ -100,7 +100,7 @@ public class Grabbing : MonoBehaviour
             movableObject.selfVelocity = Vector3.Distance(target.position, Vector3.Lerp(target.position, endPos, Time.deltaTime));
             target.position = Vector3.Lerp(target.position, endPos, Time.deltaTime * blocMoveSpeed);
 
-            if (Vector3.Distance(target.position, endPos) < .1f)
+            if (Vector3.Distance(target.position, endPos) < .2f)
             {
                 target.position = endPos;
                 movableObject.StopMoving();

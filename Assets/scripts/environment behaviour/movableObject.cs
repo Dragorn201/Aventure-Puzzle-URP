@@ -7,7 +7,7 @@ public class MovableObject : MonoBehaviour
 {
     [HideInInspector]public bool obstacleHited = false;
     [HideInInspector]public bool isMoving = false;
-    [HideInInspector] public float blocWallDistance;
+    [HideInInspector] public float blocWallDistance = 0.1f;
     private RaycastHit hit;
     private RaycastHit hitback;
     [HideInInspector]public float selfVelocity;

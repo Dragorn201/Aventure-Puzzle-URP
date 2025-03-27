@@ -89,11 +89,12 @@ public class Grabbing : MonoBehaviour
 
     IEnumerator MoveObject(Transform target, Vector3 direction, MovableObject movableObject)
     {
+        movableObject.blocWallDistance = blocWallDistance;
         Vector3 startPos = target.position;
         Vector3 endPos = startPos + direction * projectionForce;
         
         movableObject.StartCoroutine(movableObject.WaitUnitilCollision(direction));
-        movableObject.blocWallDistance = blocWallDistance;
+        
 
         while (!movableObject.obstacleHited)
         {

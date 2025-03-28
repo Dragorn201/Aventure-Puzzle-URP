@@ -7,15 +7,17 @@ public class MovableObject : MonoBehaviour
 {
     [HideInInspector]public bool obstacleHited = false;
     [HideInInspector]public bool isMoving = false;
-    [HideInInspector] public float blocWallDistance;
+    [HideInInspector] public float blocWallDistance = 0.1f;
     private RaycastHit hit;
     private RaycastHit hitback;
     [HideInInspector]public float selfVelocity;
     private CanDamageBoss canDamageBoss;
+    private WallDestroy wallDestroy;
 
     void Awake()
     {
         canDamageBoss = GetComponent<CanDamageBoss>();
+        WallDestroy wallDestroy = GetComponent<WallDestroy>();
     }
     
     
@@ -31,25 +33,27 @@ public class MovableObject : MonoBehaviour
             yield return new WaitForFixedUpdate(); 
         }
         obstacleHited = true;
+        isMoving = false;
         TryDestroyObstacle(hit);
         TryDestroySelf();
         TryDamageBoss();
-        StopMoving();
+        selfVelocity = 0f;
+
     }
 
     void TryDestroyObstacle(RaycastHit hit)
     {
-        WallDestroy wallDestroy = hit.collider.GetComponent<WallDestroy>();
-        if (wallDestroy != null)
+        if (hit.transform != null && hit.collider.GetComponent<WallDestroy>() != null)
         {
+            WallDestroy wallDestroy = hit.collider.GetComponent<WallDestroy>();
             bool wallDestroyed = wallDestroy.TryDestroyWall(selfVelocity);
             if (wallDestroyed) Destroy(wallDestroy.transform.gameObject);
         }
+        
     }
 
     void TryDestroySelf()
     {
-        WallDestroy wallDestroy = GetComponent<WallDestroy>();
         if (wallDestroy != null)
         {
             bool wallDestroyed = wallDestroy.TryDestroyWall(selfVelocity);
@@ -64,6 +68,7 @@ public class MovableObject : MonoBehaviour
 
     public void StopMoving()
     {
+        obstacleHited = true;
         isMoving = false;
         selfVelocity = 0f;
     }

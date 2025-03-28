@@ -799,6 +799,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1275413309}
     - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
+      propertyPath: camTransorm
+      value: 
+      objectReference: {fileID: 1302246466}
+    - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
       propertyPath: onEnteringBulletTime.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1229,12 +1233,13 @@ MonoBehaviour:
   target: {fileID: 1430761050}
   positionSmoothSpeedWhenFollow: 0.2
   rotationSmoothSpeed: 3
-  positionSmoothSpeedWhenChanging: 0.5
-  offset: {x: 12.5, y: 15, z: -13}
+  basicOffset: {x: 12.5, y: 15, z: -13}
   rotationOnPlayerFocus: {x: 0.31598544, y: -0.3596048, z: 0.13088547, w: 0.86816275}
-  mustFollowPlayer: 1
+  mustFollowPlayerPosition: 1
+  MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
+  aimAtPlayer: 1
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0

@@ -6481,6 +6481,7 @@ MonoBehaviour:
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
+  aimAtPlayer: 1
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0
@@ -8404,6 +8405,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 845303180}
     m_Modifications:
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: aimPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 651028894063797947, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Name
       value: cameraTrigger
@@ -8990,6 +8995,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 845303180}
     m_Modifications:
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: aimPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: followPlayer
       value: 1

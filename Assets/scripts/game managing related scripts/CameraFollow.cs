@@ -16,6 +16,8 @@ public class CameraFollow : MonoBehaviour
     [HideInInspector]public Quaternion desiredRotation;
     private float actualCamSpeed;
     private Vector3 actualCamOffset;
+    
+    [HideInInspector]public bool aimAtPlayer = false;
 
     void Start()
     {
@@ -36,7 +38,11 @@ public class CameraFollow : MonoBehaviour
         {
             desiredRotation = rotationOnPlayerFocus;
         }
-        
+
+        if (aimAtPlayer)
+        {
+            desiredRotation = Quaternion.LookRotation(target.position - transform.position);
+        }
         
         
         
@@ -55,15 +61,16 @@ public class CameraFollow : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed);
        }
 
-    public void ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed)
+    public void ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed, bool lookPlayer)
     {
+        aimAtPlayer = false;
         mustFollowPlayerPosition = isUnfixed;
         MustBeBasicRotation = isUnfixed;
-        
         actualCamSpeed = newCamSpeed;
         
         if (!isUnfixed)
         {
+            aimAtPlayer = lookPlayer;
             actualCamSpeed = newCamSpeed;
             desiredRotation = newCameraRotation;
             desiredPosition = newCameraPosition;

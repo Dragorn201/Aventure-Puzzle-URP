@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
@@ -7,7 +8,7 @@ public class CameraFollow : MonoBehaviour
     public float rotationSmoothSpeed = 3f;
     public Vector3 basicOffset;
     public Quaternion rotationOnPlayerFocus;
-    
+    public float camDelay;
     
     [HideInInspector]public bool mustFollowPlayerPosition = true;
     [HideInInspector]public bool MustBeBasicRotation = true;
@@ -16,6 +17,8 @@ public class CameraFollow : MonoBehaviour
     [HideInInspector]public Quaternion desiredRotation;
     private float actualCamSpeed;
     private Vector3 actualCamOffset;
+    private IEnumerator runningCoroutine;
+    private bool coroutineIsRunning = false;
     
     [HideInInspector]public bool aimAtPlayer = false;
 
@@ -42,12 +45,8 @@ public class CameraFollow : MonoBehaviour
         if (aimAtPlayer)
         {
             desiredRotation = Quaternion.LookRotation(target.position - transform.position);
+            
         }
-        
-        
-        
-        
-        
         
         float angleDiff = Quaternion.Angle(transform.rotation, desiredRotation);
         if (angleDiff > 0.1f)
@@ -61,8 +60,27 @@ public class CameraFollow : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed);
        }
 
-    public void ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed, bool lookPlayer)
+    public void CallChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed, bool lookPlayer)
     {
+        if(coroutineIsRunning)StopCoroutine(runningCoroutine);
+        runningCoroutine =
+            ChangeCameraModeToStatic(isUnfixed, newCameraPosition, newCameraRotation, newCamSpeed, lookPlayer);
+        StartCoroutine(runningCoroutine);
+    }
+
+    public void CallChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
+    {
+        if(coroutineIsRunning)StopCoroutine(runningCoroutine);
+        runningCoroutine = ChangeCameraModeToFollowPlayer(stop, newOffset, newCameraRotation, newCamSpeed);
+        StartCoroutine(runningCoroutine);
+    }
+    
+    
+    private IEnumerator ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed, bool lookPlayer)
+    {
+        coroutineIsRunning = true;
+        yield return new WaitForSeconds(camDelay);
+        
         aimAtPlayer = false;
         mustFollowPlayerPosition = isUnfixed;
         MustBeBasicRotation = isUnfixed;
@@ -75,10 +93,14 @@ public class CameraFollow : MonoBehaviour
             desiredRotation = newCameraRotation;
             desiredPosition = newCameraPosition;
         }
+        coroutineIsRunning = false;
     }
 
-    public void ChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
+    private IEnumerator ChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
     {
+        coroutineIsRunning = true;
+        yield return new WaitForSeconds(camDelay);
+        
         MustBeBasicRotation = stop;
 
         if (!stop)
@@ -93,5 +115,6 @@ public class CameraFollow : MonoBehaviour
             actualCamOffset = basicOffset;
             desiredRotation = rotationOnPlayerFocus;
         }
+        coroutineIsRunning = false;
     }
 }

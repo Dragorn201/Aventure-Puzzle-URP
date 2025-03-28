@@ -22,8 +22,8 @@ public class CameraChangeTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!followPlayer) cameraFollow.ChangeCameraModeToStatic(false ,newStaticCamPos.position, newStaticCamPos.rotation, camSpeedOnZoneEntering, aimPlayer);
-            else cameraFollow.ChangeCameraModeToFollowPlayer(false , offsetIfFollowPlayer, newStaticCamPos.rotation, camSpeedOnZoneEntering);
+            if (!followPlayer) cameraFollow.CallChangeCameraModeToStatic(false ,newStaticCamPos.position, newStaticCamPos.rotation, camSpeedOnZoneEntering, aimPlayer);
+            else cameraFollow.CallChangeCameraModeToFollowPlayer(false , offsetIfFollowPlayer, newStaticCamPos.rotation, camSpeedOnZoneEntering) ;
         }
     }
 
@@ -31,8 +31,8 @@ public class CameraChangeTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!followPlayer) cameraFollow.ChangeCameraModeToStatic(true ,newStaticCamPos.position, newStaticCamPos.rotation, camSpeedOnZoneExiting, aimPlayer);
-            else cameraFollow.ChangeCameraModeToFollowPlayer(true , offsetIfFollowPlayer, newStaticCamPos.rotation, camSpeedOnZoneExiting);
+            if (!followPlayer) cameraFollow.CallChangeCameraModeToStatic(true ,newStaticCamPos.position, newStaticCamPos.rotation, camSpeedOnZoneExiting, aimPlayer);
+            else cameraFollow.CallChangeCameraModeToFollowPlayer(true , offsetIfFollowPlayer, newStaticCamPos.rotation, camSpeedOnZoneExiting);
         }
     }
 }

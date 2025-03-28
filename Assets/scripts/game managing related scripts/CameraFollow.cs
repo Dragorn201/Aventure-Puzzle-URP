@@ -58,7 +58,7 @@ public class CameraFollow : MonoBehaviour
         {
             Quaternion rotation = desiredRotation;
             Vector3 inputDirection = playerController.movementInput.normalized;
-            Quaternion inputOffsetRotation = Quaternion.Euler(-inputOffsetIntensity * inputDirection.y, inputOffsetIntensity * inputDirection.x, 0); 
+            Quaternion inputOffsetRotation = Quaternion.Euler(inputOffsetIntensity * inputDirection.y, inputOffsetIntensity * inputDirection.x, 0); 
             
             desiredRotation = inputOffsetRotation * rotation; 
         }

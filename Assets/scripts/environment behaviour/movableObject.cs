@@ -12,6 +12,7 @@ public class MovableObject : MonoBehaviour
     private RaycastHit hitback;
     [HideInInspector]public float selfVelocity;
     private CanDamageBoss canDamageBoss;
+    
 
     void Awake()
     {

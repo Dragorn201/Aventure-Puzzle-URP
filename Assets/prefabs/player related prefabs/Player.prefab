@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8896c055f451c448dc5eca38b76b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 3
   tongLength: 15
-  accelerationForce: 0.15
+  accelerationForce: 0.3
   BulletTimePositionOffset: 3
   onEnteringBulletTime:
     m_PersistentCalls:
@@ -85,6 +85,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   isInBulletTime: 0
+  actualEncrage: {fileID: 0}
   directionToGo: {x: 0, y: 0, z: 0}
 --- !u!114 &5184932626517147525
 MonoBehaviour:
@@ -114,6 +115,8 @@ MonoBehaviour:
   grabbedMovementPrevisualisation: {fileID: 4153668979189932254, guid: 73a225da483e32f43a4117d617564360, type: 3}
   blocWallDistance: 0.2
   projectionForce: 10
+  blocMoveSpeed: 2
+  isGrabbing: 0
 --- !u!114 &6994284949816587690
 MonoBehaviour:
   m_ObjectHideFlags: 0

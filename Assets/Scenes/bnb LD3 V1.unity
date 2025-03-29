@@ -3929,7 +3929,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.78, y: 1.75, z: 32.85}
   m_LocalScale: {x: 3.6740453, y: 2.5, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1579891617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4252,15 +4252,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13b67e1c651bdf4f9f63fce360c8f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1430761050}
+  player: {fileID: 1430761050}
   positionSmoothSpeedWhenFollow: 0.2
   rotationSmoothSpeed: 3
   basicOffset: {x: 12.5, y: 15, z: -13}
   rotationOnPlayerFocus: {x: 0.31598544, y: -0.3596048, z: 0.13088547, w: 0.86816275}
+  camDelay: 0.25
+  inputOffsetIntensity: 5
   mustFollowPlayerPosition: 1
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
+  aimAtPlayer: 0
+  requiredStableTime: 0.5
+  angleThreshold: 5
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0

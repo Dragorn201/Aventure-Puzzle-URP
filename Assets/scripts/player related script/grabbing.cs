@@ -5,7 +5,7 @@ public class Grabbing : MonoBehaviour
 {
     private PlayerController playerController;
     public GameObject grabbedMovementPrevisualisation;
-    [SerializeField]private float blocWallDistance = 0.2f;
+    [SerializeField]private float blocWallDistance = 0.4f;
     public float projectionForce = 5f;
     [SerializeField]private float blocMoveSpeed = 2f;
     private bool buttonPressed = false;
@@ -89,9 +89,11 @@ public class Grabbing : MonoBehaviour
 
     IEnumerator MoveObject(Transform target, Vector3 direction, MovableObject movableObject)
     {
+        movableObject.blocWallDistance = blocWallDistance;
+        
         Vector3 startPos = target.position;
         Vector3 endPos = startPos + direction * projectionForce;
-        movableObject.blocWallDistance = blocWallDistance;
+        
 
         while (!movableObject.obstacleHited)
         {

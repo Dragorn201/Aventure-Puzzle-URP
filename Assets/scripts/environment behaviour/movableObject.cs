@@ -22,22 +22,22 @@ public class MovableObject : MonoBehaviour
     }
     
     
-    public IEnumerator WaitUnitilCollision(Vector3 direction)
+    public void DetectCollision(Vector3 direction)
     {
+        bool collision = false;
+        
         isMoving = true;
         Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
         Physics.Raycast(hit.point, -direction, out hitback, Mathf.Infinity);
-        while (Vector3.Distance(hitback.point, hit.point) > blocWallDistance && isMoving)
+        collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance && isMoving);
+        if (collision)
         {
-            Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
-            Physics.Raycast(hit.point, -direction, out hitback, Mathf.Infinity);
-            yield return new WaitForFixedUpdate(); 
+            obstacleHited = true;
+            TryDestroyObstacle(hit);
+            TryDestroySelf();
+            TryDamageBoss();
+            StopMoving();
         }
-        obstacleHited = true;
-        TryDestroyObstacle(hit);
-        TryDestroySelf();
-        TryDamageBoss();
-        StopMoving();
     }
 
     void TryDestroyObstacle(RaycastHit hit)

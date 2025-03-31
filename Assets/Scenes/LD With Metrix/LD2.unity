@@ -3641,15 +3641,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13b67e1c651bdf4f9f63fce360c8f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1430761050}
+  player: {fileID: 1430761050}
   positionSmoothSpeedWhenFollow: 0.2
   rotationSmoothSpeed: 3
   basicOffset: {x: 12.5, y: 15, z: -13}
   rotationOnPlayerFocus: {x: 0.31598544, y: -0.3596048, z: 0.13088547, w: 0.86816275}
+  camDelay: 0.25
+  inputOffsetIntensity: 10
   mustFollowPlayerPosition: 1
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
+  aimAtPlayer: 0
+  requiredStableTime: 2
+  angleThreshold: 5
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0
@@ -7776,6 +7781,7 @@ GameObject:
   - component: {fileID: 2147236768}
   - component: {fileID: 2147236767}
   - component: {fileID: 2147236766}
+  - component: {fileID: 2147236769}
   m_Layer: 0
   m_Name: Cube (37)
   m_TagString: Untagged
@@ -7813,7 +7819,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -7872,6 +7878,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2147236764}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2147236769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147236764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c3509aada805341a8ccef3e398ca5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: 3
 --- !u!1001 &6109284683912412930
 PrefabInstance:
   m_ObjectHideFlags: 0

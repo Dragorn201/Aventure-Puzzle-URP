@@ -12,10 +12,12 @@ public class MovableObject : MonoBehaviour
     private RaycastHit hitback;
     [HideInInspector]public float selfVelocity;
     private CanDamageBoss canDamageBoss;
+    private WallDestroy selfWallDestroy;
     
 
     void Awake()
     {
+        selfWallDestroy = GetComponent<WallDestroy>();
         canDamageBoss = GetComponent<CanDamageBoss>();
     }
     
@@ -41,7 +43,7 @@ public class MovableObject : MonoBehaviour
     void TryDestroyObstacle(RaycastHit hit)
     {
         WallDestroy wallDestroy = hit.collider.GetComponent<WallDestroy>();
-        if (wallDestroy != null)
+        if (wallDestroy != null && wallDestroy != selfWallDestroy)
         {
             bool wallDestroyed = wallDestroy.TryDestroyWall(selfVelocity);
             if (wallDestroyed) Destroy(wallDestroy.transform.gameObject);
@@ -50,11 +52,10 @@ public class MovableObject : MonoBehaviour
 
     void TryDestroySelf()
     {
-        WallDestroy wallDestroy = GetComponent<WallDestroy>();
-        if (wallDestroy != null)
+        if (selfWallDestroy != null)
         {
-            bool wallDestroyed = wallDestroy.TryDestroyWall(selfVelocity);
-            if (wallDestroyed) Destroy(wallDestroy.transform.gameObject);
+            bool wallDestroyed = selfWallDestroy.TryDestroyWall(selfVelocity);
+            if (wallDestroyed) Destroy(selfWallDestroy.transform.gameObject);
         }
     }
 

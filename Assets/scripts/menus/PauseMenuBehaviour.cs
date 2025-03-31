@@ -8,7 +8,7 @@ public class PauseMenuBehaviour : MonoBehaviour
     public GameObject pauseMenuPanel;
     public GameObject settingsPanel;
     private GameObject activePanel;
-
+    
     void Start()
     {
         activePanel = null;
@@ -77,5 +77,10 @@ public class PauseMenuBehaviour : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

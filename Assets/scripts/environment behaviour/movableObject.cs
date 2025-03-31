@@ -33,7 +33,11 @@ public class MovableObject : MonoBehaviour
         if (collision)
         {
             obstacleHited = true;
-            TryDestroyObstacle(hit);
+            if (!(hit.collider.tag != "Player"))
+            {
+                TryDestroyObstacle(hit);
+            }
+            
             TryDestroySelf();
             TryDamageBoss();
             StopMoving();

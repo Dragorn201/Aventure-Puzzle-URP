@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
     
+    private PlayerDeathBehaviour playerDeathBehaviour;
     
     [HideInInspector]public float actualSpeed = 0f;
     public PlayerControls playerControls;
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerControls();
+        playerDeathBehaviour = GetComponent<PlayerDeathBehaviour>();
     }
 
 
@@ -114,7 +118,6 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator MovePlayerToTarget(Vector3 targetPoint,Vector3 dirOnStart, RaycastHit hit, bool accelerate = true)
     {
-        float basicSpeed = moveSpeed;
         float speedFactor = 1f;
         isInMotion = true;
         bool interrupted = false;
@@ -124,19 +127,19 @@ public class PlayerController : MonoBehaviour
             if (hit.collider != hitback.collider)
             {
                 interrupted = true;
-                moveSpeed = basicSpeed;
                 break;
             }
             if(accelerate)speedFactor += accelerationForce;
-            actualSpeed = moveSpeed * Time.fixedDeltaTime * speedFactor;
+            actualSpeed = moveSpeed * Time.deltaTime * speedFactor;
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
         if(!interrupted)TryDestroyWall(actualSpeed, hit, dirOnStart);
+        else playerDeathBehaviour.Death();
         actualSpeed = 0f;
         isInMotion = false;
         canMove = true;
-        moveSpeed = basicSpeed;
+        
     }
 
     void TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)

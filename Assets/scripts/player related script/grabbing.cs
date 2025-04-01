@@ -142,10 +142,9 @@ public class Grabbing : MonoBehaviour
         Vector3 startPos = target.position;
         Vector3 endPos = startPos + direction * projectionForce;
         
-        movableObject.StartCoroutine(movableObject.WaitUnitilCollision(direction));
         movableObject.blocWallDistance = blocWallDistance;
 
-        while (!movableObject.obstacleHited)
+        while (!movableObject.DetectCollision(direction))
         {
             movableObject.selfVelocity = Vector3.Distance(target.position, Vector3.Lerp(target.position, endPos, Time.deltaTime));
             target.position = Vector3.Lerp(target.position, endPos, Time.deltaTime * blocMoveSpeed);

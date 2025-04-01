@@ -5,7 +5,7 @@ public class Grabbing : MonoBehaviour
 {
     private PlayerController playerController;
     public GameObject grabbedMovementPrevisualisation;
-    [SerializeField]private float blocWallDistance = 0.4f;
+    [SerializeField]private float blocWallDistance = 0.55f;
     public float projectionForce = 5f;
     [SerializeField]private float blocMoveSpeed = 2f;
     private bool buttonPressed = false;
@@ -105,8 +105,9 @@ public class Grabbing : MonoBehaviour
             {
                 target.position = endPos;
                 movableObject.StopMoving();
+                break;
             }
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
         movableObject.obstacleHited = false;
     }

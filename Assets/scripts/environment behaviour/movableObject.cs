@@ -26,6 +26,7 @@ public class MovableObject : MonoBehaviour
         Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
         Physics.Raycast(hit.point , -direction, out hitback, 1f);
         bool collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance);
+        Debug.Log("distance avec " + hit.collider.name + " : " + Vector3.Distance(hitback.point, hit.point));
         if (collision)
         {
             obstacleHited = true;

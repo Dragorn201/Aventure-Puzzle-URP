@@ -12,6 +12,7 @@ public class MovableObject : MonoBehaviour
     private RaycastHit hitback;
     [HideInInspector]public float selfVelocity;
     private CanDamageBoss canDamageBoss;
+    
 
     void Awake()
     {
@@ -19,28 +20,22 @@ public class MovableObject : MonoBehaviour
     }
     
     
-    public bool DetectCollision(Vector3 direction)
+    public IEnumerator WaitUnitilCollision(Vector3 direction)
     {
-        
         isMoving = true;
         Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
-        Physics.Raycast(hit.point , -direction, out hitback, 1f);
-        bool collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance);
-        Debug.Log("distance avec " + hit.collider.name + " : " + Vector3.Distance(hitback.point, hit.point));
-        if (collision)
+        Physics.Raycast(hit.point, -direction, out hitback, Mathf.Infinity);
+        while (Vector3.Distance(hitback.point, hit.point) > blocWallDistance && isMoving)
         {
-            obstacleHited = true;
-            if (hit.collider.tag != "Player")
-            {
-                Debug.Log("destroying " + hit.collider.name + "with tag " + hit.collider.tag);
-                TryDestroyObstacle(hit);
-            }
-            
-            TryDestroySelf();
-            TryDamageBoss();
-            StopMoving();
+            Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
+            Physics.Raycast(hit.point, -direction, out hitback, Mathf.Infinity);
+            yield return new WaitForFixedUpdate(); 
         }
-        return collision;
+        obstacleHited = true;
+        TryDestroyObstacle(hit);
+        TryDestroySelf();
+        TryDamageBoss();
+        StopMoving();
     }
 
     void TryDestroyObstacle(RaycastHit hit)

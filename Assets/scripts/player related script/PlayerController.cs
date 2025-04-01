@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
     
+    private PlayerDeathBehaviour playerDeathBehaviour;
     
     [HideInInspector]public float actualSpeed = 0f;
     public PlayerControls playerControls;
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerControls();
+        playerDeathBehaviour = GetComponent<PlayerDeathBehaviour>();
     }
 
 
@@ -133,6 +137,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         if(!interrupted)TryDestroyWall(actualSpeed, hit, dirOnStart);
+        else playerDeathBehaviour.Death();
         actualSpeed = 0f;
         isInMotion = false;
         canMove = true;

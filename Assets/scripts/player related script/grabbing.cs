@@ -74,18 +74,24 @@ public class Grabbing : MonoBehaviour
         while (buttonPressed)
         {
 
-            Quaternion targetRotation = Quaternion.LookRotation(playerController.movementInput.normalized);
-
-            if (Quaternion.Angle(currentDirection, targetRotation) > maxRotationSpeed)
+            grabbedMovementPrevisualisation.SetActive(playerController.movementInput != Vector3.zero);
+            
+            if (playerController.movementInput != Vector3.zero)
             {
-                currentDirection = Quaternion.RotateTowards(currentDirection, targetRotation, maxRotationSpeed);
-            }
-            else
-            {
-                currentDirection = targetRotation;
-            }
+                Quaternion targetRotation = Quaternion.LookRotation(playerController.movementInput.normalized);
 
-            direction = currentDirection * Vector3.forward;
+                if (Quaternion.Angle(currentDirection, targetRotation) > maxRotationSpeed)
+                {
+                    currentDirection = Quaternion.RotateTowards(currentDirection, targetRotation, maxRotationSpeed);
+                }
+                else
+                {
+                    currentDirection = targetRotation;
+                }
+
+                direction = currentDirection * Vector3.forward;
+            }
+            
             
             
             

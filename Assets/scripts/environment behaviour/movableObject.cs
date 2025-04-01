@@ -19,14 +19,13 @@ public class MovableObject : MonoBehaviour
     }
     
     
-    public void DetectCollision(Vector3 direction)
+    public bool DetectCollision(Vector3 direction)
     {
-        bool collision = false;
         
         isMoving = true;
         Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
         Physics.Raycast(hit.point , -direction, out hitback, 1f);
-        collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance);
+        bool collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance);
         if (collision)
         {
             obstacleHited = true;
@@ -40,7 +39,7 @@ public class MovableObject : MonoBehaviour
             TryDamageBoss();
             StopMoving();
         }
-        Debug.Log("collision " + hit.collider.name + " : " + Vector3.Distance(hitback.point, hit.point));
+        return collision;
     }
 
     void TryDestroyObstacle(RaycastHit hit)

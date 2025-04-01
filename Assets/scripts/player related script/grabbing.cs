@@ -5,7 +5,7 @@ public class Grabbing : MonoBehaviour
 {
     private PlayerController playerController;
     public GameObject grabbedMovementPrevisualisation;
-    [SerializeField]private float blocWallDistance = 0.55f;
+    [SerializeField]private float blocWallDistance = 0.2f;
     public float projectionForce = 5f;
     [SerializeField]private float blocMoveSpeed = 2f;
     private bool buttonPressed = false;
@@ -108,24 +108,23 @@ public class Grabbing : MonoBehaviour
 
     IEnumerator MoveObject(Transform target, Vector3 direction, MovableObject movableObject)
     {
-        movableObject.blocWallDistance = blocWallDistance;
-        
         Vector3 startPos = target.position;
         Vector3 endPos = startPos + direction * projectionForce;
         
+        movableObject.StartCoroutine(movableObject.WaitUnitilCollision(direction));
+        movableObject.blocWallDistance = blocWallDistance;
 
-        while (!movableObject.DetectCollision(direction))
+        while (!movableObject.obstacleHited)
         {
             movableObject.selfVelocity = Vector3.Distance(target.position, Vector3.Lerp(target.position, endPos, Time.deltaTime));
             target.position = Vector3.Lerp(target.position, endPos, Time.deltaTime * blocMoveSpeed);
-            
+
             if (Vector3.Distance(target.position, endPos) < .1f)
             {
                 target.position = endPos;
                 movableObject.StopMoving();
-                break;
             }
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         movableObject.obstacleHited = false;
     }

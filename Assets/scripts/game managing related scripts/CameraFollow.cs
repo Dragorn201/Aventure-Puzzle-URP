@@ -38,7 +38,6 @@ public class CameraFollow : MonoBehaviour
         actualBaseRotation = transform.rotation;
         actualCamSpeed = positionSmoothSpeedWhenFollow;
         lastCheckedRotation = player.rotation;
-        CallChangeCameraModeToStatic(true, desiredPosition, desiredRotation, positionSmoothSpeedWhenFollow);
     }
 
     void LateUpdate()
@@ -96,36 +95,9 @@ public class CameraFollow : MonoBehaviour
 
 
 
-    public void CallChangeCameraModeToStatic(bool isUnfixed, Vector3 newCameraPosition, Quaternion newCameraRotation,
-        float newCamSpeed)
-    {
-        if (coroutineIsRunning)
-        {
-            StopCoroutine(runningCoroutine);
-        }
-        runningCoroutine = ChangeCameraModeToStatic(isUnfixed, newCameraPosition, newCameraRotation, newCamSpeed);
-        StartCoroutine(runningCoroutine);
-    }
-    
-    public void CallChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
-    {
-        if (coroutineIsRunning)
-        {
-            StopCoroutine(runningCoroutine);
-        }
-        runningCoroutine = ChangeCameraModeToFollowPlayer(stop, newOffset, newCameraRotation, newCamSpeed);
-        StartCoroutine(runningCoroutine);
-    }
-    
 
-    public IEnumerator ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed)
+    public void ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed)
     {
-        
-        
-        coroutineIsRunning = true;
-        yield return new WaitForSeconds(camDelay);
-        coroutineIsRunning = false;
-        
         mustFollowPlayerPosition = isUnfixed;
         MustBeBasicRotation = isUnfixed;
  
@@ -139,16 +111,8 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    public IEnumerator ChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
+    public void ChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
     {
-        
-        
-        
-        coroutineIsRunning = true;
-        yield return new WaitForSeconds(camDelay);
-        coroutineIsRunning = false;
-        
-        
         MustBeBasicRotation = stop;
 
         if (!stop)

@@ -12,38 +12,40 @@ public class MovableObject : MonoBehaviour
     private RaycastHit hitback;
     [HideInInspector]public float selfVelocity;
     private CanDamageBoss canDamageBoss;
-    private WallDestroy selfWallDestroy;
-    
 
     void Awake()
     {
-        selfWallDestroy = GetComponent<WallDestroy>();
         canDamageBoss = GetComponent<CanDamageBoss>();
     }
     
     
-    public IEnumerator WaitUnitilCollision(Vector3 direction)
+    public bool DetectCollision(Vector3 direction)
     {
         isMoving = true;
-        Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
-        Physics.Raycast(hit.point, -direction, out hitback, Mathf.Infinity);
-        while (Vector3.Distance(hitback.point, hit.point) > blocWallDistance && isMoving)
+        Physics.BoxCast(transform.position, transform.localScale / 2 - transform.localScale * 0.1f, direction, out hit, transform.rotation);
+        Physics.Raycast(hit.point , -direction, out hitback, 1f);
+        bool collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance);
+        Debug.Log("distance avec " + hit.collider.name + " : " + Vector3.Distance(hitback.point, hit.point));
+        if (collision)
         {
-            Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
-            Physics.Raycast(hit.point, -direction, out hitback, Mathf.Infinity);
-            yield return new WaitForFixedUpdate(); 
+            obstacleHited = true;
+            if (hit.collider.tag != "Player")
+            {
+                Debug.Log("destroying " + hit.collider.name + "with tag " + hit.collider.tag);
+                TryDestroyObstacle(hit);
+            }
+            
+            TryDestroySelf();
+            TryDamageBoss();
+            StopMoving();
         }
-        obstacleHited = true;
-        TryDestroyObstacle(hit);
-        TryDestroySelf();
-        TryDamageBoss();
-        StopMoving();
+        return collision;
     }
 
     void TryDestroyObstacle(RaycastHit hit)
     {
         WallDestroy wallDestroy = hit.collider.GetComponent<WallDestroy>();
-        if (wallDestroy != null && wallDestroy != selfWallDestroy)
+        if (wallDestroy != null)
         {
             bool wallDestroyed = wallDestroy.TryDestroyWall(selfVelocity);
             if (wallDestroyed) Destroy(wallDestroy.transform.gameObject);
@@ -52,10 +54,11 @@ public class MovableObject : MonoBehaviour
 
     void TryDestroySelf()
     {
-        if (selfWallDestroy != null)
+        WallDestroy wallDestroy = GetComponent<WallDestroy>();
+        if (wallDestroy != null)
         {
-            bool wallDestroyed = selfWallDestroy.TryDestroyWall(selfVelocity);
-            if (wallDestroyed) Destroy(selfWallDestroy.transform.gameObject);
+            bool wallDestroyed = wallDestroy.TryDestroyWall(selfVelocity);
+            if (wallDestroyed) Destroy(wallDestroy.transform.gameObject);
         }
     }
 

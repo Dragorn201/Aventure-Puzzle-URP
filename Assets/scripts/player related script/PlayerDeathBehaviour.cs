@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerSpawnBehaviour : MonoBehaviour
+public class PlayerDeathBehaviour : MonoBehaviour
 {
     public Transform SpawnPosition;
     
@@ -11,4 +11,15 @@ public class PlayerSpawnBehaviour : MonoBehaviour
         gameObject.transform.position = SpawnPosition.position;
     }
 
+    public void Death()
+    {
+        gameObject.transform.position = SpawnPosition.position;
+        Debug.Log("Player Death");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }

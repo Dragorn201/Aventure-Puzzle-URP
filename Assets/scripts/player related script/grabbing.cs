@@ -5,7 +5,7 @@ public class Grabbing : MonoBehaviour
 {
     private PlayerController playerController;
     public GameObject grabbedMovementPrevisualisation;
-    [SerializeField]private float blocWallDistance = 0.4f;
+    [SerializeField]private float blocWallDistance = 0.55f;
     public float projectionForce = 5f;
     [SerializeField]private float blocMoveSpeed = 2f;
     private bool buttonPressed = false;
@@ -56,6 +56,13 @@ public class Grabbing : MonoBehaviour
         grabbedMovementPrevisualisation.transform.localScale = transformToMove.localScale;
         grabbedMovementPrevisualisation.transform.rotation = transformToMove.rotation;
         grabbedMovementPrevisualisation.SetActive(true);
+        
+        //pour le feedBack visuel
+        float elapsedTime = 0f;
+        Mesh mesh = transformToMove.GetComponent<MeshFilter>().mesh;
+        Vector3[] vertices = mesh.vertices;
+        Vector3[] basicVertices = mesh.vertices;
+        
         while (buttonPressed)
         {
             Physics.BoxCast(transformToMove.position, transformToMove.localScale / 2, playerController.movementInput.normalized, out RaycastHit pravisualisationHit, transformToMove.rotation, projectionForce);
@@ -71,11 +78,23 @@ public class Grabbing : MonoBehaviour
             }
             previsualisationPosition.y = transformToMove.position.y;
             grabbedMovementPrevisualisation.transform.position = previsualisationPosition;
+            
+            //feedBack visuel
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                vertices[i] = basicVertices[i] * (Mathf.Sin(elapsedTime) * 0.05f + 1.05f);
+            }
+
+            mesh.vertices = vertices;
+            mesh.RecalculateBounds();
+            elapsedTime += Time.deltaTime * 10f;
+            
             Debug.DrawLine(transformToMove.position, previsualisationPosition, Color.red);
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
         grabbedMovementPrevisualisation.SetActive(false);
-        
+        mesh.vertices = basicVertices;
+        mesh.RecalculateBounds();
         if (playerController.movementInput != Vector3.zero && !movableObject.isMoving)
         {
             if (transformToMove.gameObject == playerController.actualEncrage)
@@ -105,8 +124,9 @@ public class Grabbing : MonoBehaviour
             {
                 target.position = endPos;
                 movableObject.StopMoving();
+                break;
             }
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
         movableObject.obstacleHited = false;
     }

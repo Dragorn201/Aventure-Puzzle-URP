@@ -30,8 +30,9 @@ public class MovableObject : MonoBehaviour
         if (collision)
         {
             obstacleHited = true;
-            if (!(hit.collider.tag != "Player"))
+            if (hit.collider.tag != "Player")
             {
+                Debug.Log("destroying " + hit.collider.name + "with tag " + hit.collider.tag);
                 TryDestroyObstacle(hit);
             }
             

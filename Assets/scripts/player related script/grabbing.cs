@@ -125,7 +125,7 @@ public class Grabbing : MonoBehaviour
                 movableObject.StopMoving();
                 break;
             }
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         movableObject.obstacleHited = false;
     }

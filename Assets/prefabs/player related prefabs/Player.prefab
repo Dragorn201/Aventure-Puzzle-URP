@@ -85,6 +85,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   isInBulletTime: 0
+  actualEncrage: {fileID: 0}
   directionToGo: {x: 0, y: 0, z: 0}
 --- !u!114 &5184932626517147525
 MonoBehaviour:
@@ -112,8 +113,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabbedMovementPrevisualisation: {fileID: 4153668979189932254, guid: 73a225da483e32f43a4117d617564360, type: 3}
-  blocWallDistance: 0.2
+  blocWallDistance: 0.5
   projectionForce: 10
+  blocMoveSpeed: 2
+  isGrabbing: 0
 --- !u!114 &6994284949816587690
 MonoBehaviour:
   m_ObjectHideFlags: 0

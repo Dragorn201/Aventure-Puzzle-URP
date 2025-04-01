@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8896c055f451c448dc5eca38b76b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 3
   tongLength: 15
-  accelerationForce: 0.15
+  accelerationForce: 0.3
   BulletTimePositionOffset: 3
   onEnteringBulletTime:
     m_PersistentCalls:
@@ -117,6 +117,7 @@ MonoBehaviour:
   projectionForce: 10
   blocMoveSpeed: 2
   isGrabbing: 0
+  maxRotationSpeed: 5
 --- !u!114 &6994284949816587690
 MonoBehaviour:
   m_ObjectHideFlags: 0

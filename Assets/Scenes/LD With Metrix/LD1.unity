@@ -5944,6 +5944,7 @@ GameObject:
   - component: {fileID: 1168405494}
   - component: {fileID: 1168405493}
   - component: {fileID: 1168405492}
+  - component: {fileID: 1168405495}
   m_Layer: 0
   m_Name: Cube (56)
   m_TagString: Untagged
@@ -5981,7 +5982,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -6040,6 +6041,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168405490}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1168405495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168405490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16168916b06922f42afafaec8394f26d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelToLoad: 2
 --- !u!1 &1275413308
 GameObject:
   m_ObjectHideFlags: 0
@@ -6472,20 +6486,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13b67e1c651bdf4f9f63fce360c8f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1430761050}
+  target: {fileID: 1430761050}
   positionSmoothSpeedWhenFollow: 0.2
   rotationSmoothSpeed: 3
   basicOffset: {x: 12.5, y: 15, z: -13}
   rotationOnPlayerFocus: {x: 0.31598544, y: -0.3596048, z: 0.13088547, w: 0.86816275}
-  camDelay: 0.25
-  inputOffsetIntensity: 5
   mustFollowPlayerPosition: 1
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
-  aimAtPlayer: 1
-  requiredStableTime: 0.5
-  angleThreshold: 10
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0

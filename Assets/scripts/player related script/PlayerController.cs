@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
             if(accelerate)speedFactor += accelerationForce;
             actualSpeed = moveSpeed * Time.deltaTime * speedFactor;
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         if(!interrupted)TryDestroyWall(actualSpeed, hit, dirOnStart);
         else playerDeathBehaviour.Death();

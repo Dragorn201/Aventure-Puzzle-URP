@@ -22,7 +22,7 @@ public class MovableObject : MonoBehaviour
     public bool DetectCollision(Vector3 direction)
     {
         isMoving = true;
-        Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
+        Physics.BoxCast(transform.position, transform.localScale / 2 - transform.localScale * 0.1f, direction, out hit, transform.rotation);
         Physics.Raycast(hit.point , -direction, out hitback, 1f);
         bool collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance);
         Debug.Log("distance avec " + hit.collider.name + " : " + Vector3.Distance(hitback.point, hit.point));

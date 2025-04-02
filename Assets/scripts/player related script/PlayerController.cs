@@ -19,10 +19,10 @@ public class PlayerController : MonoBehaviour
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
     
-    private PlayerDeathBehaviour playerDeathBehaviour;
     
+    private PlayerDeathBehaviour playerDeathBehaviour;
     [HideInInspector]public float actualSpeed = 0f;
-    public PlayerControls playerControls;
+    [HideInInspector]public PlayerControls playerControls;
     [HideInInspector]public Vector3 movementInput;
     private Vector3 directionAtStart;
     [HideInInspector]public bool canMove = true;
@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     private bool mustExitBulletTime = false;
     [HideInInspector]public bool isInBulletTime = false;
     [HideInInspector]public GameObject actualEncrage;
-
     [HideInInspector]public Vector3 directionToGo;
 
 
@@ -50,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
         tong = playerControls.Player.Fire;
         tong.Enable();
-        tong.performed += TryShootTong;
+        tong.performed += TryShootHook;
     }
 
     void OnDisable()
@@ -77,11 +76,11 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
-            if(movementInput != Vector3.zero)ShootTong(directionToGo);
+            if(movementInput != Vector3.zero)ShootHook(directionToGo);
         }
     }
 
-    public Vector3 RelativeMovementInput(Transform camTransorm, float absoluteX, float absoluteY)
+    Vector3 RelativeMovementInput(Transform camTransorm, float absoluteX, float absoluteY)
     {
         Vector3 camForward = camTransorm.forward;
         Vector3 camRight = camTransorm.right;
@@ -95,12 +94,12 @@ public class PlayerController : MonoBehaviour
         return relativDirection;
     }
 
-    void TryShootTong(InputAction.CallbackContext context)
+    void TryShootHook(InputAction.CallbackContext context)
     {
-        if(movementInput != Vector3.zero) ShootTong(directionToGo);
+        if(movementInput != Vector3.zero) ShootHook(directionToGo);
     }
     
-    public void ShootTong(Vector3 direction)
+    public void ShootHook(Vector3 direction)
     {
         Physics.Raycast(transform.position, direction,  out RaycastHit hit, tongLength);
         if (canMove && direction != Vector3.zero)
@@ -157,12 +156,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, tongLength);
-    }
 
     public IEnumerator BulletTime(Vector3 direction, float offset)
     {
@@ -195,6 +188,12 @@ public class PlayerController : MonoBehaviour
         }
         isInBulletTime = false;
         Time.timeScale = 1f;
+    }
+    
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, tongLength);
     }
 }
 

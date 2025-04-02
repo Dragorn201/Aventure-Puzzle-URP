@@ -10,6 +10,7 @@ public class Grabbing : MonoBehaviour
     [SerializeField]private float blocMoveSpeed = 2f;
     private bool buttonPressed = false;
     public bool isGrabbing = false;
+    public float maxRotationSpeed = 1f;
 
     void Awake()
     {
@@ -46,6 +47,11 @@ public class Grabbing : MonoBehaviour
         {
             StartCoroutine(WaitBeforeMovingObject(hit.transform, movableObject));
         }
+        
+        else if (movableObject != null && movableObject.isMoving)
+        {
+            Debug.Log("object already moving");
+        }
     }
 
     IEnumerator WaitBeforeMovingObject(Transform transformToMove, MovableObject movableObject)
@@ -57,15 +63,45 @@ public class Grabbing : MonoBehaviour
         grabbedMovementPrevisualisation.transform.rotation = transformToMove.rotation;
         grabbedMovementPrevisualisation.SetActive(true);
         
+        Quaternion currentDirection = Quaternion.Euler(playerController.movementInput.normalized);
+        
+        
+        //rajouter un limiteur de vitesse de rotation en comparant l'angle du joystick et la rotation actuelle et si elle est superieur a un certain angle, la cliper a celui ci.
+        
+        
+        
         //pour le feedBack visuel
         float elapsedTime = 0f;
         Mesh mesh = transformToMove.GetComponent<MeshFilter>().mesh;
         Vector3[] vertices = mesh.vertices;
         Vector3[] basicVertices = mesh.vertices;
-        
+        Vector3 direction = playerController.movementInput.normalized;
         while (buttonPressed)
         {
-            Physics.BoxCast(transformToMove.position, transformToMove.localScale / 2, playerController.movementInput.normalized, out RaycastHit pravisualisationHit, transformToMove.rotation, projectionForce);
+
+            grabbedMovementPrevisualisation.SetActive(playerController.movementInput != Vector3.zero);
+            
+            if (playerController.movementInput != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(playerController.movementInput.normalized);
+
+                if (Quaternion.Angle(currentDirection, targetRotation) > maxRotationSpeed)
+                {
+                    currentDirection = Quaternion.RotateTowards(currentDirection, targetRotation, maxRotationSpeed);
+                }
+                else
+                {
+                    currentDirection = targetRotation;
+                }
+
+                direction = currentDirection * Vector3.forward;
+            }
+            
+            
+            
+            
+            
+            Physics.BoxCast(transformToMove.position, transformToMove.localScale / 2 - transformToMove.localScale * 0.1f,direction , out RaycastHit pravisualisationHit, transformToMove.rotation, projectionForce);
             Vector3 previsualisationPosition;
             if (pravisualisationHit.collider != null)
             {
@@ -73,7 +109,7 @@ public class Grabbing : MonoBehaviour
             }
             else
             {
-                previsualisationPosition = transformToMove.position + playerController.movementInput.normalized * projectionForce;
+                previsualisationPosition = transformToMove.position + direction * projectionForce;
                 
             }
             previsualisationPosition.y = transformToMove.position.y;
@@ -90,7 +126,7 @@ public class Grabbing : MonoBehaviour
             elapsedTime += Time.deltaTime * 10f;
             
             Debug.DrawLine(transformToMove.position, previsualisationPosition, Color.red);
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
         grabbedMovementPrevisualisation.SetActive(false);
         mesh.vertices = basicVertices;
@@ -101,7 +137,7 @@ public class Grabbing : MonoBehaviour
             {
                 StartCoroutine(playerController.BulletTime(-playerController.movementInput, 0.5f));
             }
-            StartCoroutine(MoveObject(transformToMove, playerController.movementInput.normalized, movableObject));
+            StartCoroutine(MoveObject(transformToMove, direction, movableObject));
         }
         isGrabbing = false;
     }
@@ -110,20 +146,35 @@ public class Grabbing : MonoBehaviour
     {
         Vector3 startPos = target.position;
         Vector3 endPos = startPos + direction * projectionForce;
+
+        Vector3 previousPosition = target.position;
         
-        movableObject.StartCoroutine(movableObject.WaitUnitilCollision(direction));
         movableObject.blocWallDistance = blocWallDistance;
 
-        while (!movableObject.obstacleHited)
+        while (!movableObject.DetectCollision(direction))
         {
+            
+            
             movableObject.selfVelocity = Vector3.Distance(target.position, Vector3.Lerp(target.position, endPos, Time.deltaTime));
             target.position = Vector3.Lerp(target.position, endPos, Time.deltaTime * blocMoveSpeed);
 
+
+            Vector3 currentDirection = (target.position - previousPosition);
+            if (Physics.BoxCast(previousPosition, target.localScale / 2 - target.localScale * 0.1f, currentDirection,
+                    out RaycastHit hit, target.rotation, currentDirection.magnitude))
+            {
+                movableObject.CollisionDetected();
+                break;
+            }
+            
+            
+            
             if (Vector3.Distance(target.position, endPos) < .1f)
             {
                 target.position = endPos;
                 movableObject.StopMoving();
             }
+            previousPosition = target.position;
             yield return null;
         }
         movableObject.obstacleHited = false;

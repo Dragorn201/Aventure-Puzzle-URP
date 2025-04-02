@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,7 +13,8 @@ public class MovableObject : MonoBehaviour
     private RaycastHit hitback;
     [HideInInspector]public float selfVelocity;
     private CanDamageBoss canDamageBoss;
-    
+
+    private Vector3 point;
 
     void Awake()
     {
@@ -20,19 +22,32 @@ public class MovableObject : MonoBehaviour
     }
     
     
-    public IEnumerator WaitUnitilCollision(Vector3 direction)
+    public bool DetectCollision(Vector3 direction)
     {
         isMoving = true;
-        Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
-        Physics.Raycast(hit.point, -direction, out hitback, Mathf.Infinity);
-        while (Vector3.Distance(hitback.point, hit.point) > blocWallDistance && isMoving)
+        Physics.BoxCast(transform.position, transform.localScale / 2 - transform.localScale * 0.1f, direction, out hit, transform.rotation);
+        Physics.Raycast(hit.point , -direction, out hitback, 1f);
+        bool collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance);
+        Debug.Log("distance avec " + hit.collider.name + " : " + Vector3.Distance(hitback.point, hit.point));
+        
+        point = hit.point;
+        if (collision)
         {
-            Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
-            Physics.Raycast(hit.point, -direction, out hitback, Mathf.Infinity);
-            yield return new WaitForFixedUpdate(); 
+            CollisionDetected();
         }
+        
+        return collision;
+    }
+
+    public void CollisionDetected()
+    {
+        
         obstacleHited = true;
-        TryDestroyObstacle(hit);
+        if (hit.collider.tag != "Player")
+        {
+            TryDestroyObstacle(hit);
+        }
+        
         TryDestroySelf();
         TryDamageBoss();
         StopMoving();
@@ -67,6 +82,12 @@ public class MovableObject : MonoBehaviour
     {
         isMoving = false;
         selfVelocity = 0f;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(point, .5f);
     }
 }
 

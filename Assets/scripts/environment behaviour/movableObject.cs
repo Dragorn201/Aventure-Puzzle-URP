@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,6 +14,8 @@ public class MovableObject : MonoBehaviour
     [HideInInspector]public float selfVelocity;
     private CanDamageBoss canDamageBoss;
 
+    private Vector3 point;
+
     void Awake()
     {
         canDamageBoss = GetComponent<CanDamageBoss>();
@@ -21,26 +24,33 @@ public class MovableObject : MonoBehaviour
     
     public bool DetectCollision(Vector3 direction)
     {
-        
         isMoving = true;
-        Physics.BoxCast(transform.position, transform.localScale / 2, direction, out hit, transform.rotation);
+        Physics.BoxCast(transform.position, transform.localScale / 2 - transform.localScale * 0.1f, direction, out hit, transform.rotation);
         Physics.Raycast(hit.point , -direction, out hitback, 1f);
         bool collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance);
         Debug.Log("distance avec " + hit.collider.name + " : " + Vector3.Distance(hitback.point, hit.point));
+        
+        point = hit.point;
         if (collision)
         {
-            obstacleHited = true;
-            if (hit.collider.tag != "Player")
-            {
-                Debug.Log("destroying " + hit.collider.name + "with tag " + hit.collider.tag);
-                TryDestroyObstacle(hit);
-            }
-            
-            TryDestroySelf();
-            TryDamageBoss();
-            StopMoving();
+            CollisionDetected();
         }
+        
         return collision;
+    }
+
+    public void CollisionDetected()
+    {
+        
+        obstacleHited = true;
+        if (hit.collider.tag != "Player")
+        {
+            TryDestroyObstacle(hit);
+        }
+        
+        TryDestroySelf();
+        TryDamageBoss();
+        StopMoving();
     }
 
     void TryDestroyObstacle(RaycastHit hit)
@@ -72,6 +82,12 @@ public class MovableObject : MonoBehaviour
     {
         isMoving = false;
         selfVelocity = 0f;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(point, .5f);
     }
 }
 

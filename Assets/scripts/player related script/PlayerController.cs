@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator MovePlayerToTarget(Vector3 targetPoint,Vector3 dirOnStart, RaycastHit hit, bool accelerate = true)
     {
+        float basicSpeed = moveSpeed;
         float speedFactor = 1f;
         isInMotion = true;
         bool interrupted = false;
@@ -127,19 +128,20 @@ public class PlayerController : MonoBehaviour
             if (hit.collider != hitback.collider)
             {
                 interrupted = true;
+                moveSpeed = basicSpeed;
                 break;
             }
             if(accelerate)speedFactor += accelerationForce;
-            actualSpeed = moveSpeed * Time.deltaTime * speedFactor;
+            actualSpeed = moveSpeed * Time.fixedDeltaTime * speedFactor;
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         if(!interrupted)TryDestroyWall(actualSpeed, hit, dirOnStart);
         else playerDeathBehaviour.Death();
         actualSpeed = 0f;
         isInMotion = false;
         canMove = true;
-        
+        moveSpeed = basicSpeed;
     }
 
     void TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)

@@ -13235,15 +13235,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13b67e1c651bdf4f9f63fce360c8f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1430761065}
+  player: {fileID: 1430761065}
   positionSmoothSpeedWhenFollow: 0.2
   rotationSmoothSpeed: 3
   basicOffset: {x: 12.5, y: 15, z: -13}
   rotationOnPlayerFocus: {x: 0.31598544, y: -0.3596048, z: 0.13088547, w: 0.86816275}
+  camDelay: 0
+  inputOffsetIntensity: 0
   mustFollowPlayerPosition: 1
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
+  aimAtPlayer: 0
+  requiredStableTime: 0.5
+  angleThreshold: 5
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0
@@ -19495,7 +19500,6 @@ GameObject:
   - component: {fileID: 1903762519}
   - component: {fileID: 1903762518}
   - component: {fileID: 1903762517}
-  - component: {fileID: 1903762516}
   - component: {fileID: 1903762520}
   m_Layer: 0
   m_Name: Destroy Fixe (11)
@@ -19519,18 +19523,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 693885743}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &1903762516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1903762514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8c3509aada805341a8ccef3e398ca5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1903762517
 BoxCollider:
   m_ObjectHideFlags: 0

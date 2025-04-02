@@ -74,12 +74,6 @@ public class PauseMenuBehaviour : MonoBehaviour
         }
     }
 
-    public void RetryLevel()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");

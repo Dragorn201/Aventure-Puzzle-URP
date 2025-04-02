@@ -47,6 +47,11 @@ public class Grabbing : MonoBehaviour
         {
             StartCoroutine(WaitBeforeMovingObject(hit.transform, movableObject));
         }
+        
+        else if (movableObject != null && movableObject.isMoving)
+        {
+            Debug.Log("object already moving");
+        }
     }
 
     IEnumerator WaitBeforeMovingObject(Transform transformToMove, MovableObject movableObject)
@@ -141,20 +146,35 @@ public class Grabbing : MonoBehaviour
     {
         Vector3 startPos = target.position;
         Vector3 endPos = startPos + direction * projectionForce;
+
+        Vector3 previousPosition = target.position;
         
-        movableObject.StartCoroutine(movableObject.WaitUnitilCollision(direction));
         movableObject.blocWallDistance = blocWallDistance;
 
-        while (!movableObject.obstacleHited)
+        while (!movableObject.DetectCollision(direction))
         {
+            
+            
             movableObject.selfVelocity = Vector3.Distance(target.position, Vector3.Lerp(target.position, endPos, Time.deltaTime));
             target.position = Vector3.Lerp(target.position, endPos, Time.deltaTime * blocMoveSpeed);
 
+
+            Vector3 currentDirection = (target.position - previousPosition);
+            if (Physics.BoxCast(previousPosition, target.localScale / 2 - target.localScale * 0.1f, currentDirection,
+                    out RaycastHit hit, target.rotation, currentDirection.magnitude))
+            {
+                movableObject.CollisionDetected();
+                break;
+            }
+            
+            
+            
             if (Vector3.Distance(target.position, endPos) < .1f)
             {
                 target.position = endPos;
                 movableObject.StopMoving();
             }
+            previousPosition = target.position;
             yield return null;
         }
         movableObject.obstacleHited = false;

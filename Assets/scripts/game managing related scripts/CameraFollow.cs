@@ -27,6 +27,12 @@ public class CameraFollow : MonoBehaviour
     public float requiredStableTime = 0.5f;
     public float angleThreshold = 5f;
     private Quaternion lastCheckedRotation;
+    
+    private IEnumerator RunningCoroutine;
+    public float camDelay;
+    
+    
+    
 
     void Start()
     {
@@ -95,8 +101,18 @@ public class CameraFollow : MonoBehaviour
 
 
 
-    public void ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed)
+    public void ChangeCamSpot(IEnumerator newCoroutine)
     {
+        if(runningCoroutine != null)StopCoroutine(runningCoroutine);
+        runningCoroutine = newCoroutine;
+        StartCoroutine(runningCoroutine);
+    }
+
+
+    public IEnumerator ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed)
+    {
+        yield return new WaitForSeconds(camDelay);
+        
         mustFollowPlayerPosition = isUnfixed;
         MustBeBasicRotation = isUnfixed;
  
@@ -110,8 +126,10 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    public void ChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
+    public IEnumerator ChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
     {
+        yield return new WaitForSeconds(camDelay);
+        
         MustBeBasicRotation = stop;
 
         if (!stop)

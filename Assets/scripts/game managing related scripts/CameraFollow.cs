@@ -18,7 +18,6 @@ public class CameraFollow : MonoBehaviour
     private float actualCamSpeed;
     private Vector3 actualCamOffset;
     private IEnumerator runningCoroutine;
-    private bool coroutineIsRunning = false;
     private PlayerController playerController;
     [HideInInspector] public bool aimAtPlayer = false;
     private Quaternion actualBaseRotation;
@@ -28,7 +27,6 @@ public class CameraFollow : MonoBehaviour
     public float angleThreshold = 5f;
     private Quaternion lastCheckedRotation;
     
-    private IEnumerator RunningCoroutine;
     public float camDelay;
     
     

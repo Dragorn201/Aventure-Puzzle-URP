@@ -25,7 +25,7 @@ public class Grabbing : MonoBehaviour
         {
             buttonPressed = true;
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, playerController.movementInput, out hit, playerController.tongLength) && !playerController.isInBulletTime)
+            if (Physics.Raycast(transform.position, playerController.directionToGo, out hit, playerController.tongLength) && !playerController.isInBulletTime)
             {
                 TryGrabbingObject(hit);
             }

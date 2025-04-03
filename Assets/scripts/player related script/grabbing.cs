@@ -163,6 +163,7 @@ public class Grabbing : MonoBehaviour
             if (Physics.BoxCast(previousPosition, target.localScale / 2 - target.localScale * 0.1f, currentDirection,
                     out RaycastHit hit, target.rotation, currentDirection.magnitude))
             {
+                target.position = previousPosition;
                 movableObject.CollisionDetected();
                 break;
             }

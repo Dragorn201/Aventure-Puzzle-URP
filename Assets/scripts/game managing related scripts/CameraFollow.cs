@@ -86,14 +86,14 @@ public class CameraFollow : MonoBehaviour
         float angleDiff = Quaternion.Angle(transform.rotation, desiredRotation);
         if (angleDiff > 0.1f)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * rotationSmoothSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * rotationSmoothSpeed * 1 / Time.timeScale + 0.0000001f);
         }
         else
         {
             transform.rotation = desiredRotation;
         }
 
-        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed);
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
     }
 
 

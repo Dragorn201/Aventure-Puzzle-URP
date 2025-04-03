@@ -8,7 +8,6 @@ public class CameraFollow : MonoBehaviour
     public float rotationSmoothSpeed = 3f;
     public Vector3 basicOffset;
     public Quaternion rotationOnPlayerFocus;
-    public float camDelay;
     public float inputOffsetIntensity;
     
     [HideInInspector] public bool mustFollowPlayerPosition = true;

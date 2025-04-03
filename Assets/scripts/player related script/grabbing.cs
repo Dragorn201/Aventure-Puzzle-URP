@@ -171,6 +171,7 @@ public class Grabbing : MonoBehaviour
             
             if (Vector3.Distance(target.position, endPos) < .1f)
             {
+                movableObject.isMoving = false;
                 target.position = endPos;
                 movableObject.StopMoving();
             }

@@ -27,7 +27,7 @@ public class AudioManager : MonoBehaviour
 
     public void Start()
     {
-       
+        Play("AMB_Temple");
     }
 
     public void Play(string name)
@@ -69,13 +69,12 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("a"))
+        if(Input.GetKeyDown("a"))
         {
-            rainSnapshot.TransitionTo(5f);
-        }
-        if (Input.GetKeyDown("d"))
-        {
-            defaultSnapshot.TransitionTo(5f);
+            Play("SFX_Flags");
         }
     }
+
+
+
 }

@@ -29,6 +29,10 @@ public class CameraFollow : MonoBehaviour
     
     public float camDelay;
     
+    [HideInInspector]public bool isInCinematic;
+    private Transform[] cinematicCamPos;
+    private int cinematicStepIndex = 0;
+    
     
     
 
@@ -94,6 +98,14 @@ public class CameraFollow : MonoBehaviour
         }
 
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
+
+        if (isInCinematic)
+        {
+            if (Vector3.Distance(transform.position, desiredPosition) < 0.1f && transform.rotation == desiredRotation)
+            {
+                CinematicNextStep();
+            }
+        }
     }
 
 
@@ -142,5 +154,33 @@ public class CameraFollow : MonoBehaviour
             actualCamOffset = basicOffset;
             actualBaseRotation = rotationOnPlayerFocus;
         }
+    }
+
+    public void StartCinematic(Transform[] newCinematicCamPos)
+    {
+        isInCinematic = true;
+        cinematicCamPos = newCinematicCamPos;
+        cinematicStepIndex = 0;
+        desiredPosition = cinematicCamPos[cinematicStepIndex].position;
+        desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
+    }
+
+    void CinematicNextStep()
+    {
+        if (cinematicStepIndex < cinematicCamPos.Length)
+        {
+            cinematicStepIndex++;
+            desiredPosition = cinematicCamPos[cinematicStepIndex].position;
+            desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
+        }
+        else
+        {
+            isInCinematic = false;
+            MustBeBasicRotation = true;
+            mustFollowPlayerPosition = true;
+            actualCamOffset = basicOffset;
+            actualBaseRotation = rotationOnPlayerFocus;
+        }
+        
     }
 }

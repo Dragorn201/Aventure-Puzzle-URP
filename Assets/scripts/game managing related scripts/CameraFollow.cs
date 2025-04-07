@@ -21,6 +21,7 @@ public class CameraFollow : MonoBehaviour
     private PlayerController playerController;
     [HideInInspector] public bool aimAtPlayer = false;
     private Quaternion actualBaseRotation;
+    [HideInInspector] public Vector3 actualPosition;
     
     private float angleStableTime = 0f;
     public float requiredStableTime = 0.5f;
@@ -97,7 +98,8 @@ public class CameraFollow : MonoBehaviour
             transform.rotation = desiredRotation;
         }
 
-        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
+        actualPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
+        transform.position = actualPosition;
 
         if (isInCinematic)
         {

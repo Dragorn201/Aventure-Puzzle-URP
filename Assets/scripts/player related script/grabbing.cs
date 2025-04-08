@@ -10,7 +10,7 @@ public class Grabbing : MonoBehaviour
     [SerializeField]private float blocMoveSpeed = 2f;
     private bool buttonPressed = false;
     public bool isGrabbing = false;
-    public float maxRotationSpeed = 1f;
+    public float stepRotationSpeed = 1f;
 
     void Awake()
     {
@@ -25,7 +25,7 @@ public class Grabbing : MonoBehaviour
         {
             buttonPressed = true;
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, playerController.movementInput, out hit, playerController.tongLength) && !playerController.isInBulletTime)
+            if (Physics.Raycast(transform.position, playerController.directionToGo, out hit, playerController.tongLength) && !playerController.isInBulletTime)
             {
                 TryGrabbingObject(hit);
             }
@@ -85,9 +85,9 @@ public class Grabbing : MonoBehaviour
             {
                 Quaternion targetRotation = Quaternion.LookRotation(playerController.movementInput.normalized);
 
-                if (Quaternion.Angle(currentDirection, targetRotation) > maxRotationSpeed)
+                if (Quaternion.Angle(currentDirection, targetRotation) < stepRotationSpeed)
                 {
-                    currentDirection = Quaternion.RotateTowards(currentDirection, targetRotation, maxRotationSpeed);
+                    currentDirection = Quaternion.RotateTowards(currentDirection, targetRotation, .5f);
                 }
                 else
                 {
@@ -160,9 +160,9 @@ public class Grabbing : MonoBehaviour
 
 
             Vector3 currentDirection = (target.position - previousPosition);
-            if (Physics.BoxCast(previousPosition, target.localScale / 2 - target.localScale * 0.1f, currentDirection,
-                    out RaycastHit hit, target.rotation, currentDirection.magnitude))
+            if (Physics.BoxCast(previousPosition, target.localScale / 2 - target.localScale * 0.1f, currentDirection, target.rotation, currentDirection.magnitude))
             {
+                target.position = previousPosition;
                 movableObject.CollisionDetected();
                 break;
             }
@@ -171,6 +171,7 @@ public class Grabbing : MonoBehaviour
             
             if (Vector3.Distance(target.position, endPos) < .1f)
             {
+                movableObject.isMoving = false;
                 target.position = endPos;
                 movableObject.StopMoving();
             }

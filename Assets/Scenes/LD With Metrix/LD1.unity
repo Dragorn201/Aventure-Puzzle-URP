@@ -3761,12 +3761,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1302246466}
     - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
+      propertyPath: onGettingOnWall.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
       propertyPath: onEnteringBulletTime.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
+      propertyPath: onGettingOnWall.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
+      propertyPath: onGettingOnWall.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1302246467}
+    - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
       propertyPath: onEnteringBulletTime.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
+      propertyPath: onGettingOnWall.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
+      propertyPath: onGettingOnWall.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartScreenShake
       objectReference: {fileID: 0}
     - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
       propertyPath: onEnteringBulletTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3781,8 +3801,16 @@ PrefabInstance:
       value: EnterBulletTime
       objectReference: {fileID: 0}
     - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
+      propertyPath: onGettingOnWall.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CameraSpecialMotion, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
       propertyPath: onEnteringBulletTime.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CameraSpecialMotion, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
+      propertyPath: onGettingOnWall.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
       propertyPath: onEnteringBulletTime.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -7163,9 +7191,11 @@ MonoBehaviour:
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
   aimAtPlayer: 0
+  actualPosition: {x: 0, y: 0, z: 0}
   requiredStableTime: 0.5
   angleThreshold: 5
   camDelay: 0
+  isInCinematic: 0
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0
@@ -7256,6 +7286,32 @@ MonoBehaviour:
   zoomOnBulletTime: 25
   bulletTimeZoomSpeed: 1.5
   exitBulletTimeZoomDuration: 1
+  shakeDuration: 0.5
+  shakeAmount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0048980713
+      value: 0.15089798
+      inSlope: 0.006154582
+      outSlope: 0.006154582
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.5101929
+      value: 0.0056533813
+      inSlope: 0.01797783
+      outSlope: 0.01797783
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.414244
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeStepSize: 0.05
 --- !u!1 &1353639198
 GameObject:
   m_ObjectHideFlags: 0

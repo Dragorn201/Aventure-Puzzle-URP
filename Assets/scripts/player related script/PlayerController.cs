@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour
     public float tongLength = 5f;
     public float accelerationForce = 0.015f;
     public float BulletTimePositionOffset = 2f;
+    public float minSpeedForScreenShake = 0.001f;
     public UnityEvent onEnteringBulletTime;
+    public UnityEvent onGettingOnWall;
 
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
@@ -135,8 +137,8 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
             yield return new WaitForFixedUpdate();
         }
+        onGettingOnWall?.Invoke();
         if(!interrupted)TryDestroyWall(actualSpeed, hit, dirOnStart);
-        else playerDeathBehaviour.Death();
         actualSpeed = 0f;
         isInMotion = false;
         canMove = true;

@@ -29,6 +29,10 @@ public class CameraFollow : MonoBehaviour
     
     public float camDelay;
     
+    [HideInInspector]public bool isInCinematic;
+    private Transform[] cinematicCamPos;
+    private int cinematicStepIndex = 0;
+    
     
     
 
@@ -86,14 +90,22 @@ public class CameraFollow : MonoBehaviour
         float angleDiff = Quaternion.Angle(transform.rotation, desiredRotation);
         if (angleDiff > 0.1f)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * rotationSmoothSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * rotationSmoothSpeed * 1 / Time.timeScale + 0.0000001f);
         }
         else
         {
             transform.rotation = desiredRotation;
         }
 
-        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed);
+        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
+
+        if (isInCinematic)
+        {
+            if (Vector3.Distance(transform.position, desiredPosition) < 0.1f && transform.rotation == desiredRotation)
+            {
+                CinematicNextStep();
+            }
+        }
     }
 
 
@@ -142,5 +154,33 @@ public class CameraFollow : MonoBehaviour
             actualCamOffset = basicOffset;
             actualBaseRotation = rotationOnPlayerFocus;
         }
+    }
+
+    public void StartCinematic(Transform[] newCinematicCamPos)
+    {
+        isInCinematic = true;
+        cinematicCamPos = newCinematicCamPos;
+        cinematicStepIndex = 0;
+        desiredPosition = cinematicCamPos[cinematicStepIndex].position;
+        desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
+    }
+
+    void CinematicNextStep()
+    {
+        if (cinematicStepIndex < cinematicCamPos.Length)
+        {
+            cinematicStepIndex++;
+            desiredPosition = cinematicCamPos[cinematicStepIndex].position;
+            desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
+        }
+        else
+        {
+            isInCinematic = false;
+            MustBeBasicRotation = true;
+            mustFollowPlayerPosition = true;
+            actualCamOffset = basicOffset;
+            actualBaseRotation = rotationOnPlayerFocus;
+        }
+        
     }
 }

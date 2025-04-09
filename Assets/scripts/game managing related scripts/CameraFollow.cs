@@ -160,11 +160,15 @@ public class CameraFollow : MonoBehaviour
 
     public void StartCinematic(Transform[] newCinematicCamPos)
     {
-        isInCinematic = true;
-        cinematicCamPos = newCinematicCamPos;
-        cinematicStepIndex = 0;
-        desiredPosition = cinematicCamPos[cinematicStepIndex].position;
-        desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
+        if (cinematicCamPos.Length != 0)
+        {
+            isInCinematic = true;
+            cinematicCamPos = newCinematicCamPos;
+            cinematicStepIndex = 0;
+            desiredPosition = cinematicCamPos[cinematicStepIndex].position;
+            desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
+        }
+
     }
 
     void CinematicNextStep()

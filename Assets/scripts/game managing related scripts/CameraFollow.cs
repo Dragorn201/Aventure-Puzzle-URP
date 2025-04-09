@@ -160,7 +160,7 @@ public class CameraFollow : MonoBehaviour
 
     public void StartCinematic(Transform[] newCinematicCamPos)
     {
-        if (cinematicCamPos.Length != 0)
+        if (newCinematicCamPos.Length != 0)
         {
             isInCinematic = true;
             cinematicCamPos = newCinematicCamPos;

@@ -52,9 +52,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  MaxRotationSpeed: 360
   tongLength: 15
   accelerationForce: 0.3
   BulletTimePositionOffset: 3
+  minSpeedForScreenShake: 0.001
   onEnteringBulletTime:
     m_PersistentCalls:
       m_Calls:
@@ -70,6 +72,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onGettingOnWall:
+    m_PersistentCalls:
+      m_Calls: []
   camTransorm: {fileID: 0}
   actualSpeed: 0
   movementInput: {x: 0, y: 0, z: 0}
@@ -117,7 +122,7 @@ MonoBehaviour:
   projectionForce: 10
   blocMoveSpeed: 2
   isGrabbing: 0
-  maxRotationSpeed: 5
+  stepRotationSpeed: 1
 --- !u!114 &6994284949816587690
 MonoBehaviour:
   m_ObjectHideFlags: 0

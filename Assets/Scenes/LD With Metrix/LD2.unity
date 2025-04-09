@@ -737,6 +737,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &100982445
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1219,7 +1222,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -1.64, y: 1, z: 39}
-  m_LocalScale: {x: 1, y: 2, z: 5}
+  m_LocalScale: {x: 1, y: 2, z: 5.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1104358408}
@@ -1249,6 +1252,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &231445828
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1601,6 +1607,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &314007602
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2122,6 +2131,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &411031311
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2275,7 +2287,7 @@ Transform:
   m_GameObject: {fileID: 482059476}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.26, y: 1, z: 43.7}
+  m_LocalPosition: {x: -0.79, y: 1, z: 43.7}
   m_LocalScale: {x: 1, y: 2, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2306,6 +2318,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &482059480
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2644,6 +2659,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &573945096
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4974,6 +4992,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1061646587
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5615,7 +5636,7 @@ Transform:
   m_GameObject: {fileID: 1215055356}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.8699999, y: 1, z: -5.8399963}
+  m_LocalPosition: {x: -1.05, y: 1, z: -5.84}
   m_LocalScale: {x: 1, y: 2, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5646,6 +5667,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1215055360
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5952,9 +5976,11 @@ MonoBehaviour:
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
   aimAtPlayer: 0
+  actualPosition: {x: 0, y: 0, z: 0}
   requiredStableTime: 0.5
   angleThreshold: 5
   camDelay: 0
+  isInCinematic: 0
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0
@@ -6045,6 +6071,14 @@ MonoBehaviour:
   zoomOnBulletTime: 25
   bulletTimeZoomSpeed: 1.5
   exitBulletTimeZoomDuration: 1
+  shakeDuration: 0.2
+  shakeAmount:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeStepSize: 0.05
 --- !u!1 &1323896900
 GameObject:
   m_ObjectHideFlags: 0
@@ -6784,6 +6818,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1410284461
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7747,6 +7784,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1517034462
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8164,6 +8204,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1584405100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10686,7 +10729,7 @@ Transform:
   m_GameObject: {fileID: 2056327819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 12.51, y: 1, z: 59.2}
+  m_LocalPosition: {x: 12.03, y: 1, z: 59.2}
   m_LocalScale: {x: 1, y: 2, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10717,6 +10760,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &2056327823
 BoxCollider:
   m_ObjectHideFlags: 0

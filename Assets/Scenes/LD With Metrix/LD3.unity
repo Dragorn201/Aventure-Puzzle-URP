@@ -3214,7 +3214,7 @@ Transform:
   m_GameObject: {fileID: 386359917}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.46, y: 1.75, z: 30.3683}
+  m_LocalPosition: {x: -6.71, y: 1.75, z: 30.31}
   m_LocalScale: {x: 6, y: 2.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3746,8 +3746,8 @@ Transform:
   m_GameObject: {fileID: 416847234}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99886143, z: -0, w: 0.047706574}
-  m_LocalPosition: {x: -43.084793, y: -41.51197, z: 15.827171}
-  m_LocalScale: {x: 4, y: 2, z: 1}
+  m_LocalPosition: {x: -43.38, y: -41.51197, z: 15.8}
+  m_LocalScale: {x: 3.5, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 693885743}
@@ -4718,6 +4718,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &477050102
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6955,6 +6958,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.01
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &654953254
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9953,6 +9959,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &824390540
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12827,6 +12836,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.000001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1118366741
 GameObject:
   m_ObjectHideFlags: 0
@@ -12875,6 +12887,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.02
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1118366744
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13568,6 +13583,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.00001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1172724700
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13690,6 +13708,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.02
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1179477381
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14623,9 +14644,11 @@ MonoBehaviour:
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
   aimAtPlayer: 0
+  actualPosition: {x: 0, y: 0, z: 0}
   requiredStableTime: 0.5
   angleThreshold: 5
   camDelay: 0.25
+  isInCinematic: 0
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0
@@ -14716,6 +14739,14 @@ MonoBehaviour:
   zoomOnBulletTime: 25
   bulletTimeZoomSpeed: 1.5
   exitBulletTimeZoomDuration: 1
+  shakeDuration: 0.2
+  shakeAmount:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeStepSize: 0.05
 --- !u!1 &1302854044
 GameObject:
   m_ObjectHideFlags: 0
@@ -14994,6 +15025,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.000001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1307201020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16537,6 +16571,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.000001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1445841988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18918,6 +18955,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.000001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1639297474
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22910,7 +22950,7 @@ Transform:
   m_GameObject: {fileID: 2052408062}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.672568, z: -0, w: 0.7400353}
-  m_LocalPosition: {x: -39.40487, y: -42.51197, z: 3.6223373}
+  m_LocalPosition: {x: -39.41, y: -42.51197, z: 3.65}
   m_LocalScale: {x: 1.5, y: 8, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

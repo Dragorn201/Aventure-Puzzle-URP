@@ -123,8 +123,11 @@ public class CameraFollow : MonoBehaviour
 
     public IEnumerator ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed)
     {
+        yield return new WaitForSeconds(camDelay);
+        
         mustFollowPlayerPosition = isUnfixed;
         MustBeBasicRotation = isUnfixed;
+ 
         actualCamSpeed = newCamSpeed;
         
         if (!isUnfixed)
@@ -133,7 +136,6 @@ public class CameraFollow : MonoBehaviour
             actualBaseRotation = newCameraRotation;
             desiredPosition = newCameraPosition;
         }
-        yield return null;
     }
 
     public IEnumerator ChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
@@ -141,15 +143,16 @@ public class CameraFollow : MonoBehaviour
         yield return new WaitForSeconds(camDelay);
         
         MustBeBasicRotation = stop;
-        actualCamSpeed = newCamSpeed;
-        
+
         if (!stop)
         {
+            actualCamSpeed = newCamSpeed;
             actualCamOffset = newOffset;
             actualBaseRotation = newCameraRotation;
         }
         else
         {
+            actualCamSpeed = newCamSpeed;
             actualCamOffset = basicOffset;
             actualBaseRotation = rotationOnPlayerFocus;
         }

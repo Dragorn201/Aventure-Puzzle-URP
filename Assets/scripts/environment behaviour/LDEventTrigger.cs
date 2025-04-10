@@ -18,12 +18,13 @@ public class LDEventTrigger : MonoBehaviour
         camFollow = Camera.main.GetComponent<CameraFollow>();
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        camFollow.StartCinematic(camWaypoints);
-        foreach (var objects in GameObjectsToDestroy)
+        foreach (GameObject objectToHide in GameObjectsToDestroy)
         {
-            objects.SetActive(false);
+            objectToHide.SetActive(false);
+            Debug.Log(objectToHide.name + " has been destroyed");
         }
+        camFollow.StartCinematic(camWaypoints);
     }
 }

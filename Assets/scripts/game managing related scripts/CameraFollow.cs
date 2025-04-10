@@ -132,7 +132,6 @@ public class CameraFollow : MonoBehaviour
             actualCamSpeed = newCamSpeed;
             actualBaseRotation = newCameraRotation;
             desiredPosition = newCameraPosition;
-            desiredRotation = newCameraRotation;
         }
         yield return null;
     }

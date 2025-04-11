@@ -11,16 +11,17 @@ public class PlayerController : MonoBehaviour
     
     [Header("metrixes")]
     public float moveSpeed = 5f;
+    public float MaxRotationSpeed = 180f;
     public float tongLength = 5f;
     public float accelerationForce = 0.015f;
     public float BulletTimePositionOffset = 2f;
+    public float minSpeedForScreenShake = 0.001f;
     public UnityEvent onEnteringBulletTime;
+    public UnityEvent onGettingOnWall;
 
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
     
-    
-    private PlayerDeathBehaviour playerDeathBehaviour;
     [HideInInspector]public float actualSpeed = 0f;
     [HideInInspector]public PlayerControls playerControls;
     [HideInInspector]public Vector3 movementInput;
@@ -38,7 +39,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerControls();
-        playerDeathBehaviour = GetComponent<PlayerDeathBehaviour>();
     }
 
 
@@ -66,7 +66,13 @@ public class PlayerController : MonoBehaviour
         if (isInMotion) canMove = false;
         if (movementInput != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(movementInput);
+            Quaternion currentRotation = transform.rotation;
+            Quaternion targetRotation = Quaternion.LookRotation(movementInput);
+            float rotationSpeed = MaxRotationSpeed * Time.deltaTime;
+
+            transform.rotation = Quaternion.RotateTowards(currentRotation, targetRotation, rotationSpeed);
+            
+            
             Physics.Raycast(transform.position, transform.forward,  out RaycastHit hit, tongLength);
             if (hit.collider != null && hit.transform.gameObject.GetComponent<NotGrabbable>() == null)
             {
@@ -135,8 +141,8 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
             yield return new WaitForFixedUpdate();
         }
+        onGettingOnWall?.Invoke();
         if(!interrupted)TryDestroyWall(actualSpeed, hit, dirOnStart);
-        else playerDeathBehaviour.Death();
         actualSpeed = 0f;
         isInMotion = false;
         canMove = true;

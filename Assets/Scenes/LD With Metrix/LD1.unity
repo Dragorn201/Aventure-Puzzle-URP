@@ -2295,7 +2295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 651028894063797947, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3782329386722331009, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3430,7 +3430,7 @@ Transform:
   m_GameObject: {fileID: 505657481}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.3502998, y: 2, z: -0.51999664}
+  m_LocalPosition: {x: -1.3502998, y: 1.9, z: -0.51999664}
   m_LocalScale: {x: 1, y: 3, z: 17}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4796,12 +4796,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 539128027}
   - {fileID: 363789782}
-  - {fileID: 1405796173}
-  - {fileID: 242131800}
+  - {fileID: 539128027}
   - {fileID: 876957533}
   - {fileID: 2023818550}
+  - {fileID: 242131800}
+  - {fileID: 1405796173}
   - {fileID: 822278168}
   - {fileID: 148631124}
   - {fileID: 941488009}
@@ -6431,13 +6431,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128723632}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -22.68, y: 2.19, z: 76.13}
-  m_LocalScale: {x: 1, y: 3, z: 4.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.25, y: 2, z: 72.29}
+  m_LocalScale: {x: 1, y: 3, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 881424627}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1154869465
 GameObject:
   m_ObjectHideFlags: 0
@@ -7330,7 +7330,7 @@ MonoBehaviour:
   actualPosition: {x: 0, y: 0, z: 0}
   requiredStableTime: 0.5
   angleThreshold: 5
-  camDelay: 0
+  camDelay: 1
   isInCinematic: 0
 --- !u!81 &1302246464
 AudioListener:
@@ -8604,7 +8604,7 @@ Transform:
   m_GameObject: {fileID: 1541155655}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.6299973, y: 2, z: 0.09000397}
+  m_LocalPosition: {x: -1.39, y: 1.9, z: 0.09}
   m_LocalScale: {x: 1, y: 3, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []

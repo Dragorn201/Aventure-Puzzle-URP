@@ -10,7 +10,7 @@ public class Fracture : MonoBehaviour
     public float explosionForce = 500f;
     public float explosionRadius = 2f;
 
-    private bool hasFractured = false;
+    private bool hasFractured = false;  
 
     private void Start()
     {

@@ -144,7 +144,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 20
+      m_SerializableObject: 1
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -1160,7 +1160,8 @@ MonoBehaviour:
       m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661615578}
 --- !u!114 &8926484042661615563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1232,7 +1233,15 @@ MonoBehaviour:
   m_EnumValues: []
   m_ValueFilter: 0
   m_Tooltip: 
-  m_Nodes: []
+  m_Nodes:
+  - m_Id: 0
+    linkedSlots:
+    - outputSlot: {fileID: 8926484042661615578}
+      inputSlot: {fileID: 8926484042661615562}
+    position: {x: 517, y: 487}
+    expandedSlots: []
+    expanded: 1
+    supecollapsed: 0
 --- !u!114 &8926484042661615578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1258,7 +1267,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 20
+      m_SerializableObject: 1
     m_Space: -1
   m_Property:
     name: o
@@ -1266,7 +1275,8 @@ MonoBehaviour:
       m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
   m_Direction: 1
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661615562}
 --- !u!114 &8926484042661615579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4385,7 +4395,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 446, y: 542}
+  m_UIPosition: {x: 347, y: 581}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -4727,7 +4737,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: True
+      m_SerializableObject: False
     m_Space: -1
   m_Property:
     name: _vfx_enabled
@@ -5561,8 +5571,9 @@ MonoBehaviour:
     linkedSlots:
     - outputSlot: {fileID: 8926484042661615875}
       inputSlot: {fileID: 8926484042661615847}
-    position: {x: 486.1059, y: 358.07184}
-    expandedSlots: []
+    position: {x: 450, y: 348}
+    expandedSlots:
+    - {fileID: 8926484042661615875}
     expanded: 1
     supecollapsed: 0
 --- !u!114 &8926484042661615875
@@ -5888,7 +5899,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
@@ -5969,7 +5980,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:

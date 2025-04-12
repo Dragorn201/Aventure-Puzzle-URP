@@ -9,6 +9,19 @@ public class Fracture : MonoBehaviour
 
     private bool hasFractured = false;
 
+    private void Start()
+    {
+        if (fractured != null)
+        {
+            fractured.SetActive(false);
+        }
+
+    }
+
+
+
+
+
     void OnCollisionEnter(Collision collision)
     {
         if (hasFractured) return;
@@ -18,6 +31,7 @@ public class Fracture : MonoBehaviour
         {
             hasFractured = true;
             Instantiate(fractured, transform.position, transform.rotation);
+            fractured.SetActive(true);
             Destroy(gameObject);
         }
     }

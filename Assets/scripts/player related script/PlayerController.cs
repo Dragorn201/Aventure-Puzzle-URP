@@ -16,8 +16,12 @@ public class PlayerController : MonoBehaviour
     public float accelerationForce = 0.015f;
     public float BulletTimePositionOffset = 2f;
     public float minSpeedForScreenShake = 0.001f;
+    public float timeBeforeMoving = 0.5f;
     public UnityEvent onEnteringBulletTime;
+    public UnityEvent onThrowingHook;
+    public UnityEvent onBeginningToMove;
     public UnityEvent onGettingOnWall;
+    
 
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
@@ -25,7 +29,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public float actualSpeed = 0f;
     [HideInInspector]public PlayerControls playerControls;
     [HideInInspector]public Vector3 movementInput;
-    private Vector3 directionAtStart;
+    [HideInInspector]public Vector3 directionAtStart;
     [HideInInspector]public bool canMove = true;
     [HideInInspector] public bool isInMotion = false;
     [HideInInspector]public InputAction move;
@@ -81,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
-            if(movementInput != Vector3.zero)ShootHook(directionToGo);
+            if(movementInput != Vector3.zero)StartCoroutine(WaitBeforeMoving(directionToGo));
         }
     }
 
@@ -101,7 +105,14 @@ public class PlayerController : MonoBehaviour
 
     void TryShootHook(InputAction.CallbackContext context)
     {
-        if(movementInput != Vector3.zero) ShootHook(directionToGo);
+        if(movementInput != Vector3.zero) StartCoroutine(WaitBeforeMoving(directionToGo));
+    }
+
+    IEnumerator WaitBeforeMoving(Vector3 directionToGo)
+    {
+        onThrowingHook?.Invoke();
+        yield return new WaitForSeconds(timeBeforeMoving);
+        ShootHook(directionToGo);
     }
     
     public void ShootHook(Vector3 direction)
@@ -114,6 +125,7 @@ public class PlayerController : MonoBehaviour
                 actualEncrage = hit.transform.gameObject;
                 directionAtStart = direction;
                 mustExitBulletTime = true;
+                onBeginningToMove.Invoke();
                 StartCoroutine(MovePlayerToTarget(hit.point, directionAtStart, hit));
             }
         }

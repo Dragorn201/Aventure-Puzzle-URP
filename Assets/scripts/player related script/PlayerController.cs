@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("metrixes")]
     public float moveSpeed = 5f;
-    public float MaxRotationSpeed = 180f;
+    public float maxRotationSpeed = 180f;
     public float tongLength = 5f;
     public float accelerationForce = 0.015f;
     public float BulletTimePositionOffset = 2f;
@@ -68,9 +68,8 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion currentRotation = transform.rotation;
             Quaternion targetRotation = Quaternion.LookRotation(movementInput);
-            float rotationSpeed = MaxRotationSpeed * Time.deltaTime;
 
-            transform.rotation = Quaternion.RotateTowards(currentRotation, targetRotation, rotationSpeed);
+            transform.rotation = Quaternion.RotateTowards(currentRotation, targetRotation, maxRotationSpeed);
             
             
             Physics.Raycast(transform.position, transform.forward,  out RaycastHit hit, tongLength);

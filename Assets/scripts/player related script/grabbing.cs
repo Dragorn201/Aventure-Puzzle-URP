@@ -105,6 +105,7 @@ public class Grabbing : MonoBehaviour
             Vector3 previsualisationPosition;
             if (pravisualisationHit.collider != null)
             {
+                //modifier ici pour que la prévsualisation soit pas a moitié dans le mur
                 previsualisationPosition = pravisualisationHit.point;
             }
             else

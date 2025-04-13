@@ -37,7 +37,6 @@ public class HookManager : MonoBehaviour
     public void OnGettingOnWall()
     {
         playerMoving = false;
-        hook.SetActive(false);
     }
 
     IEnumerator ThrowHook()

@@ -110,9 +110,12 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator WaitBeforeMoving(Vector3 directionToGo)
     {
-        onThrowingHook?.Invoke();
-        yield return new WaitForSeconds(timeBeforeMoving);
-        ShootHook(directionToGo);
+        if (canMove && directionToGo != Vector3.zero)
+        {
+            if(!isInMotion)onThrowingHook?.Invoke();
+            yield return new WaitForSecondsRealtime(timeBeforeMoving);
+            ShootHook(directionToGo);
+        }
     }
     
     public void ShootHook(Vector3 direction)

@@ -19,6 +19,8 @@ public class HookManager : MonoBehaviour
     
     void Start()
     {
+        hook.transform.position = transform.position;
+        hookHand.transform.position = transform.position;
         hook.transform.GetChild(1).position = transform.position;
         hook.transform.GetChild(2).position = transform.position;
         hook.SetActive(false);

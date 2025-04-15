@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 6496938600732160894}
   - component: {fileID: 31873489755427031}
   - component: {fileID: 5103164081652706687}
-  - component: {fileID: 3218648786663642325}
   - component: {fileID: 1563549633185290425}
   m_Layer: 0
   m_Name: Player
@@ -155,6 +154,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   camTransorm: {fileID: 0}
+  spawnPos: {fileID: 0}
   actualSpeed: 0
   movementInput: {x: 0, y: 0, z: 0}
   directionAtStart: {x: 0, y: 0, z: 0}
@@ -285,21 +285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hook: {fileID: 0}
   hookHand: {fileID: 0}
---- !u!114 &3218648786663642325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1848637629681279839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1ed3b312e7338d4080dacf856ea7f32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerController: {fileID: 7524792165718007954}
-  movementPrevisualisation: {fileID: 0}
-  grabbing: {fileID: 8413189794382837514}
 --- !u!120 &1563549633185290425
 LineRenderer:
   serializedVersion: 2
@@ -345,9 +330,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 10, z: 0}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

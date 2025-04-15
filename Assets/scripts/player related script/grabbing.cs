@@ -12,6 +12,9 @@ public class Grabbing : MonoBehaviour
     public bool isGrabbing = false;
     public float stepRotationSpeed = 1f;
 
+    [HideInInspector] public Vector3 lineRendererStartPoint;
+    
+
     void Awake()
     {
         playerController = GetComponent<PlayerController>();
@@ -45,6 +48,7 @@ public class Grabbing : MonoBehaviour
         MovableObject movableObject = hit.transform.GetComponent<MovableObject>();
         if (movableObject != null && !movableObject.isMoving)
         {
+            lineRendererStartPoint = hit.transform.position;
             StartCoroutine(WaitBeforeMovingObject(hit.transform, movableObject));
         }
         

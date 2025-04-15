@@ -5678,5 +5678,10 @@ namespace HoudiniEngineUnity
 
             return bResult;
         }
+
+        public void SetBoolParameter(string houdiniParameter, int v)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 } // HoudiniEngineUnity

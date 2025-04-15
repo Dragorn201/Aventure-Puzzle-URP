@@ -8,9 +8,8 @@ public class MovementPrevisualisation : MonoBehaviour
     private GameObject currentPrevisualisation;
     private PlayerController playerController;
     private Grabbing grabbing;
-    
-    [SerializeField]private LineRenderer lineRenderer;
-    [SerializeField]private Transform[] wayPoints;
+
+    private Vector3 empty;
     
     private void Awake()
     {
@@ -22,64 +21,34 @@ public class MovementPrevisualisation : MonoBehaviour
     {
         currentPrevisualisation = Instantiate(previsualisation, transform.position, Quaternion.identity);
         currentPrevisualisation.SetActive(false);
-        
-        
-        lineRenderer.positionCount = wayPoints.Length;
-        for (int i = 0; i < wayPoints.Length; i++)
-        {
-            lineRenderer.SetPosition(i, wayPoints[i].position);
-        }
-        lineRenderer.enabled = false;
     }
     
 
     void Update()
     {
-        if(playerController.movementInput != Vector3.zero && !grabbing.isGrabbing)PrevisualizeMovement();
-        else if(playerController.movementInput != Vector3.zero && grabbing.isGrabbing)PrevisualizeGrabbing();
-        else
-        {
-            currentPrevisualisation.SetActive(false);
-            lineRenderer.enabled = false;
-        }
+        if(playerController.movementInput != Vector3.zero && !grabbing.isGrabbing)Previsualize();
+        else currentPrevisualisation.SetActive(false);
     }
 
-    void PrevisualizeMovement()
+    void Previsualize()
     {
         if (Physics.Raycast(transform.position, playerController.directionToGo, out RaycastHit hit, playerController.tongLength))
         {
             if (hit.transform.GetComponent<NotGrabbable>() != null)
             {
                 currentPrevisualisation.SetActive(false);
-                lineRenderer.enabled = false;
             }
             else
             {
-                
                 currentPrevisualisation.SetActive(true);
                 currentPrevisualisation.transform.position = hit.point;
     
-                lineRenderer.enabled = true;
-                Physics.Raycast(transform.position, playerController.directionToGo, out RaycastHit endLine);
-                wayPoints[0].position = transform.position;
-                wayPoints[1].position = endLine.point;
-                for (int i = 0; i < wayPoints.Length; i++)
-                {
-                    lineRenderer.SetPosition(i, wayPoints[i].position);
-                }
+                RaycastHit endLine;
+                Physics.Raycast(transform.position, playerController.directionToGo, out endLine);
+                Debug.DrawLine(transform.position, endLine.point, Color.blue);
             }
         }
-    }
-
-    void PrevisualizeGrabbing()
-    {
-        lineRenderer.enabled = true;
         
-        wayPoints[0].position = grabbing.lineRendererStartPoint;
-        wayPoints[1].position = grabbing.grabbedMovementPrevisualisation.transform.position;
-        for (int i = 0; i < wayPoints.Length; i++)
-        {
-            lineRenderer.SetPosition(i, wayPoints[i].position);
-        }
+        
     }
 }

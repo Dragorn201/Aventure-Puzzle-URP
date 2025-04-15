@@ -77,8 +77,7 @@ public class HookManager : MonoBehaviour
 
     void ReplaceCoroutine(IEnumerator newCoroutine)
     {
-        if (runningCoroutine != null)
-            StopCoroutine(runningCoroutine);
+        if (runningCoroutine != null) StopCoroutine(runningCoroutine);
 
         runningCoroutine = StartCoroutine(newCoroutine);
     }

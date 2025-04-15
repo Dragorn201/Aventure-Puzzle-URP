@@ -52,7 +52,7 @@ public class HookManager : MonoBehaviour
         {
             elapsedTime += Time.fixedDeltaTime;
             hook.transform.GetChild(2).position = Vector3.Lerp(transform.position,hit.point, elapsedTime / timeBeforePlayerMove);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
         hookHand.SetActive(true);
         hookHand.transform.position = hit.point;

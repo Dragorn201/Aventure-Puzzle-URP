@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
+    [SerializeField] private Transform spawnPos;
     
     [HideInInspector]public float actualSpeed = 0f;
     [HideInInspector]public PlayerControls playerControls;
@@ -43,6 +44,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerControls();
+    }
+
+    private void Start()
+    {
+        transform.position = spawnPos.position;
     }
 
 

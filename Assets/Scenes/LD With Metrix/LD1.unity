@@ -3805,22 +3805,6 @@ PrefabInstance:
       propertyPath: hookHand
       value: 
       objectReference: {fileID: 91294146}
-    - target: {fileID: 5184932626517147525, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
-      propertyPath: lineRenderer
-      value: 
-      objectReference: {fileID: 1784083761}
-    - target: {fileID: 5184932626517147525, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
-      propertyPath: wayPoints.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184932626517147525, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
-      propertyPath: 'wayPoints.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1036103633}
-    - target: {fileID: 5184932626517147525, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
-      propertyPath: 'wayPoints.Array.data[1]'
-      value: 
-      objectReference: {fileID: 611212928}
     - target: {fileID: 6994284949816587690, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
       propertyPath: SpawnPosition
       value: 
@@ -3986,11 +3970,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 609874469}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &611212928 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2159074304149148978, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
-  m_PrefabInstance: {fileID: 607833177}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &612914134
 GameObject:
   m_ObjectHideFlags: 0
@@ -5978,11 +5957,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028129853}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1036103633 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7025255687402721813, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
-  m_PrefabInstance: {fileID: 607833177}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1056483207
 GameObject:
   m_ObjectHideFlags: 0
@@ -9676,11 +9650,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750349324}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!120 &1784083761 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 1563549633185290425, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
-  m_PrefabInstance: {fileID: 607833177}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1788265178
 GameObject:
   m_ObjectHideFlags: 0

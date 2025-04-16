@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
     [SerializeField] private Transform spawnPos;
+    [SerializeField] private GameObject wavePrefab;
     
     [HideInInspector]public float actualSpeed = 0f;
     [HideInInspector]public PlayerControls playerControls;
@@ -162,14 +163,20 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         onGettingOnWall?.Invoke();
-        if(!interrupted)TryDestroyWall(actualSpeed, hit, dirOnStart);
+        bool wallDestroyed = false;
+        if(!interrupted) wallDestroyed = TryDestroyWall(actualSpeed, hit, dirOnStart);
+        if (!wallDestroyed)
+        {
+            GameObject newWaveParticle = Instantiate(wavePrefab,transform.position , Quaternion.LookRotation(-hit.normal));
+            Destroy(newWaveParticle, .6f);
+        }
         actualSpeed = 0f;
         isInMotion = false;
         canMove = true;
         moveSpeed = basicSpeed;
     }
 
-    void TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)
+    bool TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)
     {
         WallDestroy wallDestroy = hit.transform.GetComponent<WallDestroy>();
         if (wallDestroy != null)
@@ -179,8 +186,10 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(hit.transform.gameObject);
                 StartCoroutine(BulletTime(direction, BulletTimePositionOffset));
+                return true;
             }
         }
+        return false;
     }
 
     public IEnumerator BulletTime(Vector3 direction, float offset)

@@ -45,6 +45,7 @@ public class HookManager : MonoBehaviour
     IEnumerator ThrowHook()
     {
         hook.SetActive(true);
+        hook.transform.position = transform.position;
         float elapsedTime = 0;
         hook.transform.GetChild(1).position = transform.position;
         Physics.Raycast(transform.position,playerController.directionToGo, out RaycastHit hit);
@@ -76,8 +77,7 @@ public class HookManager : MonoBehaviour
 
     void ReplaceCoroutine(IEnumerator newCoroutine)
     {
-        if (runningCoroutine != null)
-            StopCoroutine(runningCoroutine);
+        if (runningCoroutine != null) StopCoroutine(runningCoroutine);
 
         runningCoroutine = StartCoroutine(newCoroutine);
     }

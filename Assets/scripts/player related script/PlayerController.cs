@@ -185,21 +185,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator BulletTime(Vector3 direction, float offset)
     {
-        /*
-        //check si il y a un mur
-        if (Physics.Raycast(transform.position, direction, out RaycastHit wallHit, 0.2f))
-        {
-            if (wallHit.transform != null)
-            {
-                mustExitBulletTime = true;
-                ShootTong(direction);
-                Debug.Log("il y a un mur");
-                yield break;
-            }
-        }
-        
-        // si non , lance le bullet time
-        */
+
         
         Vector3 targetPoint = transform.position + direction.normalized * offset;
         mustExitBulletTime = false;
@@ -210,6 +196,11 @@ public class PlayerController : MonoBehaviour
             
             transform.position = Vector3.Lerp(transform.position, targetPoint, Time.deltaTime * moveSpeed);
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, Time.deltaTime * moveSpeed);
+            if (Physics.Raycast(transform.position, targetPoint, Time.deltaTime * moveSpeed))
+            {
+                break;
+            }
+            
             yield return null;
         }
         isInBulletTime = false;

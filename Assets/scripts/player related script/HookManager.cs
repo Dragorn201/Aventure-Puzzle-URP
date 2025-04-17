@@ -46,9 +46,11 @@ public class HookManager : MonoBehaviour
     {
         hook.SetActive(true);
         hook.transform.position = transform.position;
-        float elapsedTime = 0;
         hook.transform.GetChild(1).position = transform.position;
+        
         Physics.Raycast(transform.position,playerController.directionToGo, out RaycastHit hit);
+        
+        float elapsedTime = 0;
         while (elapsedTime < timeBeforePlayerMove)
         {
             elapsedTime += Time.fixedDeltaTime;

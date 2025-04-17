@@ -10,6 +10,7 @@ public class CameraChangeTrigger : MonoBehaviour
     private Vector3 offsetIfFollowPlayer;
     public float camSpeedOnZoneEntering = 0.5f;
     public float camSpeedOnZoneExiting = 0.125f;
+    public float transitionDuration = 1f;
 
     private void Awake()
     {
@@ -21,9 +22,9 @@ public class CameraChangeTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!followPlayer) cameraFollow.ChangeCamSpot(cameraFollow.ChangeCameraModeToStatic(false ,newStaticCamPos.position, newStaticCamPos.rotation, camSpeedOnZoneEntering));
+            if (!followPlayer) cameraFollow.ChangeCamSpot(cameraFollow.ChangeCameraModeToStatic(false ,newStaticCamPos.position, newStaticCamPos.rotation, camSpeedOnZoneEntering,transitionDuration ));
                 
-            else cameraFollow.ChangeCamSpot(cameraFollow.ChangeCameraModeToFollowPlayer(false , offsetIfFollowPlayer, newStaticCamPos.rotation, camSpeedOnZoneEntering));
+            else cameraFollow.ChangeCamSpot(cameraFollow.ChangeCameraModeToFollowPlayer(false , offsetIfFollowPlayer, newStaticCamPos.rotation, camSpeedOnZoneEntering,transitionDuration));
         }
     }
 
@@ -31,8 +32,8 @@ public class CameraChangeTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (!followPlayer) cameraFollow.ChangeCamSpot(cameraFollow.ChangeCameraModeToStatic(true ,newStaticCamPos.position, newStaticCamPos.rotation, camSpeedOnZoneExiting));
-            else cameraFollow.ChangeCamSpot(cameraFollow.ChangeCameraModeToFollowPlayer(true , offsetIfFollowPlayer, newStaticCamPos.rotation, camSpeedOnZoneExiting));
+            if (!followPlayer) cameraFollow.ChangeCamSpot(cameraFollow.ChangeCameraModeToStatic(true ,newStaticCamPos.position, newStaticCamPos.rotation, camSpeedOnZoneExiting,transitionDuration));
+            else cameraFollow.ChangeCamSpot(cameraFollow.ChangeCameraModeToFollowPlayer(true , offsetIfFollowPlayer, newStaticCamPos.rotation, camSpeedOnZoneExiting,transitionDuration));
         }
     }
 }

@@ -86,12 +86,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  maxRotationSpeed: 180
+  maxRotationSpeed: 10
   tongLength: 15
   accelerationForce: 0.3
   BulletTimePositionOffset: 3
   minSpeedForScreenShake: 0.001
   timeBeforeMoving: 0.5
+  stepRotationSpeed: 10
   onEnteringBulletTime:
     m_PersistentCalls:
       m_Calls:

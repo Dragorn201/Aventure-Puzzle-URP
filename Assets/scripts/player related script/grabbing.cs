@@ -129,7 +129,7 @@ public class Grabbing : MonoBehaviour
             elapsedTime += Time.deltaTime * 10f;
             
             Debug.DrawLine(transformToMove.position, previsualisationPosition, Color.red);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
         grabbedMovementPrevisualisation.SetActive(false);
         mesh.vertices = basicVertices;

@@ -11,12 +11,13 @@ public class PlayerController : MonoBehaviour
     
     [Header("metrixes")]
     public float moveSpeed = 5f;
-    public float maxRotationSpeed = 180f;
+    public float maxRotationSpeed = 10f;
     public float tongLength = 5f;
     public float accelerationForce = 0.015f;
     public float BulletTimePositionOffset = 2f;
     public float minSpeedForScreenShake = 0.001f;
     public float timeBeforeMoving = 0.5f;
+    public float stepRotationSpeed = 5f;
     public UnityEvent onEnteringBulletTime;
     public UnityEvent onThrowingHook;
     public UnityEvent onBeginningToMove;
@@ -73,6 +74,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            if(movementInput != Vector3.zero)StartCoroutine(WaitBeforeMoving(directionToGo));
+        }
+    }
+
+    void FixedUpdate()
+    {
         float x = move.ReadValue<Vector2>().x;
         float z = move.ReadValue<Vector2>().y;
         movementInput = RelativeMovementInput(camTransorm, x, z);
@@ -80,21 +91,25 @@ public class PlayerController : MonoBehaviour
         if (movementInput != Vector3.zero)
         {
             Quaternion currentRotation = transform.rotation;
-            Quaternion targetRotation = Quaternion.LookRotation(movementInput);
+            Quaternion targetRotation = Quaternion.LookRotation(movementInput.normalized);
+
+            if (Quaternion.Angle(currentRotation, targetRotation) < stepRotationSpeed)
+            {
+                currentRotation = Quaternion.RotateTowards(currentRotation, targetRotation, .5f);
+            }
+            else
+            {
+                currentRotation = targetRotation;
+            }
 
             transform.rotation = Quaternion.RotateTowards(currentRotation, targetRotation, maxRotationSpeed);
-            
+
             
             Physics.Raycast(transform.position, transform.forward,  out RaycastHit hit, tongLength);
             if (hit.collider != null && hit.transform.gameObject.GetComponent<NotGrabbable>() == null)
             {
                 directionToGo = (hit.point - transform.position).normalized;
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton0))
-        {
-            if(movementInput != Vector3.zero)StartCoroutine(WaitBeforeMoving(directionToGo));
         }
     }
 

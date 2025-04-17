@@ -41,30 +41,33 @@ public class HookManager : MonoBehaviour
     {
         playerMoving = false;
     }
+    
+    public void CancelHook()
+    {
+        hook.transform.position = transform.position;
+        hookHand.transform.position = transform.position;
+        hook.SetActive(false);
+        hookHand.SetActive(false);
+    }
 
     IEnumerator ThrowHook()
     {
-        
-        if (!playerController.isWaitingForTheHook)
+        hook.SetActive(true);
+        hook.transform.position = transform.position;
+        hook.transform.GetChild(1).position = transform.position;
+
+        Physics.Raycast(transform.position, playerController.directionToGo, out RaycastHit hit);
+
+        float elapsedTime = 0;
+        while (elapsedTime < timeBeforePlayerMove)
         {
-            hook.SetActive(true);
-            hook.transform.position = transform.position;
-            hook.transform.GetChild(1).position = transform.position;
-    
-            Physics.Raycast(transform.position, playerController.directionToGo, out RaycastHit hit);
-    
-            float elapsedTime = 0;
-            while (elapsedTime < timeBeforePlayerMove)
-            {
-                elapsedTime += Time.fixedDeltaTime;
-                hook.transform.GetChild(2).position = Vector3.Lerp(transform.position,hit.point, elapsedTime / timeBeforePlayerMove);
-                yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
-            }
-            hookHand.SetActive(true);
-            hookHand.transform.position = hit.point;
-            hookHand.transform.rotation = Quaternion.Euler(hit.normal);
+            elapsedTime += Time.fixedDeltaTime;
+            hook.transform.GetChild(2).position = Vector3.Lerp(transform.position,hit.point, elapsedTime / timeBeforePlayerMove);
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
-    
+        hookHand.SetActive(true);
+        hookHand.transform.position = hit.point;
+        hookHand.transform.rotation = Quaternion.Euler(hit.normal);
     
     }
 

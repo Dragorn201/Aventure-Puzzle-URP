@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public UnityEvent onThrowingHook;
     public UnityEvent onBeginningToMove;
     public UnityEvent onGettingOnWall;
+    public UnityEvent cancelHook;
     
 
     [Header("a renseigner")] 
@@ -141,7 +142,16 @@ public class PlayerController : MonoBehaviour
                 onBeginningToMove.Invoke();
                 StartCoroutine(MovePlayerToTarget(hit.point, directionAtStart, hit));
             }
+            else
+            {
+                cancelHook.Invoke();
+            }
         }
+        else
+        {
+            cancelHook.Invoke();
+        }
+        
        
     }
 

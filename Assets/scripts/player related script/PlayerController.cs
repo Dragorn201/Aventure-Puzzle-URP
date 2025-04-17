@@ -148,6 +148,8 @@ public class PlayerController : MonoBehaviour
         float speedFactor = 1f;
         isInMotion = true;
         bool interrupted = false;
+        
+        
         while (Vector3.Distance(transform.position, targetPoint) > 0.5f)
         {
             Physics.Raycast(transform.position, dirOnStart, out RaycastHit hitback, tongLength);
@@ -162,6 +164,14 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
             yield return new WaitForFixedUpdate();
         }
+        
+        
+        
+        GettingOnWall(interrupted ,basicSpeed ,hit ,dirOnStart);
+    }
+
+    void GettingOnWall(bool interrupted, float basicSpeed, RaycastHit hit, Vector3 dirOnStart)
+    {
         onGettingOnWall?.Invoke();
         bool wallDestroyed = false;
         if(!interrupted) wallDestroyed = TryDestroyWall(actualSpeed, hit, dirOnStart);
@@ -175,6 +185,8 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         moveSpeed = basicSpeed;
     }
+    
+    
 
     bool TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)
     {

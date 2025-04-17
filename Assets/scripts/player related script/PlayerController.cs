@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
         bool interrupted = false;
         
         
-        while (Vector3.Distance(transform.position, targetPoint) > 0.5f)
+        while (Vector3.Distance(transform.position, targetPoint) > 0.25f)
         {
             Physics.Raycast(transform.position, dirOnStart, out RaycastHit hitback, tongLength);
             if (hit.collider != hitback.collider)

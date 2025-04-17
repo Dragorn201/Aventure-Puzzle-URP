@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public bool isInBulletTime = false;
     [HideInInspector]public GameObject actualEncrage;
     [HideInInspector]public Vector3 directionToGo;
+    [HideInInspector]public bool isWaitingForTheHook = false;
 
 
     private void Awake()
@@ -119,7 +120,8 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove && directionToGo != Vector3.zero)
         {
-            if(!isInMotion)onThrowingHook?.Invoke();
+            if(!isWaitingForTheHook)onThrowingHook.Invoke();
+            isWaitingForTheHook = true;
             yield return new WaitForSecondsRealtime(timeBeforeMoving);
             ShootHook(directionToGo);
         }
@@ -135,6 +137,7 @@ public class PlayerController : MonoBehaviour
                 actualEncrage = hit.transform.gameObject;
                 directionAtStart = direction;
                 mustExitBulletTime = true;
+                isWaitingForTheHook = false;
                 onBeginningToMove.Invoke();
                 StartCoroutine(MovePlayerToTarget(hit.point, directionAtStart, hit));
             }

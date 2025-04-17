@@ -106,9 +106,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: -510
-    y: -493
+    y: -492
     width: 1659
-    height: 2089
+    height: 2094
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4848,7 +4848,8 @@ MonoBehaviour:
       m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
   m_Direction: 1
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614869}
 --- !u!114 &8926484042661614847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5026,7 +5027,7 @@ MonoBehaviour:
   - m_Id: 0
     linkedSlots:
     - outputSlot: {fileID: 8926484042661614852}
-      inputSlot: {fileID: 0}
+      inputSlot: {fileID: 8926484042661614858}
     position: {x: 475, y: 1256}
     expandedSlots: []
     expanded: 1
@@ -5068,7 +5069,8 @@ MonoBehaviour:
       m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_Direction: 1
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614858}
 --- !u!114 &8926484042661614853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5272,7 +5274,8 @@ MonoBehaviour:
       m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614852}
 --- !u!114 &8926484042661614859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5642,4 +5645,5 @@ MonoBehaviour:
       m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614841}

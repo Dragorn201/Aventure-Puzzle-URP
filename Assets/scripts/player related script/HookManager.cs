@@ -19,9 +19,12 @@ public class HookManager : MonoBehaviour
     
     void Start()
     {
+        hook.transform.position = transform.position;
+        hookHand.transform.position = transform.position;
         hook.transform.GetChild(1).position = transform.position;
         hook.transform.GetChild(2).position = transform.position;
         hook.SetActive(false);
+        hookHand.SetActive(false);
     }
 
     public void OnThrowHook()
@@ -42,14 +45,17 @@ public class HookManager : MonoBehaviour
     IEnumerator ThrowHook()
     {
         hook.SetActive(true);
-        float elapsedTime = 0;
+        hook.transform.position = transform.position;
         hook.transform.GetChild(1).position = transform.position;
+        
         Physics.Raycast(transform.position,playerController.directionToGo, out RaycastHit hit);
+        
+        float elapsedTime = 0;
         while (elapsedTime < timeBeforePlayerMove)
         {
             elapsedTime += Time.fixedDeltaTime;
             hook.transform.GetChild(2).position = Vector3.Lerp(transform.position,hit.point, elapsedTime / timeBeforePlayerMove);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
         hookHand.SetActive(true);
         hookHand.transform.position = hit.point;
@@ -73,8 +79,7 @@ public class HookManager : MonoBehaviour
 
     void ReplaceCoroutine(IEnumerator newCoroutine)
     {
-        if (runningCoroutine != null)
-            StopCoroutine(runningCoroutine);
+        if (runningCoroutine != null) StopCoroutine(runningCoroutine);
 
         runningCoroutine = StartCoroutine(newCoroutine);
     }

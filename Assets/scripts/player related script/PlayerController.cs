@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
+    [SerializeField] private Transform spawnPos;
+    [SerializeField] private GameObject wavePrefab;
     
     [HideInInspector]public float actualSpeed = 0f;
     [HideInInspector]public PlayerControls playerControls;
@@ -43,6 +45,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerControls();
+    }
+
+    private void Start()
+    {
+        transform.position = spawnPos.position;
     }
 
 
@@ -141,6 +148,8 @@ public class PlayerController : MonoBehaviour
         float speedFactor = 1f;
         isInMotion = true;
         bool interrupted = false;
+        
+        
         while (Vector3.Distance(transform.position, targetPoint) > 0.5f)
         {
             Physics.Raycast(transform.position, dirOnStart, out RaycastHit hitback, tongLength);
@@ -155,15 +164,31 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
             yield return new WaitForFixedUpdate();
         }
+        
+        
+        
+        GettingOnWall(interrupted ,basicSpeed ,hit ,dirOnStart);
+    }
+
+    void GettingOnWall(bool interrupted, float basicSpeed, RaycastHit hit, Vector3 dirOnStart)
+    {
         onGettingOnWall?.Invoke();
-        if(!interrupted)TryDestroyWall(actualSpeed, hit, dirOnStart);
+        bool wallDestroyed = false;
+        if(!interrupted) wallDestroyed = TryDestroyWall(actualSpeed, hit, dirOnStart);
+        if (!wallDestroyed)
+        {
+            GameObject newWaveParticle = Instantiate(wavePrefab,transform.position , Quaternion.LookRotation(-hit.normal));
+            Destroy(newWaveParticle, .6f);
+        }
         actualSpeed = 0f;
         isInMotion = false;
         canMove = true;
         moveSpeed = basicSpeed;
     }
+    
+    
 
-    void TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)
+    bool TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)
     {
         WallDestroy wallDestroy = hit.transform.GetComponent<WallDestroy>();
         if (wallDestroy != null)
@@ -173,27 +198,15 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(hit.transform.gameObject);
                 StartCoroutine(BulletTime(direction, BulletTimePositionOffset));
+                return true;
             }
         }
+        return false;
     }
 
     public IEnumerator BulletTime(Vector3 direction, float offset)
     {
-        /*
-        //check si il y a un mur
-        if (Physics.Raycast(transform.position, direction, out RaycastHit wallHit, 0.2f))
-        {
-            if (wallHit.transform != null)
-            {
-                mustExitBulletTime = true;
-                ShootTong(direction);
-                Debug.Log("il y a un mur");
-                yield break;
-            }
-        }
-        
-        // si non , lance le bullet time
-        */
+
         
         Vector3 targetPoint = transform.position + direction.normalized * offset;
         mustExitBulletTime = false;
@@ -204,6 +217,11 @@ public class PlayerController : MonoBehaviour
             
             transform.position = Vector3.Lerp(transform.position, targetPoint, Time.deltaTime * moveSpeed);
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, Time.deltaTime * moveSpeed);
+            if (Physics.Raycast(transform.position, targetPoint, Time.deltaTime * moveSpeed))
+            {
+                break;
+            }
+            
             yield return null;
         }
         isInBulletTime = false;

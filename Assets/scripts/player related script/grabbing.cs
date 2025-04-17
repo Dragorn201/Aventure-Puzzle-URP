@@ -12,6 +12,9 @@ public class Grabbing : MonoBehaviour
     public bool isGrabbing = false;
     public float stepRotationSpeed = 1f;
 
+    [HideInInspector] public Vector3 lineRendererStartPoint;
+    
+
     void Awake()
     {
         playerController = GetComponent<PlayerController>();
@@ -45,6 +48,7 @@ public class Grabbing : MonoBehaviour
         MovableObject movableObject = hit.transform.GetComponent<MovableObject>();
         if (movableObject != null && !movableObject.isMoving)
         {
+            lineRendererStartPoint = hit.transform.position;
             StartCoroutine(WaitBeforeMovingObject(hit.transform, movableObject));
         }
         
@@ -66,7 +70,6 @@ public class Grabbing : MonoBehaviour
         Quaternion currentDirection = Quaternion.Euler(playerController.movementInput.normalized);
         
         
-        //rajouter un limiteur de vitesse de rotation en comparant l'angle du joystick et la rotation actuelle et si elle est superieur a un certain angle, la cliper a celui ci.
         
         
         
@@ -105,8 +108,10 @@ public class Grabbing : MonoBehaviour
             Vector3 previsualisationPosition;
             if (pravisualisationHit.collider != null)
             {
-                //modifier ici pour que la prévsualisation soit pas a moitié dans le mur
-                previsualisationPosition = pravisualisationHit.point;
+                Vector3 offset;
+                Physics.Raycast(pravisualisationHit.point, -direction, out RaycastHit previsualisationHitBack);
+                offset = previsualisationHitBack.point - transformToMove.position;
+                previsualisationPosition = pravisualisationHit.point - offset;
             }
             else
             {
@@ -167,7 +172,6 @@ public class Grabbing : MonoBehaviour
                 movableObject.CollisionDetected();
                 break;
             }
-            
             
             
             if (Vector3.Distance(target.position, endPos) < .1f)

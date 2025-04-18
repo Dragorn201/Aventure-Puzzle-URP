@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fracture : MonoBehaviour
 {
     public GameObject fractured;
-    public string triggerTag = "Projectile";
+    public string triggerTag = "Player";
 
     public float explosionForce = 500f;
     public float explosionRadius = 2f;

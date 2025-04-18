@@ -6287,9 +6287,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fractured: {fileID: 4938565564835032197}
-  triggerTag: Projectile
+  triggerTag: Player
   explosionForce: 500
-  explosionRadius: 2
+  explosionRadius: 15
 --- !u!4 &1108762458 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 006ff87d9c12a2041b0aed337795f175, type: 3}
@@ -6908,7 +6908,7 @@ GameObject:
   - component: {fileID: 2126756888}
   m_Layer: 0
   m_Name: projectile
-  m_TagString: Projectile
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

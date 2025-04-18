@@ -11,21 +11,29 @@ public class PlayerController : MonoBehaviour
     
     [Header("metrixes")]
     public float moveSpeed = 5f;
-    public float MaxRotationSpeed = 180f;
+    public float maxRotationSpeed = 10f;
     public float tongLength = 5f;
     public float accelerationForce = 0.015f;
     public float BulletTimePositionOffset = 2f;
     public float minSpeedForScreenShake = 0.001f;
+    public float timeBeforeMoving = 0.5f;
+    public float stepRotationSpeed = 5f;
     public UnityEvent onEnteringBulletTime;
+    public UnityEvent onThrowingHook;
+    public UnityEvent onBeginningToMove;
     public UnityEvent onGettingOnWall;
+    public UnityEvent cancelHook;
+    
 
     [Header("a renseigner")] 
     [SerializeField] private Transform camTransorm;
+    [SerializeField] private Transform spawnPos;
+    [SerializeField] private GameObject wavePrefab;
     
     [HideInInspector]public float actualSpeed = 0f;
     [HideInInspector]public PlayerControls playerControls;
     [HideInInspector]public Vector3 movementInput;
-    private Vector3 directionAtStart;
+    [HideInInspector]public Vector3 directionAtStart;
     [HideInInspector]public bool canMove = true;
     [HideInInspector] public bool isInMotion = false;
     [HideInInspector]public InputAction move;
@@ -34,11 +42,17 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public bool isInBulletTime = false;
     [HideInInspector]public GameObject actualEncrage;
     [HideInInspector]public Vector3 directionToGo;
+    [HideInInspector]public bool isWaitingForTheHook = false;
 
 
     private void Awake()
     {
         playerControls = new PlayerControls();
+    }
+
+    private void Start()
+    {
+        transform.position = spawnPos.position;
     }
 
 
@@ -60,6 +74,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            if(movementInput != Vector3.zero)StartCoroutine(WaitBeforeMoving(directionToGo));
+        }
+    }
+
+    void FixedUpdate()
+    {
         float x = move.ReadValue<Vector2>().x;
         float z = move.ReadValue<Vector2>().y;
         movementInput = RelativeMovementInput(camTransorm, x, z);
@@ -67,22 +91,25 @@ public class PlayerController : MonoBehaviour
         if (movementInput != Vector3.zero)
         {
             Quaternion currentRotation = transform.rotation;
-            Quaternion targetRotation = Quaternion.LookRotation(movementInput);
-            float rotationSpeed = MaxRotationSpeed * Time.deltaTime;
+            Quaternion targetRotation = Quaternion.LookRotation(movementInput.normalized);
 
-            transform.rotation = Quaternion.RotateTowards(currentRotation, targetRotation, rotationSpeed);
-            
+            if (Quaternion.Angle(currentRotation, targetRotation) < stepRotationSpeed)
+            {
+                currentRotation = Quaternion.RotateTowards(currentRotation, targetRotation, .5f);
+            }
+            else
+            {
+                currentRotation = targetRotation;
+            }
+
+            transform.rotation = Quaternion.RotateTowards(currentRotation, targetRotation, maxRotationSpeed);
+
             
             Physics.Raycast(transform.position, transform.forward,  out RaycastHit hit, tongLength);
             if (hit.collider != null && hit.transform.gameObject.GetComponent<NotGrabbable>() == null)
             {
                 directionToGo = (hit.point - transform.position).normalized;
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton0))
-        {
-            if(movementInput != Vector3.zero)ShootHook(directionToGo);
         }
     }
 
@@ -102,7 +129,18 @@ public class PlayerController : MonoBehaviour
 
     void TryShootHook(InputAction.CallbackContext context)
     {
-        if(movementInput != Vector3.zero) ShootHook(directionToGo);
+        if(movementInput != Vector3.zero) StartCoroutine(WaitBeforeMoving(directionToGo));
+    }
+
+    IEnumerator WaitBeforeMoving(Vector3 directionToGo)
+    {
+        if (canMove && directionToGo != Vector3.zero)
+        {
+            if(!isWaitingForTheHook)onThrowingHook.Invoke();
+            isWaitingForTheHook = true;
+            yield return new WaitForSecondsRealtime(timeBeforeMoving);
+            ShootHook(directionToGo);
+        }
     }
     
     public void ShootHook(Vector3 direction)
@@ -115,9 +153,20 @@ public class PlayerController : MonoBehaviour
                 actualEncrage = hit.transform.gameObject;
                 directionAtStart = direction;
                 mustExitBulletTime = true;
+                isWaitingForTheHook = false;
+                onBeginningToMove.Invoke();
                 StartCoroutine(MovePlayerToTarget(hit.point, directionAtStart, hit));
             }
+            else
+            {
+                cancelHook.Invoke();
+            }
         }
+        else
+        {
+            cancelHook.Invoke();
+        }
+        
        
     }
 
@@ -127,7 +176,9 @@ public class PlayerController : MonoBehaviour
         float speedFactor = 1f;
         isInMotion = true;
         bool interrupted = false;
-        while (Vector3.Distance(transform.position, targetPoint) > 0.5f)
+        
+        
+        while (Vector3.Distance(transform.position, targetPoint) > 0.25f)
         {
             Physics.Raycast(transform.position, dirOnStart, out RaycastHit hitback, tongLength);
             if (hit.collider != hitback.collider)
@@ -141,15 +192,31 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
             yield return new WaitForFixedUpdate();
         }
+        
+        
+        
+        GettingOnWall(interrupted ,basicSpeed ,hit ,dirOnStart);
+    }
+
+    void GettingOnWall(bool interrupted, float basicSpeed, RaycastHit hit, Vector3 dirOnStart)
+    {
         onGettingOnWall?.Invoke();
-        if(!interrupted)TryDestroyWall(actualSpeed, hit, dirOnStart);
+        bool wallDestroyed = false;
+        if(!interrupted) wallDestroyed = TryDestroyWall(actualSpeed, hit, dirOnStart);
+        if (!wallDestroyed)
+        {
+            GameObject newWaveParticle = Instantiate(wavePrefab,transform.position , Quaternion.LookRotation(-hit.normal));
+            Destroy(newWaveParticle, .6f);
+        }
         actualSpeed = 0f;
         isInMotion = false;
         canMove = true;
         moveSpeed = basicSpeed;
     }
+    
+    
 
-    void TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)
+    bool TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)
     {
         WallDestroy wallDestroy = hit.transform.GetComponent<WallDestroy>();
         if (wallDestroy != null)
@@ -159,27 +226,15 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(hit.transform.gameObject);
                 StartCoroutine(BulletTime(direction, BulletTimePositionOffset));
+                return true;
             }
         }
+        return false;
     }
 
     public IEnumerator BulletTime(Vector3 direction, float offset)
     {
-        /*
-        //check si il y a un mur
-        if (Physics.Raycast(transform.position, direction, out RaycastHit wallHit, 0.2f))
-        {
-            if (wallHit.transform != null)
-            {
-                mustExitBulletTime = true;
-                ShootTong(direction);
-                Debug.Log("il y a un mur");
-                yield break;
-            }
-        }
-        
-        // si non , lance le bullet time
-        */
+
         
         Vector3 targetPoint = transform.position + direction.normalized * offset;
         mustExitBulletTime = false;
@@ -190,6 +245,11 @@ public class PlayerController : MonoBehaviour
             
             transform.position = Vector3.Lerp(transform.position, targetPoint, Time.deltaTime * moveSpeed);
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, Time.deltaTime * moveSpeed);
+            if (Physics.Raycast(transform.position, targetPoint, Time.deltaTime * moveSpeed))
+            {
+                break;
+            }
+            
             yield return null;
         }
         isInBulletTime = false;

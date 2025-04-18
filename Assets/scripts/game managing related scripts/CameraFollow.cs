@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     public Vector3 basicOffset;
     public Quaternion rotationOnPlayerFocus;
     public float inputOffsetIntensity;
-    
+
     [HideInInspector] public bool mustFollowPlayerPosition = true;
     [HideInInspector] public bool MustBeBasicRotation = true;
     private Vector3 velocity = Vector3.zero;
@@ -22,20 +22,26 @@ public class CameraFollow : MonoBehaviour
     [HideInInspector] public bool aimAtPlayer = false;
     private Quaternion actualBaseRotation;
     [HideInInspector] public Vector3 actualPosition;
-    
+
     private float angleStableTime = 0f;
     public float requiredStableTime = 0.5f;
     public float angleThreshold = 5f;
     private Quaternion lastCheckedRotation;
-    
+
     public float camDelay;
-    
-    [HideInInspector]public bool isInCinematic;
+
+    [HideInInspector] public bool isInCinematic;
     private Transform[] cinematicCamPos;
     private int cinematicStepIndex = 0;
-    
-    
-    
+
+    // Transition (position + rotation)
+    private bool isInTransition = false;
+    private float transitionTime = 0f;
+    private float transitionDuration = 1f;
+    private Vector3 transitionStartPos;
+    private Vector3 transitionEndPos;
+    private Quaternion transitionStartRot;
+    private Quaternion transitionEndRot;
 
     void Start()
     {
@@ -82,24 +88,46 @@ public class CameraFollow : MonoBehaviour
             Quaternion rotation = desiredRotation;
             Vector3 inputDirection = playerController.movementInput.normalized;
             Quaternion inputOffsetRotation = Quaternion.Euler(-inputOffsetIntensity * inputDirection.y, inputOffsetIntensity * inputDirection.x, 0);
-
             desiredRotation = inputOffsetRotation * rotation;
         }
 
         lastCheckedRotation = player.rotation;
 
-        float angleDiff = Quaternion.Angle(transform.rotation, desiredRotation);
-        if (angleDiff > 0.1f)
+        if (isInTransition)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * rotationSmoothSpeed * 1 / Time.timeScale + 0.0000001f);
+            transitionTime += Time.deltaTime;
+            float t = Mathf.Clamp01(transitionTime / transitionDuration);
+            float sinT = Mathf.Sin((Mathf.PI * t) / 2f);
+
+            // Position
+            actualPosition = Vector3.Lerp(transitionStartPos, transitionEndPos, sinT);
+            transform.position = actualPosition;
+
+            // Rotation
+            Quaternion smoothRot = Quaternion.Lerp(transitionStartRot, transitionEndRot, sinT);
+            transform.rotation = smoothRot;
+
+            if (transitionTime >= transitionDuration)
+            {
+                isInTransition = false;
+            }
         }
         else
         {
-            transform.rotation = desiredRotation;
-        }
+            // Suivi classique
+            actualPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
+            transform.position = actualPosition;
 
-        actualPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
-        transform.position = actualPosition;
+            float angleDiff = Quaternion.Angle(transform.rotation, desiredRotation);
+            if (angleDiff > 0.1f)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * rotationSmoothSpeed * 1 / Time.timeScale + 0.0000001f);
+            }
+            else
+            {
+                transform.rotation = desiredRotation;
+            }
+        }
 
         if (isInCinematic)
         {
@@ -110,52 +138,66 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-
-
-
     public void ChangeCamSpot(IEnumerator newCoroutine)
     {
-        if(runningCoroutine != null)StopCoroutine(runningCoroutine);
+        if (runningCoroutine != null) StopCoroutine(runningCoroutine);
         runningCoroutine = newCoroutine;
         StartCoroutine(runningCoroutine);
     }
 
-
-    public IEnumerator ChangeCameraModeToStatic(bool isUnfixed ,Vector3 newCameraPosition , Quaternion newCameraRotation,  float newCamSpeed)
+    public IEnumerator ChangeCameraModeToStatic(bool isUnfixed, Vector3 newCameraPosition, Quaternion newCameraRotation, float newCamSpeed, float newTransitionDuration)
     {
-        yield return new WaitForSeconds(camDelay);
-        
+        yield return new WaitForEndOfFrame();
+
         mustFollowPlayerPosition = isUnfixed;
         MustBeBasicRotation = isUnfixed;
- 
         actualCamSpeed = newCamSpeed;
-        
+
         if (!isUnfixed)
         {
-            actualCamSpeed = newCamSpeed;
             actualBaseRotation = newCameraRotation;
             desiredPosition = newCameraPosition;
+            desiredRotation = newCameraRotation;
+
+            StartTransition(transform.position, desiredPosition, transform.rotation, desiredRotation, newTransitionDuration);
         }
     }
 
-    public IEnumerator ChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed)
+    public IEnumerator ChangeCameraModeToFollowPlayer(bool stop, Vector3 newOffset, Quaternion newCameraRotation, float newCamSpeed, float newTransitionDuration)
     {
         yield return new WaitForSeconds(camDelay);
-        
+
         MustBeBasicRotation = stop;
 
         if (!stop)
         {
-            actualCamSpeed = newCamSpeed;
             actualCamOffset = newOffset;
+            actualCamSpeed = newCamSpeed;
             actualBaseRotation = newCameraRotation;
+            desiredRotation = newCameraRotation;
+            desiredPosition = player.position + newOffset;
         }
         else
         {
-            actualCamSpeed = newCamSpeed;
             actualCamOffset = basicOffset;
+            actualCamSpeed = newCamSpeed;
             actualBaseRotation = rotationOnPlayerFocus;
+            desiredRotation = rotationOnPlayerFocus;
+            desiredPosition = player.position + basicOffset;
         }
+
+        StartTransition(transform.position, desiredPosition, transform.rotation, desiredRotation, newTransitionDuration);
+    }
+
+    private void StartTransition(Vector3 fromPos, Vector3 toPos, Quaternion fromRot, Quaternion toRot, float duration)
+    {
+        transitionStartPos = fromPos;
+        transitionEndPos = toPos;
+        transitionStartRot = fromRot;
+        transitionEndRot = toRot;
+        transitionDuration = duration;
+        transitionTime = 0f;
+        isInTransition = true;
     }
 
     public void StartCinematic(Transform[] newCinematicCamPos)
@@ -165,19 +207,23 @@ public class CameraFollow : MonoBehaviour
             isInCinematic = true;
             cinematicCamPos = newCinematicCamPos;
             cinematicStepIndex = 0;
+
             desiredPosition = cinematicCamPos[cinematicStepIndex].position;
             desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
-        }
 
+            StartTransition(transform.position, desiredPosition, transform.rotation, desiredRotation, 1f); // ajustable
+        }
     }
 
     void CinematicNextStep()
     {
-        if (cinematicStepIndex < cinematicCamPos.Length)
+        if (cinematicStepIndex < cinematicCamPos.Length - 1)
         {
             cinematicStepIndex++;
             desiredPosition = cinematicCamPos[cinematicStepIndex].position;
             desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
+
+            StartTransition(transform.position, desiredPosition, transform.rotation, desiredRotation, 1f); // ajustable
         }
         else
         {
@@ -187,6 +233,5 @@ public class CameraFollow : MonoBehaviour
             actualCamOffset = basicOffset;
             actualBaseRotation = rotationOnPlayerFocus;
         }
-        
     }
 }

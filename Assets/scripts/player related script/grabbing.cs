@@ -101,9 +101,6 @@ public class Grabbing : MonoBehaviour
             }
             
             
-            
-            
-            
             Physics.BoxCast(transformToMove.position, transformToMove.localScale / 2 - transformToMove.localScale * 0.1f,direction , out RaycastHit pravisualisationHit, transformToMove.rotation, projectionForce);
             Vector3 previsualisationPosition;
             if (pravisualisationHit.collider != null)
@@ -132,7 +129,7 @@ public class Grabbing : MonoBehaviour
             elapsedTime += Time.deltaTime * 10f;
             
             Debug.DrawLine(transformToMove.position, previsualisationPosition, Color.red);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
         grabbedMovementPrevisualisation.SetActive(false);
         mesh.vertices = basicVertices;
@@ -148,20 +145,20 @@ public class Grabbing : MonoBehaviour
         isGrabbing = false;
     }
 
-    IEnumerator MoveObject(Transform target, Vector3 direction, MovableObject movableObject)
+    IEnumerator MoveObject(Transform target, Vector3 direction, MovableObject targetMovableObject)
     {
         Vector3 startPos = target.position;
-        Vector3 endPos = startPos + direction * projectionForce;
+        Vector3 endPos = startPos + direction.normalized * projectionForce;
 
         Vector3 previousPosition = target.position;
         
-        movableObject.blocWallDistance = blocWallDistance;
+        targetMovableObject.blocWallDistance = blocWallDistance;
 
-        while (!movableObject.DetectCollision(direction))
+        while (!targetMovableObject.DetectCollision(direction))
         {
             
             
-            movableObject.selfVelocity = Vector3.Distance(target.position, Vector3.Lerp(target.position, endPos, Time.deltaTime));
+            targetMovableObject.selfVelocity = Vector3.Distance(target.position, Vector3.Lerp(target.position, endPos, Time.deltaTime));
             target.position = Vector3.Lerp(target.position, endPos, Time.deltaTime * blocMoveSpeed);
 
 
@@ -169,20 +166,21 @@ public class Grabbing : MonoBehaviour
             if (Physics.BoxCast(previousPosition, target.localScale / 2 - target.localScale * 0.1f, currentDirection, target.rotation, currentDirection.magnitude))
             {
                 target.position = previousPosition;
-                movableObject.CollisionDetected();
+                targetMovableObject.CollisionDetected();
                 break;
             }
             
             
             if (Vector3.Distance(target.position, endPos) < .1f)
             {
-                movableObject.isMoving = false;
+                targetMovableObject.isMoving = false;
                 target.position = endPos;
-                movableObject.StopMoving();
+                targetMovableObject.StopMoving();
+                break;
             }
             previousPosition = target.position;
             yield return null;
         }
-        movableObject.obstacleHited = false;
+        targetMovableObject.obstacleHited = false;
     }
 }

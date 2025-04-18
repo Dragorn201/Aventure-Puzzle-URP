@@ -86,12 +86,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  maxRotationSpeed: 180
+  maxRotationSpeed: 10
   tongLength: 15
   accelerationForce: 0.3
   BulletTimePositionOffset: 3
   minSpeedForScreenShake: 0.001
   timeBeforeMoving: 0.5
+  stepRotationSpeed: 10
   onEnteringBulletTime:
     m_PersistentCalls:
       m_Calls:
@@ -152,6 +153,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  cancelHook:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5103164081652706687}
+        m_TargetAssemblyTypeName: HookManager, Assembly-CSharp
+        m_MethodName: CancelHook
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   camTransorm: {fileID: 0}
   spawnPos: {fileID: 0}
   wavePrefab: {fileID: 1139312986159740995, guid: 875902f82b4a1bb40b578ed8bdcceb90, type: 3}
@@ -172,6 +188,7 @@ MonoBehaviour:
   isInBulletTime: 0
   actualEncrage: {fileID: 0}
   directionToGo: {x: 0, y: 0, z: 0}
+  isWaitingForTheHook: 0
 --- !u!114 &5184932626517147525
 MonoBehaviour:
   m_ObjectHideFlags: 0

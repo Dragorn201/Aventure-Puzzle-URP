@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class Fracture : MonoBehaviour
 {
-    public GameObject fracturedPrefab;
-    public string triggerTag = "Player";
+    public GameObject fracturedPrefab;       // Le prefab avec les morceaux fracturés
+    public string triggerTag = "Player";     // Tag qui déclenche la fracture
 
     public float explosionForce = 500f;
     public float explosionRadius = 2f;
 
     private bool hasFractured = false;
+
+    private void Start()
+    {
+        // Pas besoin de désactiver le prefab dans la scène, il n'est pas encore instancié
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -18,19 +23,23 @@ public class Fracture : MonoBehaviour
         {
             hasFractured = true;
 
-            // Créer les morceaux
-            GameObject fracturedInstance = Instantiate(fracturedPrefab, transform.position, transform.rotation);
-            fracturedInstance.SetActive(true);
+            // Instancier le prefab à la bonne position, avec une rotation neutre
+            GameObject fracturedInstance = Instantiate(
+                fracturedPrefab,
+                transform.position,
+                Quaternion.identity // On n’applique PAS la rotation de l’objet actuel
+            );
 
-            // Explosion au point de contact
-            Vector3 explosionPoint = collision.contacts[0].point;
-
+            // Appliquer une force d’explosion sur tous les rigidbodies enfants
             foreach (Rigidbody rb in fracturedInstance.GetComponentsInChildren<Rigidbody>())
             {
-                rb.AddExplosionForce(explosionForce, explosionPoint, explosionRadius);
+                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             }
 
-            // Détruire l'objet original (non fracturé)
+            // Activer le GameObject fracturé après la collision (initialement désactivé dans le prefab)
+            fracturedInstance.SetActive(true);
+
+            // Détruire l'objet d'origine (le mesh non fracturé)
             Destroy(gameObject);
         }
     }

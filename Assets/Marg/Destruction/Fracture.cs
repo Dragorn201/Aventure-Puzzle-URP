@@ -1,48 +1,36 @@
 using UnityEngine;
-//using System.Collections;
-//using System.Collections.Generic;
 
 public class Fracture : MonoBehaviour
 {
-    public GameObject fractured;
+    public GameObject fracturedPrefab;
     public string triggerTag = "Player";
 
     public float explosionForce = 500f;
     public float explosionRadius = 2f;
 
-    private bool hasFractured = false;  
+    private bool hasFractured = false;
 
-    private void Start()
-    {
-        if (fractured != null)
-        {
-            fractured.SetActive(false);
-        }
-
-    }
-
-
-
-
-
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (hasFractured) return;
-
 
         if (collision.gameObject.CompareTag(triggerTag))
         {
             hasFractured = true;
 
-            GameObject fractureObj = Instantiate(fractured, transform.position, transform.rotation);
+            // Créer les morceaux
+            GameObject fracturedInstance = Instantiate(fracturedPrefab, transform.position, transform.rotation);
+            fracturedInstance.SetActive(true);
 
-            foreach (Rigidbody rb in fractureObj.GetComponentsInChildren<Rigidbody>())
+            // Explosion au point de contact
+            Vector3 explosionPoint = collision.contacts[0].point;
+
+            foreach (Rigidbody rb in fracturedInstance.GetComponentsInChildren<Rigidbody>())
             {
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+                rb.AddExplosionForce(explosionForce, explosionPoint, explosionRadius);
             }
 
-
-            fractured.SetActive(true);
+            // Détruire l'objet original (non fracturé)
             Destroy(gameObject);
         }
     }

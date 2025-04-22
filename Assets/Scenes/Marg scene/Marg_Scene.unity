@@ -6725,7 +6725,7 @@ Transform:
   m_GameObject: {fileID: 1581404917}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -73.34128, y: 3.362179, z: 144.60115}
+  m_LocalPosition: {x: -73.34128, y: -27.08, z: 124.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6743,15 +6743,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2c17253b518074daccf25f99c18566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourcePrefab: {fileID: 0}
-  spawnChance: 0
-  distanceBetweenChecks: 0
+  resourcePrefab: {fileID: 919132149155446097, guid: d1b341a207a4cc54aba41b28925a7a79, type: 3}
+  spawnChance: 5
+  distanceBetweenChecks: 0.5
   heightOfCheck: 10
   rangeOfCheck: 30
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
-  positivePOsition: {x: -15.73, y: 171.14}
+    m_Bits: 4294967295
+  positivePosition: {x: 0, y: 0}
   negativePosition: {x: -113.5, y: 171.14}
 --- !u!1001 &1605194937
 PrefabInstance:

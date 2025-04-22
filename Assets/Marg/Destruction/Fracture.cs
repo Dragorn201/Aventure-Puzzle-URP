@@ -1,48 +1,45 @@
 using UnityEngine;
-//using System.Collections;
-//using System.Collections.Generic;
 
 public class Fracture : MonoBehaviour
 {
-    public GameObject fractured;
-    public string triggerTag = "Projectile";
+    public GameObject fracturedPrefab;       // Le prefab avec les morceaux fracturés
+    public string triggerTag = "Player";     // Tag qui déclenche la fracture
 
     public float explosionForce = 500f;
     public float explosionRadius = 2f;
 
-    private bool hasFractured = false;  
+    private bool hasFractured = false;
 
     private void Start()
     {
-        if (fractured != null)
-        {
-            fractured.SetActive(false);
-        }
-
+        // Pas besoin de désactiver le prefab dans la scène, il n'est pas encore instancié
     }
 
-
-
-
-
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (hasFractured) return;
-
 
         if (collision.gameObject.CompareTag(triggerTag))
         {
             hasFractured = true;
 
-            GameObject fractureObj = Instantiate(fractured, transform.position, transform.rotation);
+            // Instancier le prefab à la bonne position, avec une rotation neutre
+            GameObject fracturedInstance = Instantiate(
+                fracturedPrefab,
+                transform.position,
+                Quaternion.identity // On n’applique PAS la rotation de l’objet actuel
+            );
 
-            foreach (Rigidbody rb in fractureObj.GetComponentsInChildren<Rigidbody>())
+            // Appliquer une force d’explosion sur tous les rigidbodies enfants
+            foreach (Rigidbody rb in fracturedInstance.GetComponentsInChildren<Rigidbody>())
             {
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             }
 
+            // Activer le GameObject fracturé après la collision (initialement désactivé dans le prefab)
+            fracturedInstance.SetActive(true);
 
-            fractured.SetActive(true);
+            // Détruire l'objet d'origine (le mesh non fracturé)
             Destroy(gameObject);
         }
     }

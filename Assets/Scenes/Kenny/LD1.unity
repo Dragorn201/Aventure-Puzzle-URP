@@ -2843,38 +2843,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1716198060}
     m_Modifications:
-    - target: {fileID: 51745252506971573, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 51745252506971573, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Name
-      value: COuleur Godrays
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
-      value: 0.7671277
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
-      value: 0.4669811
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3821202545246460477, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
       propertyPath: m_Name
       value: VFX_Godrays
@@ -11549,13 +11517,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1716198060}
     m_Modifications:
-    - target: {fileID: 51745252506971573, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 51745252506971573, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
+    - target: {fileID: 3821202545246460477, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
+      propertyPath: m_Name
+      value: VFX_Godrays (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4645686209539241056, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11596,34 +11560,6 @@ PrefabInstance:
     - target: {fileID: 4645686209539241056, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Name
-      value: COuleur Godrays
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
-      value: 0.7671277
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
-      value: 0.4669811
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821202545246460477, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_Name
-      value: VFX_Godrays (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18314,6 +18250,34 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Name
+      value: COuleur Godrays
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
+      value: 0.7671277
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
+      value: 0.4669811
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821202545246460477, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
+      propertyPath: m_Name
+      value: VFX_Godrays (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 4645686209539241056, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -35
@@ -18353,34 +18317,6 @@ PrefabInstance:
     - target: {fileID: 4645686209539241056, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Name
-      value: COuleur Godrays
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
-      value: 0.7671277
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
-      value: 0.4669811
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586945128113421178, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Overridden
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3821202545246460477, guid: d40d2f2da75419342b2b678474ed246d, type: 3}
-      propertyPath: m_Name
-      value: VFX_Godrays (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

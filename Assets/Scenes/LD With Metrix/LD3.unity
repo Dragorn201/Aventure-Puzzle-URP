@@ -12146,9 +12146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c98f13479d9d904d8a24cf1b54d20a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertueTransform: {fileID: 1506848188}
+  isBell: 0
   GameObjectsToDestroy: []
   camWaypoints: []
+  soundManager: {fileID: 0}
 --- !u!65 &650664639
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37023,12 +37024,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c98f13479d9d904d8a24cf1b54d20a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertueTransform: {fileID: 1506848188}
+  isBell: 1
   GameObjectsToDestroy:
   - {fileID: 1694436374}
   - {fileID: 117995386}
   - {fileID: 1565434575}
   camWaypoints: []
+  soundManager: {fileID: 6109284683912412931}
 --- !u!65 &1820555192
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43323,6 +43325,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+--- !u!114 &6109284683912412931 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7731771730397503196, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+  m_PrefabInstance: {fileID: 6109284683912412930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4ae5201a8270f4684f017d38305068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

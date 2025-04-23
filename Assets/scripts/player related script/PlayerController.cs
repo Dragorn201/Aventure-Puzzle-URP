@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform camTransorm;
     [SerializeField] private Transform spawnPos;
     [SerializeField] private GameObject wavePrefab;
+    [SerializeField] private SoundManager soundManager;
     
     [HideInInspector]public float actualSpeed = 0f;
     [HideInInspector]public PlayerControls playerControls;
@@ -136,6 +137,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove && directionToGo != Vector3.zero)
         {
+            if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerTrhowingHook);
             if(!isWaitingForTheHook)onThrowingHook.Invoke();
             isWaitingForTheHook = true;
             yield return new WaitForSecondsRealtime(timeBeforeMoving);
@@ -207,6 +209,8 @@ public class PlayerController : MonoBehaviour
         {
             GameObject newWaveParticle = Instantiate(wavePrefab,transform.position , Quaternion.LookRotation(-hit.normal));
             Destroy(newWaveParticle, .6f);
+            if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerLandOnWall);
+            
         }
         actualSpeed = 0f;
         isInMotion = false;

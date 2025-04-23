@@ -179,9 +179,12 @@ public class PlayerController : MonoBehaviour
         isInMotion = true;
         bool interrupted = false;
         
+        Vector3 previousPos = transform.position;
         
-        while (Vector3.Distance(transform.position, targetPoint) > 0.25f)
+        while (Vector3.Distance(transform.position, targetPoint) > 0.001f)
         {
+            
+            //partie si le grappin est coupé
             Physics.Raycast(transform.position, dirOnStart, out RaycastHit hitback, tongLength);
             if (hit.collider != hitback.collider)
             {
@@ -189,9 +192,22 @@ public class PlayerController : MonoBehaviour
                 moveSpeed = basicSpeed;
                 break;
             }
+
+            previousPos = transform.position;
+            
             if(accelerate)speedFactor += accelerationForce;
             actualSpeed = moveSpeed * Time.fixedDeltaTime * speedFactor;
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
+
+            //double chek pour collision (les rendre plus stables)
+            if (Physics.Raycast(previousPos, dirOnStart, Vector3.Distance(previousPos, transform.position)))
+            {
+                moveSpeed = basicSpeed;
+                transform.position = previousPos;
+                break;
+            }
+            
+            
             yield return new WaitForFixedUpdate();
         }
         

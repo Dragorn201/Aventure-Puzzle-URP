@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
             actualSpeed = moveSpeed * Time.fixedDeltaTime * speedFactor;
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
 
-            //double chek pour collision
+            //double chek pour collision (les rendre plus stables)
             if (Physics.Raycast(previousPos, dirOnStart, Vector3.Distance(previousPos, transform.position)))
             {
                 moveSpeed = basicSpeed;

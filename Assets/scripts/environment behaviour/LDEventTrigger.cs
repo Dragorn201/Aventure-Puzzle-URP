@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class LDEventTrigger : MonoBehaviour
 {
-    
-    public Transform vertueTransform;
+    public bool isBell;
     
     public GameObject[] GameObjectsToDestroy;
-    
     public Transform[] camWaypoints;
+    [SerializeField]private SoundManager soundManager;
     
     private CameraFollow camFollow;
+    
 
 
     private void Awake()
@@ -20,6 +20,7 @@ public class LDEventTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (soundManager != null && isBell)soundManager.PlaySoundEffect(soundManager.bellGong);
         foreach (GameObject objectToHide in GameObjectsToDestroy)
         {
             objectToHide.SetActive(false);

@@ -1,58 +1,94 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class SpawnAleatoire : MonoBehaviour
 {
     [Header("Spawn settings")]
     public GameObject resourcePrefab;
-    public float spawnChance;
+    [Range(0f, 1f)] public float spawnChance = 0.2f;
+    public int maxSpawnCount = 500;
 
     [Header("Raycast setup")]
-    public float distanceBetweenCheck;
-    public float heightOfCheck = 10f, rangeOfCheck = 30f;
+    public float distanceBetweenCheck = 5f;
+    public float heightOfCheck = -18f;
+    public float rangeOfCheck = 30f;
     public LayerMask layerMask;
-    public Vector2 positivePosition, negativePosition;
+
+    [Header("Spawn Zone")]
+    public Vector2 positivePosition = new Vector2(50, 50);
+    public Vector2 negativePosition = new Vector2(-50, -50);
 
     private void Start()
     {
         SpawnResources();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            DeleteResources();
-            SpawnResources();
-        }
-    }
-
     void SpawnResources()
     {
+        
+        if (resourcePrefab == null)
+        {
+            Debug.LogError("resourcePrefab is not assigné !");
+            return;
+        }
+
+        if (distanceBetweenCheck <= 0f)
+        {
+            Debug.LogError("distanceBetweenCheck doit être > 0 !");
+            return;
+        }
+
+        int spawnCount = 0;
+
         for (float x = negativePosition.x; x < positivePosition.x; x += distanceBetweenCheck)
         {
             for (float z = negativePosition.y; z < positivePosition.y; z += distanceBetweenCheck)
             {
-                RaycastHit hit;
-                if (Physics.Raycast(new Vector3(x, heightOfCheck, z), Vector3.down, out hit, rangeOfCheck, layerMask))
+                if (spawnCount >= maxSpawnCount)
                 {
-                    if (spawnChance > Random.Range(0f, 101f))
+                    Debug.Log("Limite de spawn atteinte (" + maxSpawnCount + ")");
+                    return;
+                }
+
+                Vector3 origin = new Vector3(x, heightOfCheck, z);
+                RaycastHit hit;
+
+                if (Physics.Raycast(origin, Vector3.down, out hit, rangeOfCheck, layerMask))
+                {
+                    if (Random.value < spawnChance)
                     {
-                        Instantiate(resourcePrefab, hit.point, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)), transform);
+                        Instantiate(
+                            resourcePrefab,
+                            hit.point,
+                            Quaternion.Euler(0, Random.Range(0, 360), 0),
+                            transform
+                        );
+                        spawnCount++;
                     }
                 }
             }
         }
+
+        Debug.Log("Nombre d'objets spawnés : " + spawnCount);
     }
 
-    void DeleteResources()
+    
+    private void OnDrawGizmosSelected()  //pour checker ou notre script agis
     {
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
-    }
+        float terrainY = -24f; //hauteur envirion du sol
 
+        Gizmos.color = new Color(0f, 1f, 0f, 0.25f);
+        Vector3 center = new Vector3(
+            (positivePosition.x + negativePosition.x) / 2f,
+            terrainY,
+            (positivePosition.y + negativePosition.y) / 2f
+        );
+        Vector3 size = new Vector3(
+            Mathf.Abs(positivePosition.x - negativePosition.x),
+            0.1f,
+            Mathf.Abs(positivePosition.y - negativePosition.y)
+        );
+        Gizmos.DrawCube(center, size);
+    }
 
 }

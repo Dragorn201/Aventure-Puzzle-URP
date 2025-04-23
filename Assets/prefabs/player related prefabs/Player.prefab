@@ -91,7 +91,7 @@ MonoBehaviour:
   accelerationForce: 0.3
   BulletTimePositionOffset: 3
   minSpeedForScreenShake: 0.001
-  timeBeforeMoving: 0.5
+  timeBeforeMoving: 0.3
   stepRotationSpeed: 10
   onEnteringBulletTime:
     m_PersistentCalls:
@@ -171,6 +171,7 @@ MonoBehaviour:
   camTransorm: {fileID: 0}
   spawnPos: {fileID: 0}
   wavePrefab: {fileID: 1139312986159740995, guid: 875902f82b4a1bb40b578ed8bdcceb90, type: 3}
+  soundManager: {fileID: 0}
   actualSpeed: 0
   movementInput: {x: 0, y: 0, z: 0}
   directionAtStart: {x: 0, y: 0, z: 0}

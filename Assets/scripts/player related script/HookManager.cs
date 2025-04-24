@@ -10,6 +10,7 @@ public class HookManager : MonoBehaviour
     private float timeBeforePlayerMove;
     private Coroutine runningCoroutine;
     private PlayerController playerController;
+    private RaycastHit hit;
 
     void Awake()
     {
@@ -52,7 +53,7 @@ public class HookManager : MonoBehaviour
 
     IEnumerator ThrowHook()
     {
-        if (Physics.Raycast(transform.position, playerController.directionToGo, out RaycastHit hit))
+        if (Physics.Raycast(transform.position, playerController.directionToGo, out hit))
         {
             if (playerController.directionToGo != Vector3.zero && hit.transform.gameObject.GetComponent<NotGrabbable>() is null)
             {
@@ -69,16 +70,18 @@ public class HookManager : MonoBehaviour
                     hook.transform.GetChild(2).position = Vector3.Lerp(transform.position,hit.point, elapsedTime / timeBeforePlayerMove);
                     yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
                 }
-                hookHand.SetActive(true);
-                hookHand.transform.position = hit.point;
-                hookHand.transform.rotation = Quaternion.Euler(hit.normal);
+                
             }
         }
     }
 
     IEnumerator PlayerStartMoving()
     {
+        Debug.Log("player start moving");
         playerMoving = true;
+        hookHand.SetActive(true);
+        hookHand.transform.position = hit.point + hit.normal.normalized * 0.001f;
+        hookHand.transform.rotation = Quaternion.LookRotation(hit.normal);
         while (playerMoving)
         {
             hook.transform.GetChild(1).position = transform.position;

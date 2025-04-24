@@ -183,6 +183,11 @@ public class PlayerController : MonoBehaviour
         
         Vector3 previousPos = transform.position;
         
+        
+        Physics.Raycast(transform.position, dirOnStart, out RaycastHit distanceCheck, tongLength);
+        Physics.Raycast(distanceCheck.point, -dirOnStart, out RaycastHit offsetCheck, tongLength);
+        Vector3 offset = offsetCheck.point - transform.position;
+        
         while (Vector3.Distance(transform.position, targetPoint) > 0.001f)
         {
             
@@ -205,7 +210,8 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(previousPos, dirOnStart, Vector3.Distance(previousPos, transform.position)))
             {
                 moveSpeed = basicSpeed;
-                transform.position = previousPos;
+                
+                Debug.Log(offset);
                 break;
             }
             
@@ -213,7 +219,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         
-        
+        transform.position = previousPos - offset;
         
         GettingOnWall(interrupted ,basicSpeed ,hit ,dirOnStart);
     }

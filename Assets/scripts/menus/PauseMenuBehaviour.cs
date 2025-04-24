@@ -5,6 +5,7 @@ using UnityEngine;
 public class PauseMenuBehaviour : MonoBehaviour
 {
     public static bool isPaused = false;
+    public float scaleAnimationDuration = 0.5f;
     private int menuAnimationState = 0;
     private Animator animator;
     
@@ -88,9 +89,7 @@ public class PauseMenuBehaviour : MonoBehaviour
     
     public void OpenPanel(GameObject panel)
     {
-        pauseMenuPanel.SetActive(false);
-        activePanel = panel;
-        panel.SetActive(true);
+        StartCoroutine(OpenPanelScaleAnimation(panel));
     }
 
     public void ClosePanel(GameObject panel)
@@ -101,10 +100,43 @@ public class PauseMenuBehaviour : MonoBehaviour
         }
         else
         {
-            pauseMenuPanel.SetActive(true);
-            activePanel = pauseMenuPanel;
-            panel.SetActive(false);
+            StartCoroutine(ClosePanelScaleAnimation(panel));
         }
+    }
+
+    IEnumerator OpenPanelScaleAnimation(GameObject panel)
+    {
+        pauseMenuPanel.SetActive(false);
+        activePanel = panel;
+        
+        Vector3 originalScale = panel.transform.localScale;
+        panel.transform.localScale = Vector3.zero;
+        panel.SetActive(true);
+        float elapsedTime = 0f;
+        while (elapsedTime < scaleAnimationDuration)
+        {
+            panel.transform.localScale = Vector3.Lerp(panel.transform.localScale,originalScale , elapsedTime / scaleAnimationDuration);
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
+    }
+    
+    IEnumerator ClosePanelScaleAnimation(GameObject panel)
+    {
+        activePanel = pauseMenuPanel;
+        
+        Vector3 originalScale = panel.transform.localScale;
+        float elapsedTime = 0f;
+        pauseMenuPanel.SetActive(true);
+        while (elapsedTime < scaleAnimationDuration)
+        {
+            panel.transform.localScale = Vector3.Lerp(panel.transform.localScale, Vector3.zero, elapsedTime / scaleAnimationDuration);
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
+        panel.SetActive(false);
+        panel.transform.localScale = originalScale;
+        
     }
 
     public void GoToMainMenu()

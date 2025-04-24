@@ -58,6 +58,7 @@ public class MovementPrevisualisation : MonoBehaviour
                 
                 currentPrevisualisation.SetActive(true);
                 currentPrevisualisation.transform.position = hit.point;
+                currentPrevisualisation.transform.rotation = Quaternion.LookRotation(hit.normal);
     
                 lineRenderer.enabled = true;
                 Physics.Raycast(transform.position, playerController.directionToGo, out RaycastHit endLine);

@@ -1621,6 +1621,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.00001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &257770117
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3209,6 +3212,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.00001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &612914137
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4837,6 +4843,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.00001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1007122267
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6134,15 +6143,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13b67e1c651bdf4f9f63fce360c8f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1430761050}
+  player: {fileID: 0}
   positionSmoothSpeedWhenFollow: 0.2
   rotationSmoothSpeed: 3
   basicOffset: {x: 12.5, y: 15, z: -13}
   rotationOnPlayerFocus: {x: 0.31598544, y: -0.3596048, z: 0.13088547, w: 0.86816275}
+  inputOffsetIntensity: 0
   mustFollowPlayerPosition: 1
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
+  aimAtPlayer: 0
+  actualPosition: {x: 0, y: 0, z: 0}
+  requiredStableTime: 0.5
+  angleThreshold: 5
+  camDelay: 0
+  isInCinematic: 0
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0
@@ -6233,6 +6249,14 @@ MonoBehaviour:
   zoomOnBulletTime: 25
   bulletTimeZoomSpeed: 1.5
   exitBulletTimeZoomDuration: 1
+  shakeDuration: 0.2
+  shakeAmount:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeStepSize: 0.05
 --- !u!1 &1353639198
 GameObject:
   m_ObjectHideFlags: 0
@@ -6791,11 +6815,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1422774463}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1430761050 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8198662400457508751, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
-  m_PrefabInstance: {fileID: 607833177}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1430761059 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7524792165718007954, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
@@ -7643,6 +7662,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeedToDestroyWall: 0.000001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1636089349
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8670,6 +8692,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2090552794585656418, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3690675495221508799, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -8729,6 +8755,10 @@ PrefabInstance:
     - target: {fileID: 4734171203068216175, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979463708174656226, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6258972815620476459, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_Pivot.x
@@ -8810,6 +8840,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6306058619811366552, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8037678680880774353, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -8837,6 +8871,10 @@ PrefabInstance:
     - target: {fileID: 8037678680880774353, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256864563904766614, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

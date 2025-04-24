@@ -12,6 +12,8 @@ public class SoundManager : MonoBehaviour
     [Header("sfx clips")]
     public AudioClip playerLandOnWall;
     public AudioClip playerDestroyWall;
+    public AudioClip playerTrhowingHook;
+    public AudioClip bellGong;
 
     void Start()
     {

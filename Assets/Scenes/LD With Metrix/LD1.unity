@@ -685,10 +685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c98f13479d9d904d8a24cf1b54d20a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vertueTransform: {fileID: 1615795979}
+  isBell: 1
   GameObjectsToDestroy:
   - {fileID: 1128723632}
   camWaypoints: []
+  soundManager: {fileID: 550792969}
 --- !u!1 &107844174
 GameObject:
   m_ObjectHideFlags: 0
@@ -10666,6 +10667,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2090552794585656418, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979463708174656226, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6258972815620476459, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10744,6 +10753,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6258972815620476459, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306058619811366552, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8256864563904766614, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

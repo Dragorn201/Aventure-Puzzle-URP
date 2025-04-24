@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public Vector3 movementInput;
     [HideInInspector]public Vector3 directionAtStart;
     [HideInInspector]public bool canMove = true;
+    [HideInInspector]public bool initiateMotion;
     [HideInInspector] public bool isInMotion = false;
     [HideInInspector]public InputAction move;
     private InputAction tong;
@@ -137,6 +138,7 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove && directionToGo != Vector3.zero)
         {
+            initiateMotion = true;
             if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerTrhowingHook);
             if(!isWaitingForTheHook)onThrowingHook.Invoke();
             isWaitingForTheHook = true;
@@ -230,6 +232,7 @@ public class PlayerController : MonoBehaviour
         }
         actualSpeed = 0f;
         isInMotion = false;
+        initiateMotion = false;
         canMove = true;
         moveSpeed = basicSpeed;
     }

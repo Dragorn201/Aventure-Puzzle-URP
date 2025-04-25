@@ -20,7 +20,7 @@ public class VisualObstacleRemover : MonoBehaviour
 
     void FixedUpdate()
     {
-        HashSet<Renderer> detectedThisFrame = new HashSet<Renderer>();
+        HashSet<Renderer> detectedThisFrame = new();
 
         Vector3 playerPosOffset = playerTransform.position + Vector3.up * 0.5f;
         Vector3 direction = playerPosOffset - transform.position;
@@ -33,8 +33,8 @@ public class VisualObstacleRemover : MonoBehaviour
             GameObject obj = hit.collider.gameObject;
             if (obj.CompareTag("Player")) continue;
 
-            Renderer rend = obj.GetComponent<Renderer>();
-            if (rend != null)
+            Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+            foreach (Renderer rend in renderers)
             {
                 detectedThisFrame.Add(rend);
 
@@ -46,8 +46,7 @@ public class VisualObstacleRemover : MonoBehaviour
             }
         }
 
-        // Réapparition douce des objets non détectés cette frame
-        List<Renderer> toRemove = new List<Renderer>();
+        List<Renderer> toRemove = new();
         foreach (Renderer rend in currentlyTransparent)
         {
             if (!detectedThisFrame.Contains(rend))
@@ -62,6 +61,7 @@ public class VisualObstacleRemover : MonoBehaviour
             currentlyTransparent.Remove(rend);
         }
     }
+    
 
     private void StartFade(Renderer rend, float targetAlpha)
     {

@@ -6,7 +6,6 @@ public class PauseMenuBehaviour : MonoBehaviour
 {
     public static bool isPaused = false;
     public float scaleAnimationDuration = 0.5f;
-    private int menuAnimationState = 0;
     private Animator animator;
     
     public GameObject pauseMenuPanel;

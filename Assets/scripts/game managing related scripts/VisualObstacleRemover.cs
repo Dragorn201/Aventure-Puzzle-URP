@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class VisualObstacleRemover : MonoBehaviour
@@ -6,8 +7,11 @@ public class VisualObstacleRemover : MonoBehaviour
     private Transform playerTransform;
     private RaycastHit[] obstacles;
 
-    // On garde une liste des objets qu'on a rendus transparents
-    private List<Renderer> transparentRenderers = new List<Renderer>();
+    private Dictionary<Renderer, Coroutine> activeFades = new();
+    private List<Renderer> currentTransparentRenderers = new();
+
+    public float fadeDuration = 0.5f;
+    public float targetAlpha = 0.2f;
 
     void Awake()
     {
@@ -17,6 +21,7 @@ public class VisualObstacleRemover : MonoBehaviour
     void FixedUpdate()
     {
         ResetTransparency();
+
         Vector3 playerPosOffset = new Vector3(playerTransform.position.x, playerTransform.position.y + 0.5f, playerTransform.position.z);
         Vector3 direction = playerPosOffset - transform.position;
         obstacles = Physics.RaycastAll(transform.position, direction, Vector3.Distance(transform.position, playerTransform.position));
@@ -24,31 +29,49 @@ public class VisualObstacleRemover : MonoBehaviour
         foreach (RaycastHit hit in obstacles)
         {
             GameObject obj = hit.collider.gameObject;
-
-
             if (obj.CompareTag("Player")) continue;
 
             Renderer rend = obj.GetComponent<Renderer>();
-            if (rend != null)
+            if (rend != null && !currentTransparentRenderers.Contains(rend))
             {
-                MakeTransparent(rend);
-                transparentRenderers.Add(rend);
+                StartFade(rend, targetAlpha);
+                currentTransparentRenderers.Add(rend);
             }
         }
     }
 
-    private void MakeTransparent(Renderer rend)
-    {
-        rend.enabled = false;
-    }
-
     private void ResetTransparency()
     {
-        foreach (Renderer rend in transparentRenderers)
+        foreach (Renderer rend in currentTransparentRenderers)
         {
-            rend.enabled = true;
+            StartFade(rend, 1f);
+        }
+        currentTransparentRenderers.Clear();
+    }
+
+    private void StartFade(Renderer rend, float targetAlpha)
+    {
+        if (activeFades.TryGetValue(rend, out Coroutine current))
+        {
+            StopCoroutine(current);
+        }
+        activeFades[rend] = StartCoroutine(FadeMaterial(rend, targetAlpha));
+    }
+
+    private IEnumerator FadeMaterial(Renderer rend, float targetAlpha)
+    {
+        Material mat = rend.material; // Use instance of material
+        Color color = mat.color;
+        float startAlpha = color.a;
+
+        for (float t = 0; t < fadeDuration; t += Time.fixedDeltaTime)
+        {
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, t / fadeDuration);
+            mat.color = new Color(color.r, color.g, color.b, alpha);
+            yield return new WaitForFixedUpdate();
         }
 
-        transparentRenderers.Clear();
+        mat.color = new Color(color.r, color.g, color.b, targetAlpha);
+        activeFades.Remove(rend);
     }
 }

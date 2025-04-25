@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public float maxRotationSpeed = 10f;
     public float tongLength = 5f;
     public float accelerationForce = 0.015f;
-    public float BulletTimePositionOffset = 2f;
+    public float bulletTimePositionOffset = 2f;
     public float minSpeedForScreenShake = 0.001f;
     public float timeBeforeMoving = 0.5f;
     public float stepRotationSpeed = 5f;
@@ -258,7 +259,7 @@ public class PlayerController : MonoBehaviour
             if (hit.transform != null && wallDestroyed)
             {
                 Destroy(hit.transform.gameObject);
-                StartCoroutine(BulletTime(direction, BulletTimePositionOffset));
+                StartCoroutine(BulletTime(direction, bulletTimePositionOffset));
                 return true;
             }
         }

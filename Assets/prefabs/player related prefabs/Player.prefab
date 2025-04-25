@@ -176,6 +176,7 @@ MonoBehaviour:
   movementInput: {x: 0, y: 0, z: 0}
   directionAtStart: {x: 0, y: 0, z: 0}
   canMove: 1
+  initiateMotion: 0
   isInMotion: 0
   move:
     m_Name: 
@@ -202,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1493214f90f28b8438f9481af0294294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previsualisation: {fileID: 4153668979189932254, guid: 73a225da483e32f43a4117d617564360, type: 3}
+  previsualisation: {fileID: 1292209630969089813, guid: 66b9dabe278c4974395b533afb58031e, type: 3}
   lineRenderer: {fileID: 1563549633185290425}
   wayPoints:
   - {fileID: 7025255687402721813}
@@ -259,9 +260,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25
-  m_Height: 1
+  m_Height: 1.8188547
   m_Direction: 1
-  m_Center: {x: 0, y: 0.15, z: 0}
+  m_Center: {x: 0, y: 0.5594274, z: 0}
 --- !u!54 &31873489755427031
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -387,16 +388,16 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 0.53333336}
-      key1: {r: 0.9951427, g: 1, b: 0, a: 1}
-      key2: {r: 1, g: 0, b: 0, a: 0.39607844}
+      key0: {r: 0.8745099, g: 0.8705883, b: 0.43137258, a: 0.25882354}
+      key1: {r: 0.882353, g: 0.882353, b: 0.4431373, a: 1}
+      key2: {r: 1, g: 0, b: 0, a: 0.22352941}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 35273
+      ctime1: 65535
       ctime2: 65535
       ctime3: 0
       ctime4: 0
@@ -413,7 +414,7 @@ LineRenderer:
       atime7: 0
       m_Mode: 0
       m_ColorSpace: 0
-      m_NumColorKeys: 3
+      m_NumColorKeys: 2
       m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 5
@@ -424,7 +425,7 @@ LineRenderer:
     generateLightingData: 0
   m_MaskInteraction: 0
   m_UseWorldSpace: 1
-  m_Loop: 1
+  m_Loop: 0
   m_ApplyActiveColorSpace: 1
 --- !u!1 &6555304907175351961
 GameObject:

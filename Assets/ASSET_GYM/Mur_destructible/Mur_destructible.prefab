@@ -62,17 +62,33 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c92ec2ad8def5c3499387b716617b5ae, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4058816543321684103}
+      addedObject: {fileID: 6097557423532218632}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c92ec2ad8def5c3499387b716617b5ae, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6097557423532218632}
+      addedObject: {fileID: 5125959467568372613}
   m_SourcePrefab: {fileID: 100100000, guid: c92ec2ad8def5c3499387b716617b5ae, type: 3}
 --- !u!1 &355258899737907737 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c92ec2ad8def5c3499387b716617b5ae, type: 3}
   m_PrefabInstance: {fileID: 589773397200842568}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &4058816543321684103
+--- !u!114 &6097557423532218632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355258899737907737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a42e9063f60624692100a8628ed95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeedToDestroyWall: 0.000001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &5125959467568372613
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,21 +107,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6036555, y: 5.956654, z: 3.7077894}
-  m_Center: {x: -1.5258865e-14, y: -3.110289e-20, z: 1.8525057}
---- !u!114 &6097557423532218632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355258899737907737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6a42e9063f60624692100a8628ed95b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minSpeedToDestroyWall: 0.000001
-  onWallDestroyed:
-    m_PersistentCalls:
-      m_Calls: []
+  m_Size: {x: 2310.5603, y: 14763.788, z: 23622.057}
+  m_Center: {x: 0, y: -0.001953125, z: 0}

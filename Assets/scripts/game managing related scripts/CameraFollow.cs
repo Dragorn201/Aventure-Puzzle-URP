@@ -175,6 +175,7 @@ public class CameraFollow : MonoBehaviour
             actualCamSpeed = newCamSpeed;
             actualBaseRotation = newCameraRotation;
             desiredRotation = newCameraRotation;
+            yield return new WaitForSecondsRealtime(0.25f);
             desiredPosition = player.position + newOffset;
         }
         else
@@ -183,9 +184,11 @@ public class CameraFollow : MonoBehaviour
             actualCamSpeed = newCamSpeed;
             actualBaseRotation = rotationOnPlayerFocus;
             desiredRotation = rotationOnPlayerFocus;
+            yield return new WaitForSeconds(0.75f);
             desiredPosition = player.position + basicOffset;
         }
 
+        
         StartTransition(transform.position, desiredPosition, transform.rotation, desiredRotation, newTransitionDuration);
     }
 

@@ -8,7 +8,7 @@ public class LanternFireLighting : MonoBehaviour
 
     void Awake()
     {
-        fireEffect.Stop();
+        fireEffect.enabled = false;
         lightEffect.SetActive(false);
     }
 
@@ -16,7 +16,7 @@ public class LanternFireLighting : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            fireEffect.Play();
+            fireEffect.enabled = true;
             lightEffect.SetActive(true);
         }
     }

@@ -261,7 +261,6 @@ public class PlayerController : MonoBehaviour
             bool wallDestroyed = wallDestroy.TryDestroyWall(speed);
             if (hit.transform != null && wallDestroyed)
             {
-                Destroy(hit.transform.gameObject);
                 StartCoroutine(BulletTime(direction, bulletTimePositionOffset));
                 return true;
             }

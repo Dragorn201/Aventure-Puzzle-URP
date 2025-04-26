@@ -143,8 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bec5198e704ade4b8623c39b3e0ccba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fracturedPrefab: {fileID: 2952789202633948179, guid: ddf68da72716cfa4dbb6e597e3ecf848, type: 3}
-  triggerTag: Player
+  fracturedPrefab: {fileID: 1948579638502252638, guid: 4dba44483088cce42ade85d5f87b798e, type: 3}
   explosionForce: 500
   explosionRadius: 2
 --- !u!114 &8488895076960579829
@@ -162,4 +161,16 @@ MonoBehaviour:
   minSpeedToDestroyWall: 0.1
   onWallDestroyed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7504658489330379934}
+        m_TargetAssemblyTypeName: Fracture, Assembly-CSharp
+        m_MethodName: Explode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

@@ -50,7 +50,7 @@ public class MovableObject : MonoBehaviour
     void FixedUpdate()
     {
         levitationElapsedTime += Time.fixedDeltaTime;
-        Vector3 levitationPosition = new Vector3(basicPosition.x,basicPosition.y + Mathf.Sin(levitationElapsedTime * levitationSpeed) * levitationIntensity, basicPosition.z);
+        Vector3 levitationPosition = new Vector3(transform.position.x,basicPosition.y + Mathf.Sin(levitationElapsedTime * levitationSpeed) * levitationIntensity, transform.position.z);
         transform.position = levitationPosition;
         if (levitationElapsedTime >= 10 * Mathf.PI) levitationElapsedTime = 0f;
     }

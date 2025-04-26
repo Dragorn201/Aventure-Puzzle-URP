@@ -30653,6 +30653,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 362f06d2e4bb9564fa58e22e9b90dbc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1094205258 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7374265368466849496, guid: 1e491e4226c59924481025816c5d5475, type: 3}
+  m_PrefabInstance: {fileID: 1814081872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1094205259
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094205258}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.586881, y: 6.0000005, z: 3.7500007}
+  m_Center: {x: -0.0000017285347, y: -0.00000011175862, z: 1.8750002}
 --- !u!4 &1096017908 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1137199305430793209, guid: ff400bfd6bf1a0f43a0dc4a3714830de, type: 3}
@@ -55739,10 +55765,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -180
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7173650328151331117, guid: 1e491e4226c59924481025816c5d5475, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7374265368466849496, guid: 1e491e4226c59924481025816c5d5475, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1094205259}
   m_SourcePrefab: {fileID: 100100000, guid: 1e491e4226c59924481025816c5d5475, type: 3}
 --- !u!1 &1816137402
 GameObject:
@@ -56702,12 +56732,39 @@ MonoBehaviour:
   minSpeedToDestroyWall: 0.1
   onWallDestroyed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1869104781}
+        m_TargetAssemblyTypeName: Fracture, Assembly-CSharp
+        m_MethodName: Explode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1869104778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3240784431964425725, guid: a5caec6cf75a73746b32759216b50fa0, type: 3}
   m_PrefabInstance: {fileID: 243430455265233856}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1869104781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869104773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bec5198e704ade4b8623c39b3e0ccba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fracturedPrefab: {fileID: 1948579638502252638, guid: 4dba44483088cce42ade85d5f87b798e, type: 3}
+  explosionForce: 500
+  explosionRadius: 2
 --- !u!1 &1870396058
 GameObject:
   m_ObjectHideFlags: 0
@@ -63599,6 +63656,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2860424483643807559, guid: a5caec6cf75a73746b32759216b50fa0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1869104774}
+    - targetCorrespondingSourceObject: {fileID: 2860424483643807559, guid: a5caec6cf75a73746b32759216b50fa0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1869104781}
   m_SourcePrefab: {fileID: 100100000, guid: a5caec6cf75a73746b32759216b50fa0, type: 3}
 --- !u!4 &1081005018527532879
 Transform:

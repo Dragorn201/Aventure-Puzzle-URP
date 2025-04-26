@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MovableObject : MonoBehaviour
 {
@@ -14,10 +15,18 @@ public class MovableObject : MonoBehaviour
     [HideInInspector]public float selfVelocity;
     private CanDamageBoss canDamageBoss;
 
+    private Vector3 basicPosition;
+    private float levitationElapsedTime;
+    private float levitationSpeed;
+    [SerializeField]private float levitationIntensity = 0.5f;
+
     private Vector3 point;
 
     void Awake()
     {
+        levitationElapsedTime = Random.Range(0f, 3.1415f);
+        levitationSpeed = Random.Range(2.5f, 3f);
+        basicPosition = transform.position;
         canDamageBoss = GetComponent<CanDamageBoss>();
     }
     
@@ -36,6 +45,14 @@ public class MovableObject : MonoBehaviour
         }
         
         return collision;
+    }
+
+    void FixedUpdate()
+    {
+        levitationElapsedTime += Time.fixedDeltaTime;
+        Vector3 levitationPosition = new Vector3(basicPosition.x,basicPosition.y + Mathf.Sin(levitationElapsedTime * levitationSpeed) * levitationIntensity, basicPosition.z);
+        transform.position = levitationPosition;
+        if (levitationElapsedTime >= 10 * Mathf.PI) levitationElapsedTime = 0f;
     }
 
     public void CollisionDetected()

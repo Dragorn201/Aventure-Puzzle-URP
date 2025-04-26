@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1420014272491287857}
   - component: {fileID: 8015195188118548052}
   - component: {fileID: 2126327159015878581}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,9 @@ GameObject:
   - component: {fileID: 1137199305430793209}
   - component: {fileID: 6617428536280775341}
   - component: {fileID: 2427244720987419593}
-  m_Layer: 0
+  - component: {fileID: 7233952612002974605}
+  - component: {fileID: 5110363729661426060}
+  m_Layer: 2
   m_Name: Lantern_Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,3 +282,37 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7233952612002974605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877143968409761838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e9a479109f0ef4f8e7d4fc4d3e91a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireEffect: {fileID: 0}
+--- !u!65 &5110363729661426060
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877143968409761838}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}

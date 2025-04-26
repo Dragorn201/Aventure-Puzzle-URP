@@ -35,7 +35,7 @@ public class Fracture : MonoBehaviour
         
         foreach (Rigidbody rb in fracturedInstance.GetComponentsInChildren<Rigidbody>())
         {
-            rb.AddExplosionForce(explosionForce, player.transform.position, explosionRadius);
+            rb.AddExplosionForce(explosionForce, player.position, explosionRadius);
         }
 
         

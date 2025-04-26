@@ -7,7 +7,6 @@ public class LanternFireLighting : MonoBehaviour
 
     void Awake()
     {
-        fireEffect = GetComponent<VisualEffect>();
         fireEffect.Stop();
     }
 

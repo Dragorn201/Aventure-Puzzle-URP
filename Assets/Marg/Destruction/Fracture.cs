@@ -36,6 +36,7 @@ public class Fracture : MonoBehaviour
         foreach (Rigidbody rb in fracturedInstance.GetComponentsInChildren<Rigidbody>())
         {
             rb.AddExplosionForce(explosionForce, player.position, explosionRadius);
+            Destroy(rb.transform.gameObject, Random.Range(2f,4f));
         }
 
         

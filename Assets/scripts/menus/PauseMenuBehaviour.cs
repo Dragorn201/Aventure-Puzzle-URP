@@ -1,21 +1,29 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PauseMenuBehaviour : MonoBehaviour
 {
     public static bool isPaused = false;
     public float scaleAnimationDuration = 0.5f;
-    private int menuAnimationState = 0;
     private Animator animator;
     
     public GameObject pauseMenuPanel;
     public GameObject settingsPanel;
     private GameObject activePanel;
+    
+    public GameObject pauseMenuFirstButton;
+    public GameObject settingsMenuFirstButton;
+    
+    public Dictionary<GameObject, GameObject> panelsFistButtons = new Dictionary<GameObject, GameObject>();
 
     void Awake()
     {
         animator = GetComponent<Animator>();
+        panelsFistButtons.Add(pauseMenuPanel, pauseMenuFirstButton);
+        panelsFistButtons.Add(settingsPanel, settingsMenuFirstButton);
     }
     
     void Start()
@@ -72,6 +80,10 @@ public class PauseMenuBehaviour : MonoBehaviour
         isPaused = true;
         activePanel = pauseMenuPanel;
         Time.timeScale = 0f;
+        
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(panelsFistButtons[pauseMenuPanel]);
+        
         yield return new WaitForSecondsRealtime(0.5f);
     }
     
@@ -108,7 +120,8 @@ public class PauseMenuBehaviour : MonoBehaviour
     {
         pauseMenuPanel.SetActive(false);
         activePanel = panel;
-        
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(panelsFistButtons[panel]);
         Vector3 originalScale = panel.transform.localScale;
         panel.transform.localScale = Vector3.zero;
         panel.SetActive(true);
@@ -136,7 +149,8 @@ public class PauseMenuBehaviour : MonoBehaviour
         }
         panel.SetActive(false);
         panel.transform.localScale = originalScale;
-        
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(panelsFistButtons[pauseMenuPanel]);
     }
 
     public void GoToMainMenu()

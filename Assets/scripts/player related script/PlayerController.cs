@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public float maxRotationSpeed = 10f;
     public float tongLength = 5f;
     public float accelerationForce = 0.015f;
-    public float BulletTimePositionOffset = 2f;
+    public float bulletTimePositionOffset = 2f;
     public float minSpeedForScreenShake = 0.001f;
     public float timeBeforeMoving = 0.5f;
     public float stepRotationSpeed = 5f;
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform spawnPos;
     [SerializeField] private GameObject wavePrefab;
     [SerializeField] private SoundManager soundManager;
+    
     
     [HideInInspector]public float actualSpeed = 0f;
     [HideInInspector]public PlayerControls playerControls;
@@ -67,13 +69,13 @@ public class PlayerController : MonoBehaviour
         tong.Enable();
         tong.performed += TryShootHook;
     }
-
+    
     void OnDisable()
     {
         move.Disable();
         tong.Disable();
     }
-
+    
     void Update()
     {
         
@@ -84,6 +86,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
     void FixedUpdate()
     {
         float x = move.ReadValue<Vector2>().x;
@@ -115,6 +118,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
     Vector3 RelativeMovementInput(Transform camTransorm, float absoluteX, float absoluteY)
     {
         Vector3 camForward = camTransorm.forward;
@@ -129,11 +133,13 @@ public class PlayerController : MonoBehaviour
         return relativDirection;
     }
 
+    
     void TryShootHook(InputAction.CallbackContext context)
     {
         if(movementInput != Vector3.zero) StartCoroutine(WaitBeforeMoving(directionToGo));
     }
 
+    
     IEnumerator WaitBeforeMoving(Vector3 directionToGo)
     {
         if (canMove && directionToGo != Vector3.zero)
@@ -146,6 +152,7 @@ public class PlayerController : MonoBehaviour
             ShootHook(directionToGo);
         }
     }
+    
     
     public void ShootHook(Vector3 direction)
     {
@@ -170,10 +177,9 @@ public class PlayerController : MonoBehaviour
         {
             cancelHook.Invoke();
         }
-        
-       
     }
 
+    
     public IEnumerator MovePlayerToTarget(Vector3 targetPoint,Vector3 dirOnStart, RaycastHit hit, bool accelerate = true)
     {
         float basicSpeed = moveSpeed;
@@ -183,8 +189,22 @@ public class PlayerController : MonoBehaviour
         
         Vector3 previousPos = transform.position;
         
+        
+        Physics.Raycast(transform.position, dirOnStart, out RaycastHit distanceCheck, tongLength);
+        Physics.Raycast(distanceCheck.point, -dirOnStart, out RaycastHit offsetCheck, tongLength);
+        Vector3 offset = offsetCheck.point - transform.position;
+        
         while (Vector3.Distance(transform.position, targetPoint) > 0.001f)
         {
+            
+            //double chek pour collision (les rendre plus stables)
+            if (Physics.Raycast(transform.position, dirOnStart, Vector3.Distance(transform.position, Vector3.MoveTowards(transform.position, targetPoint, actualSpeed))))
+            {
+                moveSpeed = basicSpeed;
+                Debug.Log(offset);
+                break;
+            }
+            
             
             //partie si le grappin est coupé
             Physics.Raycast(transform.position, dirOnStart, out RaycastHit hitback, tongLength);
@@ -194,30 +214,25 @@ public class PlayerController : MonoBehaviour
                 moveSpeed = basicSpeed;
                 break;
             }
-
+            
             previousPos = transform.position;
             
+            //déplacement factuel
             if(accelerate)speedFactor += accelerationForce;
             actualSpeed = moveSpeed * Time.fixedDeltaTime * speedFactor;
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
 
-            //double chek pour collision (les rendre plus stables)
-            if (Physics.Raycast(previousPos, dirOnStart, Vector3.Distance(previousPos, transform.position)))
-            {
-                moveSpeed = basicSpeed;
-                transform.position = previousPos;
-                break;
-            }
-            
+           
             
             yield return new WaitForFixedUpdate();
         }
         
-        
+        transform.position = previousPos - offset;
         
         GettingOnWall(interrupted ,basicSpeed ,hit ,dirOnStart);
     }
 
+    
     void GettingOnWall(bool interrupted, float basicSpeed, RaycastHit hit, Vector3 dirOnStart)
     {
         onGettingOnWall?.Invoke();
@@ -238,7 +253,6 @@ public class PlayerController : MonoBehaviour
     }
     
     
-
     bool TryDestroyWall(float speed, RaycastHit hit, Vector3 direction)
     {
         WallDestroy wallDestroy = hit.transform.GetComponent<WallDestroy>();
@@ -247,8 +261,7 @@ public class PlayerController : MonoBehaviour
             bool wallDestroyed = wallDestroy.TryDestroyWall(speed);
             if (hit.transform != null && wallDestroyed)
             {
-                Destroy(hit.transform.gameObject);
-                StartCoroutine(BulletTime(direction, BulletTimePositionOffset));
+                StartCoroutine(BulletTime(direction, bulletTimePositionOffset));
                 return true;
             }
         }
@@ -285,4 +298,3 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, tongLength);
     }
 }
-

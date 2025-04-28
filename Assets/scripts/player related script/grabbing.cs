@@ -61,8 +61,20 @@ public class Grabbing : MonoBehaviour
     IEnumerator WaitBeforeMovingObject(Transform transformToMove, MovableObject movableObject)
     {
         isGrabbing = true;
-        grabbedMovementPrevisualisation.GetComponent<MeshFilter>().mesh =
-            transformToMove.GetComponent<MeshFilter>().mesh;
+        
+        
+        Mesh mesh = null;
+        if (transformToMove.GetComponent<MeshFilter>() != null)
+        {
+            mesh = transformToMove.GetComponent<MeshFilter>().mesh;
+        }
+        else
+        {
+            mesh = transformToMove.GetComponentInChildren<MeshFilter>().mesh;
+        }
+        
+        
+        grabbedMovementPrevisualisation.GetComponent<MeshFilter>().mesh = mesh;
         grabbedMovementPrevisualisation.transform.localScale = transformToMove.localScale;
         grabbedMovementPrevisualisation.transform.rotation = transformToMove.rotation;
         grabbedMovementPrevisualisation.SetActive(true);
@@ -75,7 +87,10 @@ public class Grabbing : MonoBehaviour
         
         //pour le feedBack visuel
         float elapsedTime = 0f;
-        Mesh mesh = transformToMove.GetComponent<MeshFilter>().mesh;
+
+
+       
+        
         Vector3[] vertices = mesh.vertices;
         Vector3[] basicVertices = mesh.vertices;
         Vector3 direction = playerController.movementInput.normalized;

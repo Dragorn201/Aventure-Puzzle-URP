@@ -35,7 +35,7 @@ public class MovementPrevisualisation : MonoBehaviour
 
     void Update()
     {
-        if(playerController.movementInput != Vector3.zero && !grabbing.isGrabbing)PrevisualizeMovement();
+        if(playerController.movementInput != Vector3.zero && !grabbing.isGrabbing && !playerController.initiateMotion)PrevisualizeMovement();
         else if(playerController.movementInput != Vector3.zero && grabbing.isGrabbing)PrevisualizeGrabbing();
         else
         {

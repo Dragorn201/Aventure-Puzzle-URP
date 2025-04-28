@@ -81,6 +81,7 @@ public class HookManager : MonoBehaviour
         playerMoving = true;
         hookHand.SetActive(true);
         hookHand.transform.position = hit.point + hit.normal.normalized * 0.001f;
+        hook.transform.GetChild(2).position = hookHand.transform.position;
         hookHand.transform.rotation = Quaternion.LookRotation(hit.normal);
         while (playerMoving)
         {

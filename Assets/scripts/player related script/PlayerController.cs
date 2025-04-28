@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
         {
             
             //double chek pour collision (les rendre plus stables)
-            if (Physics.Raycast(transform.position, dirOnStart, Vector3.Distance(transform.position, Vector3.MoveTowards(transform.position, targetPoint, actualSpeed))))
+            if (Physics.Raycast(transform.position + offset, dirOnStart, Vector3.Distance(transform.position, Vector3.MoveTowards(transform.position, targetPoint, actualSpeed))))
             {
                 moveSpeed = basicSpeed;
                 Debug.Log(offset);

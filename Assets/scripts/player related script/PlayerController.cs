@@ -197,6 +197,15 @@ public class PlayerController : MonoBehaviour
         while (Vector3.Distance(transform.position, targetPoint) > 0.001f)
         {
             
+            //double chek pour collision (les rendre plus stables)
+            if (Physics.Raycast(transform.position, dirOnStart, Vector3.Distance(transform.position, Vector3.MoveTowards(transform.position, targetPoint, actualSpeed))))
+            {
+                moveSpeed = basicSpeed;
+                Debug.Log(offset);
+                break;
+            }
+            
+            
             //partie si le grappin est coupé
             Physics.Raycast(transform.position, dirOnStart, out RaycastHit hitback, tongLength);
             if (hit.collider != hitback.collider)
@@ -205,7 +214,7 @@ public class PlayerController : MonoBehaviour
                 moveSpeed = basicSpeed;
                 break;
             }
-
+            
             previousPos = transform.position;
             
             //déplacement factuel
@@ -213,13 +222,7 @@ public class PlayerController : MonoBehaviour
             actualSpeed = moveSpeed * Time.fixedDeltaTime * speedFactor;
             transform.position = Vector3.MoveTowards(transform.position, targetPoint, actualSpeed);
 
-            //double chek pour collision (les rendre plus stables)
-            if (Physics.Raycast(previousPos, dirOnStart, Vector3.Distance(previousPos, transform.position)))
-            {
-                moveSpeed = basicSpeed;
-                Debug.Log(offset);
-                break;
-            }
+           
             
             yield return new WaitForFixedUpdate();
         }
@@ -258,7 +261,6 @@ public class PlayerController : MonoBehaviour
             bool wallDestroyed = wallDestroy.TryDestroyWall(speed);
             if (hit.transform != null && wallDestroyed)
             {
-                Destroy(hit.transform.gameObject);
                 StartCoroutine(BulletTime(direction, bulletTimePositionOffset));
                 return true;
             }

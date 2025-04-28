@@ -1423,11 +1423,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 29.374, y: 90, z: 90}
---- !u!4 &268450480 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8198662400457508751, guid: 1bd954ef7ce43e8498bff1f48890827b, type: 3}
-  m_PrefabInstance: {fileID: 311274997}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &306423904
 GameObject:
   m_ObjectHideFlags: 0
@@ -14858,11 +14853,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: c04d741dc25afe644b12edd4090c89ad, type: 2}
-  isGlobal: 1
-  blendDistance: 0
-  weight: 1
-  priority: 0
 --- !u!4 &1938239907
 Transform:
   m_ObjectHideFlags: 0
@@ -15474,6 +15464,14 @@ MonoBehaviour:
   zoomOnBulletTime: 25
   bulletTimeZoomSpeed: 1.5
   exitBulletTimeZoomDuration: 1
+  shakeDuration: 0.2
+  shakeAmount:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeStepSize: 0.05
 --- !u!114 &2004193098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15530,15 +15528,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13b67e1c651bdf4f9f63fce360c8f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 268450480}
+  player: {fileID: 0}
   positionSmoothSpeedWhenFollow: 0.2
   rotationSmoothSpeed: 3
   basicOffset: {x: 12.5, y: 15, z: -13}
   rotationOnPlayerFocus: {x: 0.31598544, y: -0.3596048, z: 0.13088547, w: 0.86816275}
+  inputOffsetIntensity: 0
   mustFollowPlayerPosition: 1
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
+  aimAtPlayer: 0
+  actualPosition: {x: 0, y: 0, z: 0}
+  requiredStableTime: 0.5
+  angleThreshold: 5
+  camDelay: 0
+  isInCinematic: 0
 --- !u!81 &2004193100
 AudioListener:
   m_ObjectHideFlags: 0
@@ -16400,7 +16405,7 @@ PrefabInstance:
     - target: {fileID: 1259328453130073562, guid: ac370f23293cd9b45b542b065f4ca0d4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 8320e7ca2f14d2740907fa44536aaa03, type: 2}
+      objectReference: {fileID: 2100000, guid: ab76629f830b8c04e94802700730fdfa, type: 2}
     - target: {fileID: 1259328453130073562, guid: ac370f23293cd9b45b542b065f4ca0d4, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 

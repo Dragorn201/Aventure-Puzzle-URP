@@ -64,18 +64,21 @@ public class Grabbing : MonoBehaviour
         
         
         Mesh mesh = null;
+        Vector3 newScale = Vector3.zero;
         if (transformToMove.GetComponent<MeshFilter>() != null)
         {
             mesh = transformToMove.GetComponent<MeshFilter>().mesh;
+            newScale = transformToMove.localScale;
         }
         else
         {
             mesh = transformToMove.GetComponentInChildren<MeshFilter>().mesh;
+            newScale = transformToMove.GetChild(0).localScale;
         }
         
         
         grabbedMovementPrevisualisation.GetComponent<MeshFilter>().mesh = mesh;
-        grabbedMovementPrevisualisation.transform.localScale = transformToMove.localScale;
+        grabbedMovementPrevisualisation.transform.localScale = newScale;
         grabbedMovementPrevisualisation.transform.rotation = transformToMove.rotation;
         grabbedMovementPrevisualisation.SetActive(true);
         

@@ -201,7 +201,6 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(transform.position + offset, dirOnStart, Vector3.Distance(transform.position, Vector3.MoveTowards(transform.position, targetPoint, actualSpeed))))
             {
                 moveSpeed = basicSpeed;
-                Debug.Log(offset);
                 break;
             }
             
@@ -227,7 +226,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         
-        transform.position = previousPos - offset;
+        transform.position = previousPos;
         
         GettingOnWall(interrupted ,basicSpeed ,hit ,dirOnStart);
     }
@@ -240,7 +239,7 @@ public class PlayerController : MonoBehaviour
         if(!interrupted) wallDestroyed = TryDestroyWall(actualSpeed, hit, dirOnStart);
         if (!wallDestroyed)
         {
-            GameObject newWaveParticle = Instantiate(wavePrefab,transform.position , Quaternion.LookRotation(-hit.normal));
+            GameObject newWaveParticle = Instantiate(wavePrefab,hit.point , Quaternion.LookRotation(-hit.normal));
             Destroy(newWaveParticle, .6f);
             if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerLandOnWall);
             

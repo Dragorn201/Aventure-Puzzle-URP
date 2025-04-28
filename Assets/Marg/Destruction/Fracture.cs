@@ -28,7 +28,7 @@ public class Fracture : MonoBehaviour
         (
             fracturedPrefab,
             transform.position,
-            Quaternion.identity 
+            transform.rotation
         );
         
 

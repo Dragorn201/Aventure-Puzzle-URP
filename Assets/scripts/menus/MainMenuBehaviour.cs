@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class MainMenuBehaviour : MonoBehaviour
@@ -17,22 +18,51 @@ public class MainMenuBehaviour : MonoBehaviour
     [SerializeField]private float smoothTime = 0.3f;
     private Vector3 velocity = Vector3.zero;
     
+    
+    
+    
+    public List<ButtonIdentity> buttonsIdentities = new List<ButtonIdentity>();
+    
+    public Dictionary<GameObject, ButtonIdentity> buttons = new Dictionary<GameObject, ButtonIdentity>();
+    private Transform lightTarget;
+    
 
     void Start()
     {
+        foreach (ButtonIdentity button in buttonsIdentities)
+        {
+            buttons.Add(button.button, button);
+        }
+        
         mainMenuPanel.SetActive(true);
         settingsPanel.SetActive(false);
         
         _menuFirstButtons.Add(mainMenuPanel, mainMenuFirstButton);
         _menuFirstButtons.Add(settingsPanel, settingsFirstButton);
         
-        EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
+        lightTarget = buttons[_menuFirstButtons[mainMenuPanel]].buttonTransform;
     }
 
     void FixedUpdate()
     {
-        lineLighter.position =  Vector3.SmoothDamp(lineLighter.position, EventSystem.current.currentSelectedGameObject.transform.position,ref velocity, smoothTime);
+        foreach (KeyValuePair<GameObject, ButtonIdentity> button in buttons)
+        {
+            button.Value.textSprite.SetActive(false);
+        }
+        
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            lightTarget = buttons[mainMenuFirstButton].buttonTransform;
+            lineLighter.position =  Vector3.SmoothDamp(lineLighter.position, lightTarget.position ,ref velocity, smoothTime);
+            buttons[mainMenuFirstButton].textSprite.SetActive(true);
+            return;
+        }
+        
+        lightTarget = buttons[EventSystem.current.currentSelectedGameObject].buttonTransform;
+        buttons[EventSystem.current.currentSelectedGameObject].textSprite.SetActive(true);
+        lineLighter.position =  Vector3.SmoothDamp(lineLighter.position, lightTarget.position ,ref velocity, smoothTime);
     }
     
     public void StartGame()
@@ -60,4 +90,12 @@ public class MainMenuBehaviour : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
         panel.SetActive(false);
     }
+}
+
+[System.Serializable]
+public class ButtonIdentity
+{
+    public GameObject button;
+    public GameObject textSprite;
+    public Transform buttonTransform;
 }

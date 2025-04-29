@@ -1,15 +1,38 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenuBehaviour : MonoBehaviour
 {
-    public GameObject MainMenuPanel;
-    public GameObject SettingsPanel;
+    public GameObject mainMenuPanel;
+    public GameObject mainMenuFirstButton;
+    
+    public GameObject settingsPanel;
+    public GameObject settingsFirstButton;
+    
+    private Dictionary<GameObject, GameObject> _menuFirstButtons = new Dictionary<GameObject, GameObject>();
+
+    public RectTransform lineLighter;
+    [SerializeField]private float smoothTime = 0.3f;
+    private Vector3 velocity = Vector3.zero;
+    
 
     void Start()
     {
-        MainMenuPanel.SetActive(true);
-        SettingsPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+        settingsPanel.SetActive(false);
+        
+        _menuFirstButtons.Add(mainMenuPanel, mainMenuFirstButton);
+        _menuFirstButtons.Add(settingsPanel, settingsFirstButton);
+        
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
+    }
+
+    void FixedUpdate()
+    {
+        lineLighter.position =  Vector3.SmoothDamp(lineLighter.position, EventSystem.current.currentSelectedGameObject.transform.position,ref velocity, smoothTime);
     }
     
     public void StartGame()
@@ -24,13 +47,17 @@ public class MainMenuBehaviour : MonoBehaviour
 
     public void OpenPanel(GameObject panel)
     {
-        MainMenuPanel.SetActive(false);
+        mainMenuPanel.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(_menuFirstButtons[panel]);
         panel.SetActive(true);
     }
 
     public void ClosePanel(GameObject panel)
     {
-        MainMenuPanel.SetActive(true);
+        mainMenuPanel.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
         panel.SetActive(false);
     }
 }

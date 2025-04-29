@@ -18,7 +18,7 @@ public class LDEventTrigger : MonoBehaviour
         camFollow = Camera.main.GetComponent<CameraFollow>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void BeginEvent()
     {
         if (soundManager != null && isBell)soundManager.PlaySoundEffect(soundManager.bellGong);
         foreach (GameObject objectToHide in GameObjectsToDestroy)

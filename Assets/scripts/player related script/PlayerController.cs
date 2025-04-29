@@ -244,6 +244,13 @@ public class PlayerController : MonoBehaviour
             if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerLandOnWall);
             
         }
+        
+        LDEventTrigger eventTrigger = hit.collider.GetComponent<LDEventTrigger>();
+        if (eventTrigger != null) eventTrigger.BeginEvent();
+        
+        SwitchLevel switchLevel = hit.collider.GetComponent<SwitchLevel>();
+        if(switchLevel != null) switchLevel.CallSwitchLevel();
+        
         actualSpeed = 0f;
         isInMotion = false;
         initiateMotion = false;

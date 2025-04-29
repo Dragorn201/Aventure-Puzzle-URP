@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip playerDestroyWall;
     public AudioClip playerTrhowingHook;
     public AudioClip bellGong;
+    public AudioClip lanternFire;
 
     void Start()
     {
@@ -24,7 +25,6 @@ public class SoundManager : MonoBehaviour
     public void PlaySoundEffect(AudioClip clip)
     {
         effectSource.PlayOneShot(clip);
-        
     }
     
 }

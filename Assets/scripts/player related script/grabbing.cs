@@ -73,7 +73,7 @@ public class Grabbing : MonoBehaviour
         else
         {
             mesh = transformToMove.GetComponentInChildren<MeshFilter>().mesh;
-            newScale = transformToMove.GetChild(0).localScale;
+            newScale = transformToMove.GetChild(0).lossyScale;
         }
         
         

@@ -84,11 +84,8 @@ public class PlayerController : MonoBehaviour
         {
             if(movementInput != Vector3.zero)StartCoroutine(WaitBeforeMoving(directionToGo));
         }
-    }
+        
 
-    
-    void FixedUpdate()
-    {
         float x = move.ReadValue<Vector2>().x;
         float z = move.ReadValue<Vector2>().y;
         movementInput = RelativeMovementInput(camTransorm, x, z);
@@ -98,6 +95,8 @@ public class PlayerController : MonoBehaviour
             Quaternion currentRotation = transform.rotation;
             Quaternion targetRotation = Quaternion.LookRotation(movementInput.normalized);
 
+
+            
             if (Quaternion.Angle(currentRotation, targetRotation) < stepRotationSpeed)
             {
                 currentRotation = Quaternion.RotateTowards(currentRotation, targetRotation, .5f);
@@ -282,9 +281,10 @@ public class PlayerController : MonoBehaviour
         mustExitBulletTime = false;
         isInBulletTime = true;
         onEnteringBulletTime.Invoke();
+        
+        
         while (!mustExitBulletTime)
         {
-            
             transform.position = Vector3.Lerp(transform.position, targetPoint, Time.deltaTime * moveSpeed);
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, Time.deltaTime * moveSpeed);
             if (Physics.Raycast(transform.position, targetPoint, Time.deltaTime * moveSpeed))
@@ -292,7 +292,7 @@ public class PlayerController : MonoBehaviour
                 break;
             }
             
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         isInBulletTime = false;
         Time.timeScale = 1f;

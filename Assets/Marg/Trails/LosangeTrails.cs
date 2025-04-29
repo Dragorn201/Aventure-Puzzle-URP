@@ -4,13 +4,15 @@ using UnityEngine;
 public class LosangeTrails : MonoBehaviour
 {
     [Header("Losanges")]
-    public GameObject losangePrefab;           // Prefab avec SpriteRenderer et trou au centre
+    public GameObject losangePrefab;           // Prefab du losange
     public float trailLength = 5f;             // Longueur maximum du trail
-    public float spawnDistanceMin = 1f;        // Distance minimum pour spawn un losange
-    public float spawnDistanceMax = 2f;        // Distance maximum pour spawn un losange
+    public float spawnDistance = 1.5f;        // Distance entre chaque losange
 
     [Header("Fade")]
     public float fadeDuration = 1f;            // Temps avant disparition des losanges
+
+    [Header("Rotation")]
+    public bool suivreRotationPersonnage = false; // Si true, les losanges suivent la rotation du personnage
 
     [Header("Taille")]
     public float minScale = 0.5f;
@@ -19,6 +21,7 @@ public class LosangeTrails : MonoBehaviour
     private List<Vector3> trailPositions = new List<Vector3>();
     private List<LosangeInstance> losanges = new List<LosangeInstance>();
     private Vector3 lastPosition;
+    private float distanceParcourue = 0f;
 
     void Start()
     {
@@ -27,9 +30,12 @@ public class LosangeTrails : MonoBehaviour
 
     void Update()
     {
+        // Calcul de la distance parcourue
         float distanceMoved = Vector3.Distance(transform.position, lastPosition);
+        distanceParcourue += distanceMoved;
 
-        if (distanceMoved >= 0.1f)
+        // Si la distance parcourue est suffisante, instancier les losanges
+        if (distanceParcourue >= spawnDistance)
         {
             trailPositions.Add(transform.position);
             lastPosition = transform.position;
@@ -47,9 +53,12 @@ public class LosangeTrails : MonoBehaviour
             }
 
             MettreAJourLesLosanges();
+
+            // Réinitialiser la distance parcourue après avoir généré les losanges
+            distanceParcourue = 0f;
         }
 
-        // Fade progressif
+        // Fade progressif des losanges
         foreach (var losange in losanges)
         {
             losange.MettreAJourFade(fadeDuration);
@@ -58,18 +67,24 @@ public class LosangeTrails : MonoBehaviour
 
     void MettreAJourLesLosanges()
     {
+        // Calcul de la distance totale parcourue sur le trail
         float longueur = GetLongueurTotale();
-        int losangeRequis = Mathf.FloorToInt(longueur / Random.Range(spawnDistanceMin, spawnDistanceMax));
 
-        // Instancier si besoin
+        // Calcul du nombre de losanges en fonction de la distance parcourue
+        int losangeRequis = Mathf.FloorToInt(longueur / spawnDistance);
+
+        // Limiter le nombre de losanges à afficher (maximum de 4)
+        losangeRequis = Mathf.Clamp(losangeRequis, 1, 4);
+
+        // Instancier des losanges si nécessaire
         while (losanges.Count < losangeRequis)
         {
             GameObject obj = Instantiate(losangePrefab, transform.position, Quaternion.identity);
-            obj.SetActive(false);
+            obj.SetActive(false);  // Désactiver les losanges au départ
             losanges.Add(new LosangeInstance(obj, this));
         }
 
-        // Mettre à jour position/visibilité
+        // Mettre à jour la position et l'activation des losanges
         for (int i = 0; i < losanges.Count; i++)
         {
             if (i < losangeRequis)
@@ -139,6 +154,7 @@ public class LosangeTrails : MonoBehaviour
                 actif = true;
                 lifeTimer = 0f;
 
+                // Appliquer une échelle aléatoire au losange
                 float scale = Random.Range(manager.minScale, manager.maxScale);
                 echelle = new Vector3(scale, scale, scale);
                 obj.transform.localScale = echelle;
@@ -146,13 +162,11 @@ public class LosangeTrails : MonoBehaviour
 
             obj.transform.position = position;
 
-            // Orienter les losanges face à la caméra
-            if (Camera.main != null)
+            // Orienter les losanges face à la caméra ou selon la rotation du joueur
+            if (manager.suivreRotationPersonnage)
+                obj.transform.rotation = manager.transform.rotation;
+            else
                 obj.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
-
-            // Placer les losanges **sous** le Trail
-            obj.GetComponent<SpriteRenderer>().sortingLayerName = "Default"; // Assurez-vous que "Default" est sous "Particles"
-            obj.GetComponent<SpriteRenderer>().sortingOrder = -1;  // Assurez-vous que les losanges sont rendus sous les particules
         }
 
         public void MettreAJourFade(float fadeDuration)

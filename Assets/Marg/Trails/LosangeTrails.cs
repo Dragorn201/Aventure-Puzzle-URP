@@ -4,34 +4,21 @@ using UnityEngine;
 public class LosangeTrails : MonoBehaviour
 {
     [Header("Losanges")]
-    public GameObject losangePrefab;
-    public float trailLength = 5f;
-    public float spawnDistance = 1.5f; // distance entre losanges
-
-
+    public GameObject losangePrefab;           // Prefab avec SpriteRenderer et trou au centre
+    public float trailLength = 5f;             // Longueur maximum du trail
+    public float spawnDistanceMin = 1f;        // Distance minimum pour spawn un losange
+    public float spawnDistanceMax = 2f;        // Distance maximum pour spawn un losange
 
     [Header("Fade")]
-    public float fadeDuration = 1f;
-
-
-
-    [Header("Rotation")]
-    public bool suivreRotationPersonnage = false;
-
-
-
+    public float fadeDuration = 1f;            // Temps avant disparition des losanges
 
     [Header("Taille")]
     public float minScale = 0.5f;
     public float maxScale = 1.5f;
 
-
-
     private List<Vector3> trailPositions = new List<Vector3>();
     private List<LosangeInstance> losanges = new List<LosangeInstance>();
     private Vector3 lastPosition;
-
-
 
     void Start()
     {
@@ -42,12 +29,12 @@ public class LosangeTrails : MonoBehaviour
     {
         float distanceMoved = Vector3.Distance(transform.position, lastPosition);
 
-        if (distanceMoved >= 0.1f) 
+        if (distanceMoved >= 0.1f)
         {
             trailPositions.Add(transform.position);
             lastPosition = transform.position;
 
-            
+            // Supprimer les anciennes positions si le trail devient trop long
             float totalTrailLength = 0f;
             for (int i = trailPositions.Count - 1; i > 0; i--)
             {
@@ -62,6 +49,7 @@ public class LosangeTrails : MonoBehaviour
             MettreAJourLesLosanges();
         }
 
+        // Fade progressif
         foreach (var losange in losanges)
         {
             losange.MettreAJourFade(fadeDuration);
@@ -71,9 +59,9 @@ public class LosangeTrails : MonoBehaviour
     void MettreAJourLesLosanges()
     {
         float longueur = GetLongueurTotale();
-        int losangeRequis = Mathf.FloorToInt(longueur / spawnDistance);
+        int losangeRequis = Mathf.FloorToInt(longueur / Random.Range(spawnDistanceMin, spawnDistanceMax));
 
-       
+        // Instancier si besoin
         while (losanges.Count < losangeRequis)
         {
             GameObject obj = Instantiate(losangePrefab, transform.position, Quaternion.identity);
@@ -81,13 +69,14 @@ public class LosangeTrails : MonoBehaviour
             losanges.Add(new LosangeInstance(obj, this));
         }
 
+        // Mettre à jour position/visibilité
         for (int i = 0; i < losanges.Count; i++)
         {
             if (i < losangeRequis)
             {
                 float t = (float)i / (losangeRequis - 1);
                 Vector3 position = GetPositionAtT(t);
-                losanges[i].MettrePositionEtRotation(position);
+                losanges[i].MettrePosition(position);
             }
             else
             {
@@ -142,13 +131,14 @@ public class LosangeTrails : MonoBehaviour
             renderer = obj.GetComponent<SpriteRenderer>();
         }
 
-        public void MettrePositionEtRotation(Vector3 position)
+        public void MettrePosition(Vector3 position)
         {
             if (!actif)
             {
                 obj.SetActive(true);
                 actif = true;
                 lifeTimer = 0f;
+
                 float scale = Random.Range(manager.minScale, manager.maxScale);
                 echelle = new Vector3(scale, scale, scale);
                 obj.transform.localScale = echelle;
@@ -156,10 +146,13 @@ public class LosangeTrails : MonoBehaviour
 
             obj.transform.position = position;
 
-            if (manager.suivreRotationPersonnage)
-                obj.transform.rotation = manager.transform.rotation;
-            else
+            // Orienter les losanges face à la caméra
+            if (Camera.main != null)
                 obj.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+
+            // Placer les losanges **sous** le Trail
+            obj.GetComponent<SpriteRenderer>().sortingLayerName = "Default"; // Assurez-vous que "Default" est sous "Particles"
+            obj.GetComponent<SpriteRenderer>().sortingOrder = -1;  // Assurez-vous que les losanges sont rendus sous les particules
         }
 
         public void MettreAJourFade(float fadeDuration)

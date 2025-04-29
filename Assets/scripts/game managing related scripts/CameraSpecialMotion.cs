@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 public class CameraSpecialMotion : MonoBehaviour
 {
     private Camera cam;
-    private CameraFollow camFollow;
     public PlayerController playerController;
     
     [Header("bullet time parameters")]
@@ -25,7 +24,6 @@ public class CameraSpecialMotion : MonoBehaviour
 
     void Awake()
     {
-        camFollow = GetComponent<CameraFollow>();
         cam = GetComponent<Camera>();
     }
 

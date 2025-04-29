@@ -1071,7 +1071,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fracturedPrefab: {fileID: 1948579638502252638, guid: 4dba44483088cce42ade85d5f87b798e, type: 3}
-  triggerTag: Player
   explosionForce: 500
   explosionRadius: 2
 --- !u!64 &574294951
@@ -1235,7 +1234,7 @@ Transform:
   m_GameObject: {fileID: 900407484}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.880161, y: -1.5100002, z: 28.905998}
+  m_LocalPosition: {x: -10.938, y: -1.5100002, z: 28.862}
   m_LocalScale: {x: 0.44604, y: 1, z: 0.49772}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1570,7 +1569,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fracturedPrefab: {fileID: 5358536430903653210, guid: b5cb288f659891549b99de5fe43f8661, type: 3}
-  triggerTag: Player
   explosionForce: 500
   explosionRadius: 2
 --- !u!4 &966727310 stripped
@@ -1601,7 +1599,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fracturedPrefab: {fileID: 9140827234882718081, guid: ec880ec8b755dee489b882388b8b01e2, type: 3}
-  triggerTag: Player
   explosionForce: 500
   explosionRadius: 200
 --- !u!4 &1108762458 stripped
@@ -2052,7 +2049,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fracturedPrefab: {fileID: 2952789202633948179, guid: ddf68da72716cfa4dbb6e597e3ecf848, type: 3}
-  triggerTag: Player
   explosionForce: 500
   explosionRadius: 2
 --- !u!64 &1588406165
@@ -2812,6 +2808,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trails_Particules
       objectReference: {fileID: 0}
+    - target: {fileID: 6891949802080001586, guid: edf8e4f3b88d5f543a7d6a0e5ddaab51, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 491f5b13d849d7240aaa2630e28727e2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

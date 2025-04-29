@@ -5,48 +5,49 @@ public class LosangeTrails : MonoBehaviour
 {
     [Header("Losanges")]
     public GameObject losangePrefab;
-    public int losangeCount = 3;
     public float trailLength = 5f;
-    public float spawnDistance = 2f;
+    public float spawnDistance = 1.5f; // distance entre losanges
+
+
 
     [Header("Fade")]
     public float fadeDuration = 1f;
 
+
+
     [Header("Rotation")]
-    public bool followCharacterRotation = false;
+    public bool suivreRotationPersonnage = false;
+
+
+
 
     [Header("Taille")]
     public float minScale = 0.5f;
     public float maxScale = 1.5f;
 
+
+
     private List<Vector3> trailPositions = new List<Vector3>();
-    private List<Diamond> diamonds = new List<Diamond>();
+    private List<LosangeInstance> losanges = new List<LosangeInstance>();
     private Vector3 lastPosition;
+
+
 
     void Start()
     {
         lastPosition = transform.position;
-
-        // Crée les losanges
-        for (int i = 0; i < losangeCount; i++)
-        {
-            GameObject diamondObj = Instantiate(losangePrefab, transform.position, Quaternion.identity);
-            diamondObj.SetActive(false);
-            Diamond d = new Diamond(diamondObj, this);
-            diamonds.Add(d);
-        }
     }
 
     void Update()
     {
         float distanceMoved = Vector3.Distance(transform.position, lastPosition);
 
-        if (distanceMoved >= spawnDistance)
+        if (distanceMoved >= 0.1f) 
         {
             trailPositions.Add(transform.position);
             lastPosition = transform.position;
 
-            // Limite la mémoire du trail
+            
             float totalTrailLength = 0f;
             for (int i = trailPositions.Count - 1; i > 0; i--)
             {
@@ -58,114 +59,132 @@ public class LosangeTrails : MonoBehaviour
                 }
             }
 
-            UpdateDiamonds();
+            MettreAJourLesLosanges();
         }
 
-        // Met à jour les fades
-        foreach (var diamond in diamonds)
+        foreach (var losange in losanges)
         {
-            diamond.UpdateFade(fadeDuration);
+            losange.MettreAJourFade(fadeDuration);
         }
     }
 
-    void UpdateDiamonds()
+    void MettreAJourLesLosanges()
     {
-        if (trailPositions.Count < 2) return;
+        float longueur = GetLongueurTotale();
+        int losangeRequis = Mathf.FloorToInt(longueur / spawnDistance);
 
-        for (int i = 0; i < diamonds.Count; i++)
+       
+        while (losanges.Count < losangeRequis)
         {
-            float t = (float)i / (diamonds.Count - 1);
-            Vector3 position = GetPositionAtT(t);
-            diamonds[i].SetPositionAndRotation(position);
+            GameObject obj = Instantiate(losangePrefab, transform.position, Quaternion.identity);
+            obj.SetActive(false);
+            losanges.Add(new LosangeInstance(obj, this));
         }
+
+        for (int i = 0; i < losanges.Count; i++)
+        {
+            if (i < losangeRequis)
+            {
+                float t = (float)i / (losangeRequis - 1);
+                Vector3 position = GetPositionAtT(t);
+                losanges[i].MettrePositionEtRotation(position);
+            }
+            else
+            {
+                losanges[i].Desactiver();
+            }
+        }
+    }
+
+    float GetLongueurTotale()
+    {
+        float total = 0f;
+        for (int i = 1; i < trailPositions.Count; i++)
+        {
+            total += Vector3.Distance(trailPositions[i - 1], trailPositions[i]);
+        }
+        return total;
     }
 
     Vector3 GetPositionAtT(float t)
     {
-        float totalLength = 0f;
-        for (int i = 1; i < trailPositions.Count; i++)
-        {
-            totalLength += Vector3.Distance(trailPositions[i - 1], trailPositions[i]);
-        }
-
+        float totalLength = GetLongueurTotale();
         float targetLength = t * totalLength;
-        float accumulatedLength = 0f;
+        float accumulated = 0f;
 
         for (int i = 1; i < trailPositions.Count; i++)
         {
-            float segmentLength = Vector3.Distance(trailPositions[i - 1], trailPositions[i]);
-            if (accumulatedLength + segmentLength >= targetLength)
+            float segment = Vector3.Distance(trailPositions[i - 1], trailPositions[i]);
+            if (accumulated + segment >= targetLength)
             {
-                float segmentT = (targetLength - accumulatedLength) / segmentLength;
-                return Vector3.Lerp(trailPositions[i - 1], trailPositions[i], segmentT);
+                float localT = (targetLength - accumulated) / segment;
+                return Vector3.Lerp(trailPositions[i - 1], trailPositions[i], localT);
             }
-            accumulatedLength += segmentLength;
+            accumulated += segment;
         }
 
         return trailPositions[trailPositions.Count - 1];
     }
 
-    private class Diamond
+    private class LosangeInstance
     {
         public GameObject obj;
         private SpriteRenderer renderer;
         private LosangeTrails manager;
         private float lifeTimer = 0f;
-        private bool isActive = false;
-        private Vector3 initialScale;
+        private bool actif = false;
+        private Vector3 echelle;
 
-        public Diamond(GameObject obj, LosangeTrails manager)
+        public LosangeInstance(GameObject obj, LosangeTrails manager)
         {
             this.obj = obj;
             this.manager = manager;
             renderer = obj.GetComponent<SpriteRenderer>();
         }
 
-        public void SetPositionAndRotation(Vector3 position)
+        public void MettrePositionEtRotation(Vector3 position)
         {
-            if (!isActive)
+            if (!actif)
             {
                 obj.SetActive(true);
+                actif = true;
                 lifeTimer = 0f;
-                isActive = true;
-
-                // Donne une taille aléatoire au moment de l'activation
                 float scale = Random.Range(manager.minScale, manager.maxScale);
-                initialScale = new Vector3(scale, scale, scale);
-                obj.transform.localScale = initialScale;
+                echelle = new Vector3(scale, scale, scale);
+                obj.transform.localScale = echelle;
             }
 
             obj.transform.position = position;
 
-            if (manager.followCharacterRotation)
-            {
+            if (manager.suivreRotationPersonnage)
                 obj.transform.rotation = manager.transform.rotation;
-            }
             else
-            {
-                obj.transform.rotation = Quaternion.identity;
-            }
+                obj.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
         }
 
-        public void UpdateFade(float fadeDuration)
+        public void MettreAJourFade(float fadeDuration)
         {
-            if (!isActive) return;
+            if (!actif) return;
 
             lifeTimer += Time.deltaTime;
+
             if (renderer != null)
             {
                 float alpha = Mathf.Clamp01(1f - (lifeTimer / fadeDuration));
-                Color color = renderer.color;
-                color.a = alpha;
-                renderer.color = color;
+                Color c = renderer.color;
+                c.a = alpha;
+                renderer.color = c;
             }
 
-            // Désactive quand totalement transparent
-            if (lifeTimer >= fadeDuration)
-            {
+            if (lifeTimer > fadeDuration)
+                Desactiver();
+        }
+
+        public void Desactiver()
+        {
+            if (obj != null)
                 obj.SetActive(false);
-                isActive = false;
-            }
+            actif = false;
         }
     }
 }

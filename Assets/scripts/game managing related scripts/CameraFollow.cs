@@ -147,12 +147,8 @@ public class CameraFollow : MonoBehaviour
 
     public IEnumerator ChangeCameraModeToStatic(bool isUnfixed, Vector3 newCameraPosition, Quaternion newCameraRotation, float newCamSpeed, float newTransitionDuration)
     {
-        if(isUnfixed == true)yield return new WaitForSecondsRealtime(1f);
-        else
-        {
-            yield return new WaitForEndOfFrame();
-        }
-        
+        yield return new WaitForEndOfFrame();
+
         mustFollowPlayerPosition = isUnfixed;
         MustBeBasicRotation = isUnfixed;
         actualCamSpeed = newCamSpeed;

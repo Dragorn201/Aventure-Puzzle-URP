@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
@@ -39,6 +40,7 @@ public class MainMenuBehaviour : MonoBehaviour
         
         mainMenuPanel.SetActive(false);
         settingsPanel.SetActive(false);
+        lineLighter.gameObject.SetActive(false);
         
         _menuFirstButtons.Add(mainMenuPanel, mainMenuFirstButton);
         _menuFirstButtons.Add(settingsPanel, settingsFirstButton);
@@ -72,6 +74,7 @@ public class MainMenuBehaviour : MonoBehaviour
     {
         mainMenuPanel.SetActive(true);
         videoPlayer.SetActive(false);
+        lineLighter.gameObject.SetActive(true);
         EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
         lightTarget = buttons[_menuFirstButtons[mainMenuPanel]].buttonTransform;
     }

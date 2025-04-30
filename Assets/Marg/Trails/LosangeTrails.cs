@@ -4,19 +4,22 @@ using UnityEngine;
 public class LosangeTrails : MonoBehaviour
 {
     [Header("Losanges")]
-    public GameObject losangePrefab;           // Prefab du losange
-    public float trailLength = 5f;             // Longueur maximum du trail
-    public float spawnDistance = 1.5f;        // Distance entre chaque losange
+    public GameObject losangePrefab;
+    public float trailLength = 5f;
+    public float spawnDistance = 1.5f;
 
     [Header("Fade")]
-    public float fadeDuration = 1f;            // Temps avant disparition des losanges
+    public float fadeDuration = 1f;
 
     [Header("Rotation")]
-    public bool suivreRotationPersonnage = false; // Si true, les losanges suivent la rotation du personnage
+    public bool suivreRotationPersonnage = false;
 
     [Header("Taille")]
     public float minScale = 0.5f;
     public float maxScale = 1.5f;
+
+    [Header("Couleur")]
+    public Color losangeColor = Color.white;
 
     private List<Vector3> trailPositions = new List<Vector3>();
     private List<LosangeInstance> losanges = new List<LosangeInstance>();
@@ -30,17 +33,14 @@ public class LosangeTrails : MonoBehaviour
 
     void Update()
     {
-        // Calcul de la distance parcourue
         float distanceMoved = Vector3.Distance(transform.position, lastPosition);
         distanceParcourue += distanceMoved;
 
-        // Si la distance parcourue est suffisante, instancier les losanges
         if (distanceParcourue >= spawnDistance)
         {
             trailPositions.Add(transform.position);
             lastPosition = transform.position;
 
-            // Supprimer les anciennes positions si le trail devient trop long
             float totalTrailLength = 0f;
             for (int i = trailPositions.Count - 1; i > 0; i--)
             {
@@ -53,12 +53,9 @@ public class LosangeTrails : MonoBehaviour
             }
 
             MettreAJourLesLosanges();
-
-            // Réinitialiser la distance parcourue après avoir généré les losanges
             distanceParcourue = 0f;
         }
 
-        // Fade progressif des losanges
         foreach (var losange in losanges)
         {
             losange.MettreAJourFade(fadeDuration);
@@ -67,24 +64,17 @@ public class LosangeTrails : MonoBehaviour
 
     void MettreAJourLesLosanges()
     {
-        // Calcul de la distance totale parcourue sur le trail
         float longueur = GetLongueurTotale();
-
-        // Calcul du nombre de losanges en fonction de la distance parcourue
         int losangeRequis = Mathf.FloorToInt(longueur / spawnDistance);
-
-        // Limiter le nombre de losanges à afficher (maximum de 4)
         losangeRequis = Mathf.Clamp(losangeRequis, 1, 4);
 
-        // Instancier des losanges si nécessaire
         while (losanges.Count < losangeRequis)
         {
             GameObject obj = Instantiate(losangePrefab, transform.position, Quaternion.identity);
-            obj.SetActive(false);  // Désactiver les losanges au départ
+            obj.SetActive(false);
             losanges.Add(new LosangeInstance(obj, this));
         }
 
-        // Mettre à jour la position et l'activation des losanges
         for (int i = 0; i < losanges.Count; i++)
         {
             if (i < losangeRequis)
@@ -154,15 +144,18 @@ public class LosangeTrails : MonoBehaviour
                 actif = true;
                 lifeTimer = 0f;
 
-                // Appliquer une échelle aléatoire au losange
                 float scale = Random.Range(manager.minScale, manager.maxScale);
                 echelle = new Vector3(scale, scale, scale);
                 obj.transform.localScale = echelle;
+
+                if (renderer != null)
+                {
+                    renderer.color = manager.losangeColor;
+                }
             }
 
             obj.transform.position = position;
 
-            // Orienter les losanges face à la caméra ou selon la rotation du joueur
             if (manager.suivreRotationPersonnage)
                 obj.transform.rotation = manager.transform.rotation;
             else

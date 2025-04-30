@@ -84,11 +84,8 @@ public class PlayerController : MonoBehaviour
         {
             if(movementInput != Vector3.zero)StartCoroutine(WaitBeforeMoving(directionToGo));
         }
-    }
+        
 
-    
-    void FixedUpdate()
-    {
         float x = move.ReadValue<Vector2>().x;
         float z = move.ReadValue<Vector2>().y;
         movementInput = RelativeMovementInput(camTransorm, x, z);
@@ -98,6 +95,8 @@ public class PlayerController : MonoBehaviour
             Quaternion currentRotation = transform.rotation;
             Quaternion targetRotation = Quaternion.LookRotation(movementInput.normalized);
 
+
+            
             if (Quaternion.Angle(currentRotation, targetRotation) < stepRotationSpeed)
             {
                 currentRotation = Quaternion.RotateTowards(currentRotation, targetRotation, .5f);
@@ -201,7 +200,6 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(transform.position + offset, dirOnStart, Vector3.Distance(transform.position, Vector3.MoveTowards(transform.position, targetPoint, actualSpeed))))
             {
                 moveSpeed = basicSpeed;
-                Debug.Log(offset);
                 break;
             }
             
@@ -227,7 +225,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         
-        transform.position = previousPos - offset;
+        transform.position = previousPos;
         
         GettingOnWall(interrupted ,basicSpeed ,hit ,dirOnStart);
     }
@@ -240,11 +238,18 @@ public class PlayerController : MonoBehaviour
         if(!interrupted) wallDestroyed = TryDestroyWall(actualSpeed, hit, dirOnStart);
         if (!wallDestroyed)
         {
-            GameObject newWaveParticle = Instantiate(wavePrefab,transform.position , Quaternion.LookRotation(-hit.normal));
+            GameObject newWaveParticle = Instantiate(wavePrefab,hit.point , Quaternion.LookRotation(-hit.normal));
             Destroy(newWaveParticle, .6f);
             if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerLandOnWall);
             
         }
+        
+        LDEventTrigger eventTrigger = hit.collider.GetComponent<LDEventTrigger>();
+        if (eventTrigger != null) eventTrigger.BeginEvent();
+        
+        SwitchLevel switchLevel = hit.collider.GetComponent<SwitchLevel>();
+        if(switchLevel != null) switchLevel.CallSwitchLevel();
+        
         actualSpeed = 0f;
         isInMotion = false;
         initiateMotion = false;
@@ -276,9 +281,10 @@ public class PlayerController : MonoBehaviour
         mustExitBulletTime = false;
         isInBulletTime = true;
         onEnteringBulletTime.Invoke();
+        
+        
         while (!mustExitBulletTime)
         {
-            
             transform.position = Vector3.Lerp(transform.position, targetPoint, Time.deltaTime * moveSpeed);
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, Time.deltaTime * moveSpeed);
             if (Physics.Raycast(transform.position, targetPoint, Time.deltaTime * moveSpeed))
@@ -286,7 +292,7 @@ public class PlayerController : MonoBehaviour
                 break;
             }
             
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
         isInBulletTime = false;
         Time.timeScale = 1f;

@@ -399,6 +399,7 @@ MonoBehaviour:
   isMoving: 0
   blocWallDistance: 0
   selfVelocity: 0
+  levitationIntensity: 0.5
 --- !u!65 &27558438
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -865,6 +866,7 @@ MonoBehaviour:
   isMoving: 0
   blocWallDistance: 0
   selfVelocity: 0
+  levitationIntensity: 0.5
 --- !u!65 &107116553
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4476,7 +4478,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: followPlayer
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: camSpeedOnZoneExiting
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: camSpeedOnZoneEntering
@@ -4532,7 +4538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Size.z
-      value: 19.542095
+      value: 19.571167
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.x
@@ -4540,19 +4546,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.z
-      value: 0.27438927
+      value: 0.25985336
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 45
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5652,6 +5658,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: transitionDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: camSpeedOnZoneEntering
       value: 1
       objectReference: {fileID: 0}
@@ -5709,7 +5719,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Size.z
-      value: 18.655357
+      value: 18.840782
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.x
@@ -5721,7 +5731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.z
-      value: -19.795155
+      value: -19.702442
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7536,6 +7546,7 @@ MonoBehaviour:
   isMoving: 0
   blocWallDistance: 0
   selfVelocity: 0
+  levitationIntensity: 0.5
 --- !u!65 &1323896903
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11910,6 +11921,7 @@ MonoBehaviour:
   isMoving: 0
   blocWallDistance: 0
   selfVelocity: 0
+  levitationIntensity: 0.5
 --- !u!65 &1739745570
 BoxCollider:
   m_ObjectHideFlags: 0

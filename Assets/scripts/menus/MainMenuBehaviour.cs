@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
@@ -25,7 +27,9 @@ public class MainMenuBehaviour : MonoBehaviour
     
     public Dictionary<GameObject, ButtonIdentity> buttons = new Dictionary<GameObject, ButtonIdentity>();
     private Transform lightTarget;
-    
+
+    public GameObject videoPlayer;
+    private bool keyPressed = false;
 
     void Start()
     {
@@ -34,13 +38,43 @@ public class MainMenuBehaviour : MonoBehaviour
             buttons.Add(button.button, button);
         }
         
-        mainMenuPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
         settingsPanel.SetActive(false);
+        lineLighter.gameObject.SetActive(false);
         
         _menuFirstButtons.Add(mainMenuPanel, mainMenuFirstButton);
         _menuFirstButtons.Add(settingsPanel, settingsFirstButton);
         
-        //EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(null);
+
+        StartCoroutine(StopVideoPlayer());
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            keyPressed = true;
+        }
+    }
+
+    IEnumerator StopVideoPlayer()
+    {
+
+        float elapsedTime = 0;
+        while (!keyPressed && elapsedTime < 12f)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        StartMenu();
+    }
+
+    void StartMenu()
+    {
+        mainMenuPanel.SetActive(true);
+        videoPlayer.SetActive(false);
+        lineLighter.gameObject.SetActive(true);
         EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
         lightTarget = buttons[_menuFirstButtons[mainMenuPanel]].buttonTransform;
     }

@@ -15106,6 +15106,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e824136041f7565419dbd02182e3ce51, type: 3}
       insertIndex: -1
       addedObject: {fileID: 435177462}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e824136041f7565419dbd02182e3ce51, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 435177465}
   m_SourcePrefab: {fileID: 100100000, guid: e824136041f7565419dbd02182e3ce51, type: 3}
 --- !u!4 &435177460 stripped
 Transform:
@@ -15136,8 +15139,25 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2000003, y: 3.0000005, z: 6.0000014}
-  m_Center: {x: 0.050151687, y: 1.5038135, z: 0.740984}
+  m_Size: {x: 1.2000003, y: 3.0000005, z: 6}
+  m_Center: {x: 0, y: 1.5, z: 0.775}
+--- !u!114 &435177465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435177461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c385ee524150024c954516394509022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleHited: 0
+  isMoving: 0
+  blocWallDistance: 0
+  selfVelocity: 0
+  levitationIntensity: 0.1
 --- !u!1001 &436570895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17406,6 +17426,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 33cc8e8d875cf3c46b505aff9b7192d3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 505905501}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 33cc8e8d875cf3c46b505aff9b7192d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 505905504}
   m_SourcePrefab: {fileID: 100100000, guid: 33cc8e8d875cf3c46b505aff9b7192d3, type: 3}
 --- !u!4 &505905499 stripped
 Transform:
@@ -17436,8 +17459,25 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3147252, y: 3.0000007, z: 5.951172}
-  m_Center: {x: 0.047689497, y: 1.3594073, z: 0.15736389}
+  m_Size: {x: 1, y: 3.5, z: 5.5}
+  m_Center: {x: 0, y: 1.25, z: 0}
+--- !u!114 &505905504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505905500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c385ee524150024c954516394509022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleHited: 0
+  isMoving: 0
+  blocWallDistance: 0
+  selfVelocity: 0
+  levitationIntensity: 0.1
 --- !u!1001 &509151081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29133,6 +29173,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 099b4234d99ed3b4a8086bc2ac896f82, type: 3}
       insertIndex: -1
       addedObject: {fileID: 875481900}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 099b4234d99ed3b4a8086bc2ac896f82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 875481904}
   m_SourcePrefab: {fileID: 100100000, guid: 099b4234d99ed3b4a8086bc2ac896f82, type: 3}
 --- !u!1 &875481899 stripped
 GameObject:
@@ -29159,12 +29202,29 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1.2, y: 3.0000005, z: 5.5}
-  m_Center: {x: 0.050151706, y: 0.45196235, z: 0.55574036}
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!4 &875481901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 099b4234d99ed3b4a8086bc2ac896f82, type: 3}
   m_PrefabInstance: {fileID: 875481898}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &875481904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875481899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c385ee524150024c954516394509022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleHited: 0
+  isMoving: 0
+  blocWallDistance: 0
+  selfVelocity: 0
+  levitationIntensity: 0.1
 --- !u!1001 &876957532
 PrefabInstance:
   m_ObjectHideFlags: 0

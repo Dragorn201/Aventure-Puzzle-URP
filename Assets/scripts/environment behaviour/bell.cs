@@ -1,24 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class bell : MonoBehaviour
+public class Bell : MonoBehaviour
 {
     private Camera currentCamera;
+    public Transform movingTransform;
+    public Transform rotatingTransform;
     public Animation cameraMovement;
+    public Animation cameraRotation;
 
-    public void StartEvent()
-    {
-        currentCamera.transform.GetComponent<CameraFollow>().enabled=false;
-        cameraMovement.Play();
-        currentCamera.transform.gameObject.SetActive(false);
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentCamera = Camera.main;
+    }
+    
+    public void StartEvent()
+    {
+        currentCamera.transform.GetComponent<CameraFollow>().enabled = false;
+        StartCoroutine(MoveCamera());
+        cameraMovement.Play();
+        cameraRotation.Play();
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator MoveCamera()
     {
+        while (cameraMovement.isPlaying)
+        {
+            currentCamera.transform.position = movingTransform.position;
+            currentCamera.transform.rotation = rotatingTransform.rotation;
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
+        currentCamera.transform.GetComponent<CameraFollow>().enabled = true;
         
     }
+
 }

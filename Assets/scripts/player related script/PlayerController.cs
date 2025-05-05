@@ -249,6 +249,9 @@ public class PlayerController : MonoBehaviour
         
         SwitchLevel switchLevel = hit.collider.GetComponent<SwitchLevel>();
         if(switchLevel != null) switchLevel.CallSwitchLevel();
+
+        bell newbell=hit.collider.GetComponent<bell>();
+        if(newbell != null) newbell.StartEvent();
         
         actualSpeed = 0f;
         isInMotion = false;

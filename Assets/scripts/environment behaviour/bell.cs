@@ -18,9 +18,10 @@ public class Bell : MonoBehaviour
     public void StartEvent()
     {
         currentCamera.transform.GetComponent<CameraFollow>().enabled = false;
-        StartCoroutine(MoveCamera());
         cameraMovement.Play();
         cameraRotation.Play();
+        StartCoroutine(MoveCamera());
+        
     }
 
     private IEnumerator MoveCamera()

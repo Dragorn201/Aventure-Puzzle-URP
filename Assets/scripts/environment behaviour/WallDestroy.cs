@@ -19,7 +19,7 @@ public class WallDestroy : MonoBehaviour
         if (speed > minSpeedToDestroyWall)
         {
             onWallDestroyed.Invoke();
-            soundManager.PlaySoundEffect(soundManager.playerDestroyWall);
+            if(soundManager != null)soundManager.PlaySoundEffect(soundManager.playerDestroyWall);
             if(_fracture == null) Destroy(gameObject);
             Debug.Log("Wall destroyed = true");
             return true;

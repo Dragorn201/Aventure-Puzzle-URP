@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LDEventTrigger : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class LDEventTrigger : MonoBehaviour
     [SerializeField]private SoundManager soundManager;
     
     private CameraFollow camFollow;
+    
+    public UnityEvent onBell;
     
 
 
@@ -27,5 +30,6 @@ public class LDEventTrigger : MonoBehaviour
             Debug.Log(objectToHide.name + " has been destroyed");
         }
         camFollow.StartCinematic(camWaypoints);
+        if(isBell)onBell.Invoke();
     }
 }

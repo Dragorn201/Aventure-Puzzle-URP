@@ -245,10 +245,20 @@ public class PlayerController : MonoBehaviour
         }
         
         LDEventTrigger eventTrigger = hit.collider.GetComponent<LDEventTrigger>();
-        if (eventTrigger != null) eventTrigger.BeginEvent();
+        if (eventTrigger != null)
+        {
+            eventTrigger.BeginEvent();
+            if (eventTrigger.isBell)
+            {
+                Bell bell = hit.collider.GetComponent<Bell>();
+                if(bell != null) bell.StartEvent();
+            }
+        }
         
         SwitchLevel switchLevel = hit.collider.GetComponent<SwitchLevel>();
         if(switchLevel != null) switchLevel.CallSwitchLevel();
+
+        
         
         actualSpeed = 0f;
         isInMotion = false;

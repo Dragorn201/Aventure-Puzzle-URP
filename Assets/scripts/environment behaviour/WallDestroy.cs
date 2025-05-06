@@ -21,8 +21,10 @@ public class WallDestroy : MonoBehaviour
             onWallDestroyed.Invoke();
             soundManager.PlaySoundEffect(soundManager.playerDestroyWall);
             if(_fracture == null) Destroy(gameObject);
+            Debug.Log("Wall destroyed = true");
             return true;
         }
+        Debug.Log("Wall destroyed = false");
         return false;
     }
 }

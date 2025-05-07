@@ -211,34 +211,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 505415e6f3559554e9190a5f84244726, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7504658489330379934}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 505415e6f3559554e9190a5f84244726, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8488895076960579829}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 505415e6f3559554e9190a5f84244726, type: 3}
       insertIndex: -1
       addedObject: {fileID: 69208662350935798}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 505415e6f3559554e9190a5f84244726, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9151411477264619285}
   m_SourcePrefab: {fileID: 100100000, guid: 505415e6f3559554e9190a5f84244726, type: 3}
 --- !u!1 &7374265368466849496 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 505415e6f3559554e9190a5f84244726, type: 3}
   m_PrefabInstance: {fileID: 7680834849567097737}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7504658489330379934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7374265368466849496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bec5198e704ade4b8623c39b3e0ccba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fracturedPrefab: {fileID: 1948579638502252638, guid: 4dba44483088cce42ade85d5f87b798e, type: 3}
-  explosionForce: 2000
-  explosionRadius: 2
 --- !u!114 &8488895076960579829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,11 +236,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a42e9063f60624692100a8628ed95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeedToDestroyWall: 0.1
+  minSpeedToDestroyWall: 0.0001
   onWallDestroyed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7504658489330379934}
+      - m_Target: {fileID: 9151411477264619285}
         m_TargetAssemblyTypeName: Fracture, Assembly-CSharp
         m_MethodName: Explode
         m_Mode: 1
@@ -288,6 +273,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.58688116, y: 6.0000005, z: 3.7500005}
   m_Center: {x: -0.0000017285344, y: 5.151435e-14, z: 1.8750002}
+--- !u!114 &9151411477264619285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7374265368466849496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bec5198e704ade4b8623c39b3e0ccba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fracturedPrefab: {fileID: 1948579638502252638, guid: 4dba44483088cce42ade85d5f87b798e, type: 3}
+  explosionForce: 2000
+  explosionRadius: 2
 --- !u!4 &7862572348486853730 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 505415e6f3559554e9190a5f84244726, type: 3}

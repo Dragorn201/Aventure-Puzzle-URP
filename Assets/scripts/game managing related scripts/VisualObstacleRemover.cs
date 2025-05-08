@@ -76,24 +76,28 @@ public class VisualObstacleRemover : MonoBehaviour
     {
         Material mat = rend.material;
         Color color = mat.color;
-        float startAlpha = color.a;
-
-        if (targetAlpha < 1f)
-            SetMaterialTransparent(mat);
-
-        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        if (color != null)
         {
-            float alpha = Mathf.Lerp(startAlpha, targetAlpha, t / fadeDuration);
-            mat.color = new Color(color.r, color.g, color.b, alpha);
-            yield return null;
+            float startAlpha = color.a;
+            
+            if (targetAlpha < 1f)
+                SetMaterialTransparent(mat);
+    
+            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+            {
+                float alpha = Mathf.Lerp(startAlpha, targetAlpha, t / fadeDuration);
+                mat.color = new Color(color.r, color.g, color.b, alpha);
+                yield return null;
+            }
+    
+            mat.color = new Color(color.r, color.g, color.b, targetAlpha);
+    
+            if (targetAlpha >= 1f)
+                SetMaterialOpaque(mat);
+    
+            activeFades.Remove(rend);
         }
-
-        mat.color = new Color(color.r, color.g, color.b, targetAlpha);
-
-        if (targetAlpha >= 1f)
-            SetMaterialOpaque(mat);
-
-        activeFades.Remove(rend);
+        
     }
 
     private void SetMaterialTransparent(Material mat)

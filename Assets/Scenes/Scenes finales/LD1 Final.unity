@@ -35149,7 +35149,7 @@ PrefabInstance:
     - target: {fileID: 8488895076960579829, guid: 1e491e4226c59924481025816c5d5475, type: 3}
       propertyPath: onWallDestroyed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1094538839}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35177,11 +35177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0b9d9b485b95e4cbd937265dcd3bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  materials: []
-  dissolveRate: 0.0125
-  refreshRate: 0.025
-  parameter: _DissolveAmount
 --- !u!1001 &967593497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39617,6 +39612,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 362f06d2e4bb9564fa58e22e9b90dbc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1094538839 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9151411477264619285, guid: 1e491e4226c59924481025816c5d5475, type: 3}
+  m_PrefabInstance: {fileID: 965233413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bec5198e704ade4b8623c39b3e0ccba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1096017908 stripped
@@ -48715,11 +48721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0b9d9b485b95e4cbd937265dcd3bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  materials: []
-  dissolveRate: 0.0125
-  refreshRate: 0.025
-  parameter: _DissolveAmount
 --- !u!1 &1341606045 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3668477949666646175, guid: 5fe68685b46431948bb92f8f21722469, type: 3}
@@ -66479,11 +66480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0b9d9b485b95e4cbd937265dcd3bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  materials: []
-  dissolveRate: 0.0125
-  refreshRate: 0.025
-  parameter: _DissolveAmount
 --- !u!1001 &1703628447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69376,11 +69372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0b9d9b485b95e4cbd937265dcd3bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  materials: []
-  dissolveRate: 0.0125
-  refreshRate: 0.025
-  parameter: _DissolveAmount
 --- !u!1 &1797442819
 GameObject:
   m_ObjectHideFlags: 0
@@ -69429,11 +69420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0b9d9b485b95e4cbd937265dcd3bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  materials: []
-  dissolveRate: 0.0125
-  refreshRate: 0.025
-  parameter: _DissolveAmount
 --- !u!1001 &1803883581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81109,11 +81095,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0b9d9b485b95e4cbd937265dcd3bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  materials: []
-  dissolveRate: 0.0125
-  refreshRate: 0.025
-  parameter: _DissolveAmount
 --- !u!4 &2137324845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 107399034228029263, guid: 8174ee88ddd4a4b41bb7f19d4eab8a33, type: 3}

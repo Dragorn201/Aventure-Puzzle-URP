@@ -30159,8 +30159,6 @@ GameObject:
   m_Component:
   - component: {fileID: 912267888}
   - component: {fileID: 912267891}
-  - component: {fileID: 912267890}
-  - component: {fileID: 912267889}
   m_Layer: 0
   m_Name: Pan_De_Mur_8
   m_TagString: Untagged
@@ -30181,6 +30179,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1044521055}
   - {fileID: 265196825}
   - {fileID: 14264386}
   - {fileID: 1840572549}
@@ -30188,39 +30187,6 @@ Transform:
   - {fileID: 837210879}
   m_Father: {fileID: 2051054211}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &912267889
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912267887}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7, y: 4.5, z: 1}
-  m_Center: {x: 0, y: -2.75, z: -0.5}
---- !u!114 &912267890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912267887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 362f06d2e4bb9564fa58e22e9b90dbc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &912267891
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34071,6 +34037,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8465050774619818805, guid: ee0b9b969e792a940a944ee085b6376d, type: 3}
   m_PrefabInstance: {fileID: 1043514090}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1044521052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044521055}
+  - component: {fileID: 1044521054}
+  - component: {fileID: 1044521053}
+  m_Layer: 0
+  m_Name: Mur_Invisible_Nograb_Despawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1044521053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044521052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362f06d2e4bb9564fa58e22e9b90dbc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1044521054
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044521052}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 5, z: 7.5}
+  m_Center: {x: 0, y: 0, z: 1.4999995}
+--- !u!4 &1044521055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044521052}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.5, y: -2.5, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 912267888}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1050865882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76211,6 +76243,7 @@ MonoBehaviour:
   GameObjectsToDestroy:
   - {fileID: 1348759619}
   - {fileID: 837210878}
+  - {fileID: 1044521052}
   camWaypoints: []
   soundManager: {fileID: 6109284683912412931}
   onBell:

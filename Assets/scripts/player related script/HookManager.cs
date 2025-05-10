@@ -62,12 +62,13 @@ public class HookManager : MonoBehaviour
                 hook.transform.GetChild(1).position = transform.position;
     
             
-    
+                hook.transform.GetChild(2).position = hit.point;
+                
+                
                 float elapsedTime = 0;
                 while (elapsedTime < timeBeforePlayerMove)
                 {
                     elapsedTime += Time.fixedDeltaTime;
-                    hook.transform.GetChild(2).position = Vector3.Lerp(transform.position,hit.point, elapsedTime / timeBeforePlayerMove);
                     yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
                 }
                 
@@ -85,10 +86,10 @@ public class HookManager : MonoBehaviour
         hookHand.transform.rotation = Quaternion.LookRotation(hit.normal);
         while (playerMoving)
         {
-            hook.transform.GetChild(1).position = transform.position;
             yield return new WaitForFixedUpdate();
         }
 
+        hook.transform.GetChild(1).position = transform.position;
         hook.SetActive(false);
         hookHand.SetActive(false);
     }

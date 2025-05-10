@@ -33886,6 +33886,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1612501925}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1612501926}
   m_SourcePrefab: {fileID: 100100000, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
 --- !u!1 &948642063 stripped
 GameObject:
@@ -56851,6 +56854,18 @@ MonoBehaviour:
           m_StringArgument: BeginDissolving()
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1612501926}
+        m_TargetAssemblyTypeName: DissolvingRonces, Assembly-CSharp
+        m_MethodName: BeginDissolving
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BeginDissolving()
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1612501923 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
@@ -56888,6 +56903,22 @@ MonoBehaviour:
   dissolveRate: 0.125
   refreshRate: 0.025
   parameter: _Distance
+--- !u!114 &1612501926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612501919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb86111cba349624692a42d97e42a185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: d999c1d182cd2a24a957b6f94b488a62, type: 2}
+  dissolveRate: 0.0125
+  refreshRate: 0.025
+  parameter: _DissolveAmount
 --- !u!1 &1612763657
 GameObject:
   m_ObjectHideFlags: 0

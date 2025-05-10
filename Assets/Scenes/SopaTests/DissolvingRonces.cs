@@ -4,6 +4,9 @@ using System.Collections;
 public class DissolvingRonces : MonoBehaviour
 {
     public Material material;
+#if UNITY_EDITOR
+    Material mat2;
+#endif
 
     public float dissolveRate = 0.0125f;
     public float refreshRate = 0.025f;
@@ -12,6 +15,9 @@ public class DissolvingRonces : MonoBehaviour
     void Awake()
     {
         material.SetFloat(parameter, 0);
+#if UNITY_EDITOR
+        mat2 = new Material(material);
+#endif
     }
 
     IEnumerator DissolvingCo()
@@ -31,4 +37,11 @@ public class DissolvingRonces : MonoBehaviour
     {
         StartCoroutine(DissolvingCo());
     }
+    
+#if UNITY_EDITOR
+    void OnApplicationQuit()
+    {
+        material.CopyPropertiesFromMaterial(mat2);
+    }
+#endif
 }

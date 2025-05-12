@@ -148,6 +148,7 @@ public class PlayerController : MonoBehaviour
             if(!isWaitingForTheHook)onThrowingHook.Invoke();
             isWaitingForTheHook = true;
             yield return new WaitForSecondsRealtime(timeBeforeMoving);
+            soundManager.PlaySoundEffect(soundManager.hookHitWall);
             ShootHook(directionToGo);
         }
     }

@@ -18,6 +18,9 @@ public class PauseMenuBehaviour : MonoBehaviour
     public GameObject settingsMenuFirstButton;
     
     public Dictionary<GameObject, GameObject> panelsFistButtons = new Dictionary<GameObject, GameObject>();
+    
+    public GameObject videoPlayer;
+    private bool keyPressed = false;
 
     void Awake()
     {
@@ -31,6 +34,8 @@ public class PauseMenuBehaviour : MonoBehaviour
         activePanel = null;
         pauseMenuPanel.SetActive(false);
         StartCoroutine(LoadVolume());
+        StartCoroutine(StopVideoPlayer());
+        videoPlayer.SetActive(true);
     }
 
     IEnumerator LoadVolume()
@@ -56,6 +61,24 @@ public class PauseMenuBehaviour : MonoBehaviour
         {
             ClosePanel(activePanel);
         }
+        
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            keyPressed = true;
+        }
+    }
+    
+    IEnumerator StopVideoPlayer()
+    {
+
+        float elapsedTime = 0;
+        while (!keyPressed && elapsedTime < 7f)
+        {
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        pauseMenuPanel.SetActive(false);
+        videoPlayer.SetActive(false);
     }
 
     public void OpenClosePauseMenu(bool menuState = false)

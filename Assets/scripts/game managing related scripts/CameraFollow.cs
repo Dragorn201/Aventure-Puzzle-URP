@@ -167,6 +167,7 @@ public class CameraFollow : MonoBehaviour
         yield return new WaitForSeconds(camDelay);
 
         MustBeBasicRotation = stop;
+        mustFollowPlayerPosition = !stop;
 
         if (!stop)
         {

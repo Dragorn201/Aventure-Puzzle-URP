@@ -63,7 +63,7 @@ public class PauseMenuBehaviour : MonoBehaviour
             ClosePanel(activePanel);
         }
         
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Space))
         {
             keyPressed = true;
         }
@@ -80,7 +80,7 @@ public class PauseMenuBehaviour : MonoBehaviour
             if (elapsedTime >= 6f)
             {
                 float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - 6f));
-                videoPlayerImage.color = new Color(1f, 1f, 1f, newAlpha * 255);
+                videoPlayerImage.color = new Color(videoPlayerImage.color.r, videoPlayerImage.color.g, videoPlayerImage.color.b, newAlpha);
             }
             yield return new WaitForFixedUpdate();
         }

@@ -69,7 +69,7 @@ public class MainMenuBehaviour : MonoBehaviour
             if (elapsedTime >= 6f)
             {
                 float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - 11f));
-                videoPlayerImage.color = new Color(1f, 1f, 1f, newAlpha * 255);
+                videoPlayerImage.color = new Color(1f, 1f, 1f, newAlpha);
             }
             yield return new WaitForFixedUpdate();
         }

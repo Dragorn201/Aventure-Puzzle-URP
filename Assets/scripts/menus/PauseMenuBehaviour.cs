@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PauseMenuBehaviour : MonoBehaviour
 {
@@ -71,10 +72,16 @@ public class PauseMenuBehaviour : MonoBehaviour
     IEnumerator StopVideoPlayer()
     {
 
+        RawImage videoPlayerImage = videoPlayer.GetComponent<RawImage>();
         float elapsedTime = 0;
         while (!keyPressed && elapsedTime < 7f)
         {
             elapsedTime += Time.fixedDeltaTime;
+            if (elapsedTime >= 6f)
+            {
+                float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - 6f));
+                videoPlayerImage.color = new Color(1f, 1f, 1f, newAlpha * 255);
+            }
             yield return new WaitForFixedUpdate();
         }
         pauseMenuPanel.SetActive(false);

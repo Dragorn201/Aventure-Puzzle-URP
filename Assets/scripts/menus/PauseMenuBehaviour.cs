@@ -183,6 +183,11 @@ public class PauseMenuBehaviour : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(panelsFistButtons[pauseMenuPanel]);
     }
 
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");

@@ -10,11 +10,14 @@ public class SoundManager : MonoBehaviour
     public AudioClip backGroundMusic;
     
     [Header("sfx clips")]
-    public AudioClip playerLandOnWall;
-    public AudioClip playerDestroyWall;
     public AudioClip playerTrhowingHook;
-    public AudioClip bellGong;
+    public AudioClip hookHitWall;
+    public AudioClip playerLandOnWall;
+    public AudioClip environmentMovingBloc;
+    public AudioClip playerDestroyWall;
     public AudioClip lanternFire;
+    public AudioClip bellGong;
+    public AudioClip endingPurification;
 
     void Start()
     {

@@ -9,9 +9,9 @@ public class SpawnAleatoire : MonoBehaviour
     public int maxSpawnCount = 500;
 
     [Header("Raycast setup")]
-    public float distanceBetweenCheck = 5f;
-    public float heightOfCheck = -18f;
-    public float rangeOfCheck = 30f;
+    public float distanceBetweenCheck = 5f;   //espacement entre chaque spawn
+    public float heightOfCheck = -18f;   // raycast vers le bas doit etre plus haut que mon sol
+    public float rangeOfCheck = 30f;   // distance max que raycast peut parcourir
     public LayerMask layerMask;
 
     [Header("Spawn Zone")]

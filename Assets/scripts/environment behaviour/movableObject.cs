@@ -74,8 +74,7 @@ public class MovableObject : MonoBehaviour
         WallDestroy wallDestroy = hit.collider.GetComponent<WallDestroy>();
         if (wallDestroy != null)
         {
-            bool wallDestroyed = wallDestroy.TryDestroyWall(selfVelocity);
-            if (wallDestroyed) Destroy(wallDestroy.transform.gameObject);
+            wallDestroy.TryDestroyWall(selfVelocity);
         }
     }
 

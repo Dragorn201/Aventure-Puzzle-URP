@@ -64,8 +64,8 @@ public class MainMenuBehaviour : MonoBehaviour
         float elapsedTime = 0;
         while (!keyPressed && elapsedTime < 12f)
         {
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
         }
         StartMenu();
     }

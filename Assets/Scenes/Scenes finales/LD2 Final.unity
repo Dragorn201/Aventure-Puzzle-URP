@@ -20882,7 +20882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
-      value: -0.00000003077767
+      value: 0.000000045516273
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[1].m_Value.x
@@ -20890,7 +20890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[1].m_Value.y
-      value: -0.00000003077767
+      value: 0.000000045516273
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[2].m_Value.x
@@ -20898,7 +20898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[2].m_Value.y
-      value: -0.00000003077767
+      value: 0.000000045516273
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.x
@@ -20906,7 +20906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.y
-      value: -0.00000003077767
+      value: 0.000000045516273
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.x
@@ -20914,7 +20914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.y
-      value: -0.20909095
+      value: -0.20909089
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.z
@@ -43111,16 +43111,40 @@ MonoBehaviour:
   basicOffset: {x: 12.5, y: 15, z: -13}
   rotationOnPlayerFocus: {x: 0.31598544, y: -0.3596048, z: 0.13088547, w: 0.86816275}
   inputOffsetIntensity: 0
+  camDelay: 0.5
+  transitionCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   mustFollowPlayerPosition: 1
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
   aimAtPlayer: 0
   actualPosition: {x: 0, y: 0, z: 0}
+  isInCinematic: 0
   requiredStableTime: 0.5
   angleThreshold: 5
-  camDelay: 0.5
-  isInCinematic: 0
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0

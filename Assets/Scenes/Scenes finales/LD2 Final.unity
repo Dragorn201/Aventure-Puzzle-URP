@@ -26156,6 +26156,10 @@ PrefabInstance:
       propertyPath: followPlayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: camSpeedOnZoneExiting
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 651028894063797947, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Name
       value: cameraTrigger (5)
@@ -26202,19 +26206,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Size.x
-      value: 8.239424
+      value: 9.779787
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Size.z
-      value: 4.976616
+      value: 17.311714
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.x
-      value: -2.256671
+      value: -1.4864893
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.z
-      value: -3.444378
+      value: -9.611927
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26537,6 +26541,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: transitionDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: camSpeedOnZoneExiting
       value: 0.5
       objectReference: {fileID: 0}
@@ -26614,7 +26622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -34694,7 +34702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: camSpeedOnZoneEntering
-      value: 1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 651028894063797947, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Name
@@ -39011,6 +39019,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: transitionDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: camSpeedOnZoneExiting
       value: 0.5
       objectReference: {fileID: 0}
@@ -39088,7 +39100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 14
+      value: 15.5
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -51371,7 +51383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Size.x
-      value: 10.217191
+      value: 11.532541
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Size.z
@@ -51379,7 +51391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.x
-      value: -2.33104
+      value: -2.9887152
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.z
@@ -51709,6 +51721,18 @@ PrefabInstance:
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: followPlayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: transitionDuration
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: camSpeedOnZoneExiting
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: camSpeedOnZoneEntering
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 651028894063797947, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Name
@@ -57641,8 +57665,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: transitionDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: camSpeedOnZoneExiting
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: camSpeedOnZoneEntering
-      value: 1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 651028894063797947, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Name
@@ -57690,7 +57722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Size.x
-      value: 26.793661
+      value: 25.63522
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Size.y
@@ -57702,7 +57734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.x
-      value: -11.562009
+      value: -10.982788
       objectReference: {fileID: 0}
     - target: {fileID: 6338454306192260191, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_Center.y
@@ -70696,6 +70728,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
+      propertyPath: transitionDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 12366633087169685, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: camSpeedOnZoneEntering
       value: 0.5
       objectReference: {fileID: 0}
@@ -70769,7 +70805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7757206258457673411, guid: 9326772a20e2d2a43ac99973dfa6645b, type: 3}
       propertyPath: m_LocalRotation.w

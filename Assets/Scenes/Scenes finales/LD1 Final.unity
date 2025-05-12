@@ -34916,6 +34916,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1612501926}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1612501927}
   m_SourcePrefab: {fileID: 100100000, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
 --- !u!1 &948642063 stripped
 GameObject:
@@ -58653,6 +58656,22 @@ MonoBehaviour:
   dissolveRate: 0.0125
   refreshRate: 0.025
   parameter: _DissolveAmount
+--- !u!114 &1612501927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612501919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fbbe7e14f0e1242824f090fd62845b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingTransform: {fileID: 911936402}
+  rotatingTransform: {fileID: 1992965556}
+  cameraMovement: {fileID: 911936403}
+  cameraRotation: {fileID: 1992965557}
 --- !u!1 &1612763657
 GameObject:
   m_ObjectHideFlags: 0
@@ -76401,7 +76420,7 @@ Animation:
   m_GameObject: {fileID: 1992965555}
   m_Enabled: 1
   serializedVersion: 4
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: d05f4ec760d4d204e946261e21730c3d, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: d05f4ec760d4d204e946261e21730c3d, type: 2}
   m_WrapMode: 0

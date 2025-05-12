@@ -99,13 +99,11 @@ public class CameraFollow : MonoBehaviour
         {
             transitionTime += Time.deltaTime;
             float t = Mathf.Clamp01(transitionTime / transitionDuration);
-            float easedT = transitionCurve.Evaluate(t); // NEW
-
-            // Smooth position transition
+            float easedT = transitionCurve.Evaluate(t);
+            
             Vector3 targetPos = Vector3.Lerp(transitionStartPos, transitionEndPos, easedT);
             transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 0.05f);
-
-            // Smooth rotation transition
+            
             Quaternion targetRot = Quaternion.Slerp(transitionStartRot, transitionEndRot, easedT);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSmoothSpeed);
 
@@ -116,7 +114,6 @@ public class CameraFollow : MonoBehaviour
         }
         else
         {
-            // Classic camera follow
             actualPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
             transform.position = actualPosition;
 
@@ -195,7 +192,7 @@ public class CameraFollow : MonoBehaviour
 
     private void StartTransition(Vector3 fromPos, Vector3 toPos, Quaternion fromRot, Quaternion toRot, float duration)
     {
-        transitionStartPos = transform.position; // Use actual current position
+        transitionStartPos = transform.position;
         transitionEndPos = toPos;
         transitionStartRot = transform.rotation;
         transitionEndRot = toRot;
@@ -215,7 +212,7 @@ public class CameraFollow : MonoBehaviour
             desiredPosition = cinematicCamPos[cinematicStepIndex].position;
             desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
 
-            StartTransition(transform.position, desiredPosition, transform.rotation, desiredRotation, 1f); // adjustable
+            StartTransition(transform.position, desiredPosition, transform.rotation, desiredRotation, 1f);
         }
     }
 
@@ -227,7 +224,7 @@ public class CameraFollow : MonoBehaviour
             desiredPosition = cinematicCamPos[cinematicStepIndex].position;
             desiredRotation = cinematicCamPos[cinematicStepIndex].rotation;
 
-            StartTransition(transform.position, desiredPosition, transform.rotation, desiredRotation, 1f); // adjustable
+            StartTransition(transform.position, desiredPosition, transform.rotation, desiredRotation, 1f);
         }
         else
         {

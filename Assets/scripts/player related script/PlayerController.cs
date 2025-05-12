@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform camTransorm;
     [SerializeField] private Transform spawnPos;
     [SerializeField] private GameObject wavePrefab;
-    [SerializeField] private SoundManager soundManager;
+    public SoundManager soundManager;
     
     
     [HideInInspector]public float actualSpeed = 0f;
@@ -148,6 +148,7 @@ public class PlayerController : MonoBehaviour
             if(!isWaitingForTheHook)onThrowingHook.Invoke();
             isWaitingForTheHook = true;
             yield return new WaitForSecondsRealtime(timeBeforeMoving);
+            soundManager.PlaySoundEffect(soundManager.hookHitWall);
             ShootHook(directionToGo);
         }
     }

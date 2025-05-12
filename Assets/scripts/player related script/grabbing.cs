@@ -4,6 +4,7 @@ using UnityEngine;
 public class Grabbing : MonoBehaviour
 {
     private PlayerController playerController;
+    private SoundManager soundManager;
     public GameObject grabbedMovementPrevisualisation;
     [SerializeField]private float blocWallDistance = 0.2f;
     public float projectionForce = 5f;
@@ -14,10 +15,12 @@ public class Grabbing : MonoBehaviour
 
     [HideInInspector] public Vector3 lineRendererStartPoint;
     
+    
 
     void Awake()
     {
         playerController = GetComponent<PlayerController>();
+        soundManager = playerController.soundManager;
         grabbedMovementPrevisualisation = Instantiate(grabbedMovementPrevisualisation);
         grabbedMovementPrevisualisation.SetActive(false);
     }
@@ -171,6 +174,8 @@ public class Grabbing : MonoBehaviour
         Vector3 previousPosition = target.position;
         
         targetMovableObject.blocWallDistance = blocWallDistance;
+        
+        soundManager.PlaySoundEffect(soundManager.environmentMovingBloc);
 
         while (!targetMovableObject.DetectCollision(direction))
         {

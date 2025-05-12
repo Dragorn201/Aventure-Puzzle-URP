@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform camTransorm;
     [SerializeField] private Transform spawnPos;
     [SerializeField] private GameObject wavePrefab;
-    [SerializeField] private SoundManager soundManager;
+    public SoundManager soundManager;
     
     
     [HideInInspector]public float actualSpeed = 0f;

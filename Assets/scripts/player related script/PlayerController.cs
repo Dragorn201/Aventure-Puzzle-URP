@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public GameObject actualEncrage;
     [HideInInspector]public Vector3 directionToGo;
     [HideInInspector]public bool isWaitingForTheHook = false;
+    
+    private Gamepad gamepad;
 
 
     private void Awake()
@@ -245,6 +247,11 @@ public class PlayerController : MonoBehaviour
         onGettingOnWall?.Invoke();
         bool wallDestroyed = false;
         if(!interrupted) wallDestroyed = TryDestroyWall(actualSpeed, hit, dirOnStart);
+        if (wallDestroyed)
+        {
+            gamepad = Gamepad.current;
+            StartCoroutine(Rumble(0.1f,0.5f,2.5f));
+        }
         if (!wallDestroyed)
         {
             GameObject newWaveParticle = Instantiate(wavePrefab,hit.point , Quaternion.LookRotation(-hit.normal));
@@ -260,7 +267,12 @@ public class PlayerController : MonoBehaviour
             if (eventTrigger.isBell)
             {
                 Bell bell = hit.collider.GetComponent<Bell>();
-                if(bell != null) bell.StartEvent();
+                if (bell != null)
+                {
+                    bell.StartEvent();
+                    gamepad = Gamepad.current;
+                    StartCoroutine(Rumble(0.1f, 0.5f, 2.5f));
+                }
             }
         }
         
@@ -315,6 +327,19 @@ public class PlayerController : MonoBehaviour
         }
         isInBulletTime = false;
         Time.timeScale = 1f;
+    }
+    
+    private IEnumerator Rumble(float lowFrequency, float highFrequency, float duration)
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.fixedDeltaTime;
+            gamepad.SetMotorSpeeds(lowFrequency/elapsedTime, highFrequency/elapsedTime);
+            yield return new WaitForFixedUpdate();
+        }
+        gamepad.SetMotorSpeeds(0,0);
+
     }
     
     void OnDrawGizmos()

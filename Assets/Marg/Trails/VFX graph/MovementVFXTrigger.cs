@@ -5,7 +5,9 @@ public class MovementVFXTrigger : MonoBehaviour
 {
     [Header("Références")]
     public VisualEffect vfxGraph;
-    public float movementThreshold = 0.001f;  // Plus petit pour détecter plus tôt
+
+    [Header("Paramètres")]
+    public float movementThreshold = 0.01f; // Ajuste selon le pas de ton perso
 
     private Vector3 lastPosition;
     private bool wasMoving = false;
@@ -18,18 +20,23 @@ public class MovementVFXTrigger : MonoBehaviour
     void Update()
     {
         Vector3 currentPosition = transform.position;
-        float distanceMoved = (currentPosition - lastPosition).sqrMagnitude;  // plus rapide que Vector3.Distance
-        bool isMoving = distanceMoved > (movementThreshold * movementThreshold);
+
+        // Ne prendre en compte que les déplacements horizontaux (ignore Y si au sol)
+        Vector3 flatLastPosition = new Vector3(lastPosition.x, 0f, lastPosition.z);
+        Vector3 flatCurrentPosition = new Vector3(currentPosition.x, 0f, currentPosition.z);
+
+        float distanceMovedSqr = (flatCurrentPosition - flatLastPosition).sqrMagnitude;
+        float thresholdSqr = movementThreshold * movementThreshold;
+
+        bool isMoving = distanceMovedSqr > thresholdSqr;
 
         if (isMoving && !wasMoving)
         {
-            Debug.Log("Début du mouvement : envoi de l'événement Grappling");
             vfxGraph.SendEvent("Grappling");
             wasMoving = true;
         }
         else if (!isMoving && wasMoving)
         {
-            Debug.Log("Arrêt du mouvement : envoi de l'événement NotGrappling");
             vfxGraph.SendEvent("NotGrappling");
             wasMoving = false;
         }

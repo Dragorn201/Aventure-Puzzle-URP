@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform camTransorm;
     [SerializeField] private Transform spawnPos;
     [SerializeField] private GameObject wavePrefab;
-    [SerializeField] private SoundManager soundManager;
+    public SoundManager soundManager;
     
     
     [HideInInspector]public float actualSpeed = 0f;
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        
+        //cette partie du code est surtout responsable de tourner le joueur dans la direction ou est tourné le joystick
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
     
     Vector3 RelativeMovementInput(Transform camTransorm, float absoluteX, float absoluteY)
     {
+        //pour rendre la direction du joystick relative a la position de la camera
         Vector3 camForward = camTransorm.forward;
         Vector3 camRight = camTransorm.right;
         
@@ -143,11 +144,14 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove && directionToGo != Vector3.zero)
         {
+            //ici, le joueur lance le grappin mais n'a pas encore commencé a bouger, c'est le temps que le grappin se colle au mur ou il veut aller
+            
             initiateMotion = true;
             if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerTrhowingHook);
             if(!isWaitingForTheHook)onThrowingHook.Invoke();
             isWaitingForTheHook = true;
             yield return new WaitForSecondsRealtime(timeBeforeMoving);
+            soundManager.PlaySoundEffect(soundManager.hookHitWall);
             ShootHook(directionToGo);
         }
     }
@@ -160,6 +164,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.transform != null && hit.transform.GetComponent<NotGrabbable>() == null)
             {
+                //ici, le grappin a touché le mur de destiantion du joueur et celui ci commence a bouger
                 actualEncrage = hit.transform.gameObject;
                 directionAtStart = direction;
                 mustExitBulletTime = true;
@@ -195,6 +200,8 @@ public class PlayerController : MonoBehaviour
         
         while (Vector3.Distance(transform.position, targetPoint) > 0.001f)
         {
+            
+            //ici, la fonction est appelée a chaque frame pendant que le player est en mouvement
             
             //double chek pour collision (les rendre plus stables)
             if (Physics.Raycast(transform.position + offset, dirOnStart, Vector3.Distance(transform.position, Vector3.MoveTowards(transform.position, targetPoint, actualSpeed))))
@@ -233,6 +240,8 @@ public class PlayerController : MonoBehaviour
     
     void GettingOnWall(bool interrupted, float basicSpeed, RaycastHit hit, Vector3 dirOnStart)
     {
+        //ici, la fonction est appelée quand le joueur touche le mur apres s'etre déplacé
+        
         onGettingOnWall?.Invoke();
         bool wallDestroyed = false;
         if(!interrupted) wallDestroyed = TryDestroyWall(actualSpeed, hit, dirOnStart);

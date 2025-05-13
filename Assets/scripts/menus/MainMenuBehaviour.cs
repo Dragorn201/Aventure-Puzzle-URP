@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuBehaviour : MonoBehaviour
 {
@@ -60,11 +61,16 @@ public class MainMenuBehaviour : MonoBehaviour
 
     IEnumerator StopVideoPlayer()
     {
-
+        RawImage videoPlayerImage = videoPlayer.GetComponent<RawImage>();
         float elapsedTime = 0;
         while (!keyPressed && elapsedTime < 12f)
         {
             elapsedTime += Time.fixedDeltaTime;
+            if (elapsedTime >= 6f)
+            {
+                float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - 11f));
+                videoPlayerImage.color = new Color(1f, 1f, 1f, newAlpha);
+            }
             yield return new WaitForFixedUpdate();
         }
         StartMenu();

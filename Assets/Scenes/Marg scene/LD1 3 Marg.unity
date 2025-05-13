@@ -37954,16 +37954,22 @@ MonoBehaviour:
   basicOffset: {x: 12.5, y: 15, z: -13}
   rotationOnPlayerFocus: {x: 0.31598544, y: -0.3596048, z: 0.13088547, w: 0.86816275}
   inputOffsetIntensity: 0
+  camDelay: 1
+  transitionCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   mustFollowPlayerPosition: 1
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
   aimAtPlayer: 0
   actualPosition: {x: 0, y: 0, z: 0}
+  isInCinematic: 0
   requiredStableTime: 0.5
   angleThreshold: 5
-  camDelay: 1
-  isInCinematic: 0
 --- !u!81 &1302246464
 AudioListener:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PauseMenuBehaviour : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class PauseMenuBehaviour : MonoBehaviour
     public GameObject settingsMenuFirstButton;
     
     public Dictionary<GameObject, GameObject> panelsFistButtons = new Dictionary<GameObject, GameObject>();
+    
+    public GameObject videoPlayer;
+    private bool keyPressed = false;
 
     void Awake()
     {
@@ -31,6 +35,8 @@ public class PauseMenuBehaviour : MonoBehaviour
         activePanel = null;
         pauseMenuPanel.SetActive(false);
         StartCoroutine(LoadVolume());
+        StartCoroutine(StopVideoPlayer());
+        videoPlayer.SetActive(true);
     }
 
     IEnumerator LoadVolume()
@@ -56,6 +62,30 @@ public class PauseMenuBehaviour : MonoBehaviour
         {
             ClosePanel(activePanel);
         }
+        
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Space))
+        {
+            keyPressed = true;
+        }
+    }
+    
+    IEnumerator StopVideoPlayer()
+    {
+
+        RawImage videoPlayerImage = videoPlayer.GetComponent<RawImage>();
+        float elapsedTime = 0;
+        while (!keyPressed && elapsedTime < 7f)
+        {
+            elapsedTime += Time.fixedDeltaTime;
+            if (elapsedTime >= 6f)
+            {
+                float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - 6f));
+                videoPlayerImage.color = new Color(videoPlayerImage.color.r, videoPlayerImage.color.g, videoPlayerImage.color.b, newAlpha);
+            }
+            yield return new WaitForFixedUpdate();
+        }
+        pauseMenuPanel.SetActive(false);
+        videoPlayer.SetActive(false);
     }
 
     public void OpenClosePauseMenu(bool menuState = false)
@@ -151,6 +181,11 @@ public class PauseMenuBehaviour : MonoBehaviour
         panel.transform.localScale = originalScale;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(panelsFistButtons[pauseMenuPanel]);
+    }
+
+    public void RetryLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToMainMenu()

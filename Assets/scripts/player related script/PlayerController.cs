@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public GameObject actualEncrage;
     [HideInInspector]public Vector3 directionToGo;
     [HideInInspector]public bool isWaitingForTheHook = false;
+    
+    private Gamepad gamepad;
 
 
     private void Awake()
@@ -78,7 +80,7 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        
+        //cette partie du code est surtout responsable de tourner le joueur dans la direction ou est tourné le joystick
 
         if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
@@ -120,6 +122,7 @@ public class PlayerController : MonoBehaviour
     
     Vector3 RelativeMovementInput(Transform camTransorm, float absoluteX, float absoluteY)
     {
+        //pour rendre la direction du joystick relative a la position de la camera
         Vector3 camForward = camTransorm.forward;
         Vector3 camRight = camTransorm.right;
         
@@ -143,6 +146,8 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove && directionToGo != Vector3.zero)
         {
+            //ici, le joueur lance le grappin mais n'a pas encore commencé a bouger, c'est le temps que le grappin se colle au mur ou il veut aller
+            
             initiateMotion = true;
             if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerTrhowingHook);
             if(!isWaitingForTheHook)onThrowingHook.Invoke();
@@ -161,6 +166,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.transform != null && hit.transform.GetComponent<NotGrabbable>() == null)
             {
+                //ici, le grappin a touché le mur de destiantion du joueur et celui ci commence a bouger
                 actualEncrage = hit.transform.gameObject;
                 directionAtStart = direction;
                 mustExitBulletTime = true;
@@ -196,6 +202,8 @@ public class PlayerController : MonoBehaviour
         
         while (Vector3.Distance(transform.position, targetPoint) > 0.001f)
         {
+            
+            //ici, la fonction est appelée a chaque frame pendant que le player est en mouvement
             
             //double chek pour collision (les rendre plus stables)
             if (Physics.Raycast(transform.position + offset, dirOnStart, Vector3.Distance(transform.position, Vector3.MoveTowards(transform.position, targetPoint, actualSpeed))))
@@ -234,9 +242,16 @@ public class PlayerController : MonoBehaviour
     
     void GettingOnWall(bool interrupted, float basicSpeed, RaycastHit hit, Vector3 dirOnStart)
     {
+        //ici, la fonction est appelée quand le joueur touche le mur apres s'etre déplacé
+        
         onGettingOnWall?.Invoke();
         bool wallDestroyed = false;
         if(!interrupted) wallDestroyed = TryDestroyWall(actualSpeed, hit, dirOnStart);
+        if (wallDestroyed)
+        {
+            gamepad = Gamepad.current;
+            StartCoroutine(Rumble(0.1f,0.5f,2.5f));
+        }
         if (!wallDestroyed)
         {
             GameObject newWaveParticle = Instantiate(wavePrefab,hit.point , Quaternion.LookRotation(-hit.normal));
@@ -252,7 +267,12 @@ public class PlayerController : MonoBehaviour
             if (eventTrigger.isBell)
             {
                 Bell bell = hit.collider.GetComponent<Bell>();
-                if(bell != null) bell.StartEvent();
+                if (bell != null)
+                {
+                    bell.StartEvent();
+                    gamepad = Gamepad.current;
+                    StartCoroutine(Rumble(0.1f, 0.5f, 2.5f));
+                }
             }
         }
         
@@ -307,6 +327,19 @@ public class PlayerController : MonoBehaviour
         }
         isInBulletTime = false;
         Time.timeScale = 1f;
+    }
+    
+    private IEnumerator Rumble(float lowFrequency, float highFrequency, float duration)
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.fixedDeltaTime;
+            gamepad.SetMotorSpeeds(lowFrequency/elapsedTime, highFrequency/elapsedTime);
+            yield return new WaitForFixedUpdate();
+        }
+        gamepad.SetMotorSpeeds(0,0);
+
     }
     
     void OnDrawGizmos()

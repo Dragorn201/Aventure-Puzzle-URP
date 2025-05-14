@@ -35127,6 +35127,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1612501927}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1612501928}
   m_SourcePrefab: {fileID: 100100000, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
 --- !u!1 &948642063 stripped
 GameObject:
@@ -39932,15 +39935,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1073339261}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 1
-  priority: 1
+  priority: 0
   blendDistance: 0
-  weight: 1
+  weight: 0
   sharedProfile: {fileID: 11400000, guid: 512f1d63ab527cd41bc72b89236a7a59, type: 2}
 --- !u!4 &1073339263
 Transform:
@@ -45854,6 +45857,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 709226153}
     m_Modifications:
+    - target: {fileID: 2367795275025119104, guid: eb73c281016e04949b3d63a3c304e83b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f75ebdfc1b462a4d9b556c9690f26a3, type: 2}
+    - target: {fileID: 3442552094420941596, guid: eb73c281016e04949b3d63a3c304e83b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f75ebdfc1b462a4d9b556c9690f26a3, type: 2}
     - target: {fileID: 3767097546504414211, guid: eb73c281016e04949b3d63a3c304e83b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.62964654
@@ -59197,6 +59208,18 @@ MonoBehaviour:
           m_StringArgument: BeginDissolving()
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1612501928}
+        m_TargetAssemblyTypeName: ambienceChange, Assembly-CSharp
+        m_MethodName: SwitchMood
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BeginDissolving()
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1612501923 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
@@ -59266,6 +59289,21 @@ MonoBehaviour:
   rotatingTransform: {fileID: 911936402}
   cameraMovement: {fileID: 911936403}
   cameraRotation: {fileID: 911936403}
+--- !u!114 &1612501928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612501919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14fa06add10c3644c842034a6d5eeacb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prePurifiedVolume: {fileID: 1073339262}
+  postPurifiedVolume: {fileID: 1073339264}
+  changingRate: 0.05
 --- !u!1 &1612763657
 GameObject:
   m_ObjectHideFlags: 0
@@ -69920,6 +69958,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 566832616}
     m_Modifications:
+    - target: {fileID: 2367795275025119104, guid: eb73c281016e04949b3d63a3c304e83b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f75ebdfc1b462a4d9b556c9690f26a3, type: 2}
+    - target: {fileID: 3442552094420941596, guid: eb73c281016e04949b3d63a3c304e83b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f75ebdfc1b462a4d9b556c9690f26a3, type: 2}
     - target: {fileID: 3767097546504414211, guid: eb73c281016e04949b3d63a3c304e83b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.62964654

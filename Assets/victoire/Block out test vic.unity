@@ -5514,16 +5514,22 @@ MonoBehaviour:
   basicOffset: {x: 0, y: 0, z: 0}
   rotationOnPlayerFocus: {x: 0, y: 0, z: 0, w: 0}
   inputOffsetIntensity: 0
+  camDelay: 0
+  transitionCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   mustFollowPlayerPosition: 1
   MustBeBasicRotation: 1
   desiredPosition: {x: 0, y: 0, z: 0}
   desiredRotation: {x: 0, y: 0, z: 0, w: 0}
   aimAtPlayer: 0
   actualPosition: {x: 0, y: 0, z: 0}
+  isInCinematic: 0
   requiredStableTime: 0.5
   angleThreshold: 5
-  camDelay: 0
-  isInCinematic: 0
 --- !u!114 &1331595687
 MonoBehaviour:
   m_ObjectHideFlags: 0

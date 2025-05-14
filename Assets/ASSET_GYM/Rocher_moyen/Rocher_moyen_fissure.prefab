@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4262804838596829841
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 37.034847
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 146.2868
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9eb0794d178f37747ae5de1fd6e52acb, type: 2}
+    - target: {fileID: 919132149155446097, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      propertyPath: m_Name
+      value: Rocher_moyen_fissure
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 313095712078789936}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6271785330904602312}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3655376812854522946}
+  m_SourcePrefab: {fileID: 100100000, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+--- !u!1 &4029014931107766208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 916277cb360111146aadfdb12036d63c, type: 3}
+  m_PrefabInstance: {fileID: 4262804838596829841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &313095712078789936
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029014931107766208}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.4080832, y: 6.5310154, z: 3.4162848}
+  m_Center: {x: 0.00000011920929, y: 3.3032384, z: 0.0000009536743}
+--- !u!114 &6271785330904602312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029014931107766208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a42e9063f60624692100a8628ed95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeedToDestroyWall: 0.1
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3655376812854522946}
+        m_TargetAssemblyTypeName: Fracture, Assembly-CSharp
+        m_MethodName: Explode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3655376812854522946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4029014931107766208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bec5198e704ade4b8623c39b3e0ccba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fracturedPrefab: {fileID: 4441112083125902863, guid: e71db004813068b4c9cb04eb52272ab9, type: 3}
+  explosionForce: 2000
+  explosionRadius: 2

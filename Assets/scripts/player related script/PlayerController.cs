@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerControls();
-        playerAnimator = GetComponent<Animator>();
+        playerAnimator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Start()

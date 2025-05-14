@@ -50,10 +50,13 @@ public class PlayerController : MonoBehaviour
     
     private Gamepad gamepad;
 
-
+    [HideInInspector] public int animatorPlayerMovementState = 0;
+    [HideInInspector] Animator playerAnimator;
+    
     private void Awake()
     {
         playerControls = new PlayerControls();
+        playerAnimator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Start()
@@ -147,6 +150,8 @@ public class PlayerController : MonoBehaviour
         if (canMove && directionToGo != Vector3.zero)
         {
             //ici, le joueur lance le grappin mais n'a pas encore commencé a bouger, c'est le temps que le grappin se colle au mur ou il veut aller
+            animatorPlayerMovementState = 1;
+            playerAnimator.SetInteger("AnimatorPlayerMovement", animatorPlayerMovementState);
             
             initiateMotion = true;
             if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerTrhowingHook);
@@ -167,6 +172,9 @@ public class PlayerController : MonoBehaviour
             if (hit.transform != null && hit.transform.GetComponent<NotGrabbable>() == null)
             {
                 //ici, le grappin a touché le mur de destiantion du joueur et celui ci commence a bouger
+                animatorPlayerMovementState = 2;
+                playerAnimator.SetInteger("AnimatorPlayerMovement", animatorPlayerMovementState);
+                
                 actualEncrage = hit.transform.gameObject;
                 directionAtStart = direction;
                 mustExitBulletTime = true;
@@ -243,6 +251,8 @@ public class PlayerController : MonoBehaviour
     void GettingOnWall(bool interrupted, float basicSpeed, RaycastHit hit, Vector3 dirOnStart)
     {
         //ici, la fonction est appelée quand le joueur touche le mur apres s'etre déplacé
+        animatorPlayerMovementState = 3;
+        playerAnimator.SetInteger("AnimatorPlayerMovement", animatorPlayerMovementState);
         
         onGettingOnWall?.Invoke();
         bool wallDestroyed = false;
@@ -250,7 +260,7 @@ public class PlayerController : MonoBehaviour
         if (wallDestroyed)
         {
             gamepad = Gamepad.current;
-            StartCoroutine(Rumble(0.1f,0.5f,2.5f));
+            StartCoroutine(Rumble(0.1f,0.5f,1f));
         }
         if (!wallDestroyed)
         {
@@ -286,6 +296,14 @@ public class PlayerController : MonoBehaviour
         initiateMotion = false;
         canMove = true;
         moveSpeed = basicSpeed;
+        StartCoroutine(WaitBeforeIdle());
+    }
+
+    IEnumerator WaitBeforeIdle()
+    {
+        yield return new WaitForSecondsRealtime(.2f);
+        animatorPlayerMovementState = 0;
+        playerAnimator.SetInteger("AnimatorPlayerMovement", animatorPlayerMovementState);
     }
     
     
@@ -336,7 +354,7 @@ public class PlayerController : MonoBehaviour
         {
             elapsedTime += Time.fixedDeltaTime;
             gamepad.SetMotorSpeeds(lowFrequency/elapsedTime, highFrequency/elapsedTime);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
         gamepad.SetMotorSpeeds(0,0);
 

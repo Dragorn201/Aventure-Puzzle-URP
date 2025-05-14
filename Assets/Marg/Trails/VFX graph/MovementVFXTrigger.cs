@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
 public class MovementVFXTrigger : MonoBehaviour
@@ -12,12 +13,61 @@ public class MovementVFXTrigger : MonoBehaviour
     private Vector3 lastPosition;
     private bool wasMoving = false;
 
+    private PlayerControls playerControls;
+
+
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
     void Start()
     {
         lastPosition = transform.position;
+
+       
+        SetInputsCallback();
     }
 
-    void Update()
+    private void OnEnable()
+    {
+        playerControls.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Player.Disable();
+    }
+
+    private void SetInputsCallback()
+    {
+        playerControls.Player.Fire.performed += PlaySquare;
+        playerControls.Player.Fire.canceled  += PlaySquare;
+    }
+
+
+
+    private void PlaySquare(InputAction.CallbackContext context)
+    {
+        if(context.action.phase == InputActionPhase.Performed)
+        {
+            ShootVfx();
+            return;
+        }
+
+        
+    }
+
+    private void ShootVfx()
+    {
+        vfxGraph.SendEvent("Grappling");
+    }
+
+    private void StopVfx()
+    {
+        vfxGraph.SendEvent("NotGrappling");
+    }
+
+   /* void Update()
     {
         Vector3 currentPosition = transform.position;
 
@@ -42,5 +92,5 @@ public class MovementVFXTrigger : MonoBehaviour
         }
 
         lastPosition = currentPosition;
-    }
+    }*/
 }

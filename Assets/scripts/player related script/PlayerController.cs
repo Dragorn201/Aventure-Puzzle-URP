@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour
         if (wallDestroyed)
         {
             gamepad = Gamepad.current;
-            StartCoroutine(Rumble(0.1f,0.5f,2.5f));
+            StartCoroutine(Rumble(0.1f,0.5f,1f));
         }
         if (!wallDestroyed)
         {
@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour
         {
             elapsedTime += Time.fixedDeltaTime;
             gamepad.SetMotorSpeeds(lowFrequency/elapsedTime, highFrequency/elapsedTime);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
         gamepad.SetMotorSpeeds(0,0);
 

@@ -20,7 +20,7 @@ public class tipsTool : MonoBehaviour
 
     private bool isActive = false;
     private bool alreadyUsed = false;
-
+    
     void Start()
     {
         tipsCanvas.SetActive(false);
@@ -58,6 +58,11 @@ public class tipsTool : MonoBehaviour
                 break;
         }
 
+        if (alreadyUsed)
+        {
+            yield break;
+        }
+        
         tipsCanvas.SetActive(true);
         while (isActive)
         {

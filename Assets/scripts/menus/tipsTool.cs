@@ -69,7 +69,20 @@ public class tipsTool : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
-        tipsCanvas.SetActive(false);
+        StartCoroutine(FadeOut());
         
+    }
+
+    IEnumerator FadeOut()
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < 1f)
+        {
+            elapsedTime += Time.fixedDeltaTime;
+            Color newColor = new Color(tipImage.color.r, tipImage.color.g, tipImage.color.b, Mathf.Lerp(1f, 0f, elapsedTime));
+            tipImage.color = newColor;
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
+        tipsCanvas.SetActive(false);
     }
 }

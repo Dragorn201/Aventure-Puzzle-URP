@@ -260,7 +260,7 @@ public class PlayerController : MonoBehaviour
         if (wallDestroyed)
         {
             gamepad = Gamepad.current;
-            StartCoroutine(Rumble(0.1f,0.5f,1f));
+            StartCoroutine(Rumble(0.1f,0.5f,.5f));
         }
         if (!wallDestroyed)
         {

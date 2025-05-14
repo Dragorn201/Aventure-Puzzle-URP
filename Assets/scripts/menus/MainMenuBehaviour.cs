@@ -34,6 +34,7 @@ public class MainMenuBehaviour : MonoBehaviour
 
     void Start()
     {
+        keyPressed = false;
         foreach (ButtonIdentity button in buttonsIdentities)
         {
             buttons.Add(button.button, button);

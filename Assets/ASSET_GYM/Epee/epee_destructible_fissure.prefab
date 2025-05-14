@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7068407530145327226
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8da51c5197f8b9743ab58446b957ac8d, type: 2}
+    - target: {fileID: 919132149155446097, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      propertyPath: m_Name
+      value: epee_destructible_fissure
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6913256245591771604}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6009964022972993930}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1695620771195573271}
+  m_SourcePrefab: {fileID: 100100000, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+--- !u!1 &7987537336396092715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
+  m_PrefabInstance: {fileID: 7068407530145327226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &6913256245591771604
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987537336396092715}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2121363, y: 12.111383, z: 0.5859364}
+  m_Center: {x: 0, y: 6.006993, z: -0.00031720102}
+--- !u!114 &6009964022972993930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987537336396092715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6a42e9063f60624692100a8628ed95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeedToDestroyWall: 0.0001
+  onWallDestroyed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1695620771195573271}
+        m_TargetAssemblyTypeName: Fracture, Assembly-CSharp
+        m_MethodName: Explode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1695620771195573271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987537336396092715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bec5198e704ade4b8623c39b3e0ccba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fracturedPrefab: {fileID: 6420090741954503878, guid: d5f3910ec11541442a5b87ee1290d6b3, type: 3}
+  explosionForce: 2000
+  explosionRadius: 2

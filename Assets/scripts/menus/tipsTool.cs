@@ -19,6 +19,7 @@ public class tipsTool : MonoBehaviour
     public TipType tipType;
 
     private bool isActive = false;
+    private bool alreadyUsed = false;
 
     void Start()
     {
@@ -28,12 +29,14 @@ public class tipsTool : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         isActive = true;
-        StartCoroutine(ShowTips());
+        if(alreadyUsed == false)StartCoroutine(ShowTips());
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
         isActive = false;
+        alreadyUsed = true;
     }
 
     public IEnumerator ShowTips()
@@ -45,13 +48,12 @@ public class tipsTool : MonoBehaviour
         {
             case TipType.Deplacements:
                 tipImage.sprite = tips[0];
-                yield return new WaitForSeconds(10f);
+                yield return new WaitForSeconds(7f);
                 break;
             case TipType.Grab:
                 tipImage.sprite = tips[1];
                 break;
             case TipType.DestructionMurs:
-                yield return new WaitForSeconds(5f);
                 tipImage.sprite = tips[2];
                 break;
         }
@@ -59,12 +61,28 @@ public class tipsTool : MonoBehaviour
         tipsCanvas.SetActive(true);
         while (isActive)
         {
+            if(elapsedTime < 1)
+            {
+                elapsedTime += Time.fixedDeltaTime;
+                Color newColor = new Color(tipImage.color.r, tipImage.color.g, tipImage.color.b, Mathf.Sin(elapsedTime * 2 )+1);
+                tipImage.color = newColor;
+            }
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
+        StartCoroutine(FadeOut());
+        
+    }
+
+    IEnumerator FadeOut()
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < 1f)
+        {
             elapsedTime += Time.fixedDeltaTime;
-            Color newColor = new Color(tipImage.color.r, tipImage.color.g, tipImage.color.b, Mathf.Sin(elapsedTime * 2 )+1);
+            Color newColor = new Color(tipImage.color.r, tipImage.color.g, tipImage.color.b, Mathf.Lerp(1f, 0f, elapsedTime));
             tipImage.color = newColor;
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
         tipsCanvas.SetActive(false);
-        
     }
 }

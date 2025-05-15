@@ -22,6 +22,7 @@ public class Bell : MonoBehaviour
     {
 
         currentCamera.transform.GetComponent<CameraFollow>().enabled = false;
+        currentCamera.transform.GetComponent<VisualObstacleRemover>().enabled = false;
         cameraMovement.Play();
         cameraRotation.Play();
         StartCoroutine(MoveCamera());
@@ -37,7 +38,7 @@ public class Bell : MonoBehaviour
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
         currentCamera.transform.GetComponent<CameraFollow>().enabled = true;
-        
+        currentCamera.transform.GetComponent<VisualObstacleRemover>().enabled = true;
     }
 
 

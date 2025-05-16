@@ -11,6 +11,7 @@ public class Bell : MonoBehaviour
     public Animation cameraMovement;
     public Animation cameraRotation;
     
+    public Animator animator;
 
 
     void Start()
@@ -26,6 +27,7 @@ public class Bell : MonoBehaviour
         cameraMovement.Play();
         cameraRotation.Play();
         StartCoroutine(MoveCamera());
+        if(animator != null) animator.SetInteger("statueState",1);
         
     }
 

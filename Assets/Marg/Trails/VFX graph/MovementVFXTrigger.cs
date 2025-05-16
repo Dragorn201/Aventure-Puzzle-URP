@@ -30,12 +30,12 @@ public class MovementVFXTrigger : MonoBehaviour
 
     private void OnEnable()
     {
-        playerControls.Player.Enable();
+        playerControls.Enable();
     }
 
     private void OnDisable()
     {
-        playerControls.Player.Disable();
+        playerControls.Disable();
     }
 
     private void SetInputsCallback()

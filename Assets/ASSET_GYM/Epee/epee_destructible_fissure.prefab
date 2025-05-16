@@ -65,10 +65,10 @@ PrefabInstance:
       addedObject: {fileID: 6913256245591771604}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6009964022972993930}
+      addedObject: {fileID: 1695620771195573271}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1695620771195573271}
+      addedObject: {fileID: 8949204035789006075}
   m_SourcePrefab: {fileID: 100100000, guid: 4a785134dafb4af498b1343429d530e1, type: 3}
 --- !u!1 &7987537336396092715 stripped
 GameObject:
@@ -96,7 +96,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2121363, y: 12.111383, z: 0.5859364}
   m_Center: {x: 0, y: 6.006993, z: -0.00031720102}
---- !u!114 &6009964022972993930
+--- !u!114 &1695620771195573271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7987537336396092715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bec5198e704ade4b8623c39b3e0ccba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fracturedPrefab: {fileID: 6420090741954503878, guid: d5f3910ec11541442a5b87ee1290d6b3, type: 3}
+  explosionForce: 2000
+  explosionRadius: 2
+--- !u!114 &8949204035789006075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,18 +139,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1695620771195573271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7987537336396092715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bec5198e704ade4b8623c39b3e0ccba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fracturedPrefab: {fileID: 6420090741954503878, guid: d5f3910ec11541442a5b87ee1290d6b3, type: 3}
-  explosionForce: 2000
-  explosionRadius: 2

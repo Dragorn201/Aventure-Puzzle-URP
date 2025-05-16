@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField]private AudioSource effectSource;
     
     [Header("music clips")]
-    public AudioClip backGroundMusic;
+    public AudioClip[] musicClip;
     
     [Header("sfx clips")]
     public AudioClip playerTrhowingHook;
@@ -21,7 +22,7 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
-        musicSource.clip = backGroundMusic;
+        musicSource.clip = musicClip[SceneManager.GetActiveScene().buildIndex];
         musicSource.Play();
     }
 

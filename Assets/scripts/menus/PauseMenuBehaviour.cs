@@ -148,10 +148,12 @@ public class PauseMenuBehaviour : MonoBehaviour
 
     IEnumerator OpenPanelScaleAnimation(GameObject panel)
     {
-        pauseMenuPanel.SetActive(false);
+        
         activePanel = panel;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(panelsFistButtons[panel]);
+        
+        /*
         Vector3 originalScale = panel.transform.localScale;
         panel.transform.localScale = Vector3.zero;
         panel.SetActive(true);
@@ -162,12 +164,28 @@ public class PauseMenuBehaviour : MonoBehaviour
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
+        
+        */
+        Image panelImage = activePanel.GetComponent<Image>();
+        Color originalColor = panelImage.color;
+        Color transparentColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+        panelImage.color = transparentColor;
+        panel.SetActive(true);
+        float elapsedTime = 0;
+        while (elapsedTime < scaleAnimationDuration)
+        {
+            panelImage.color = Color.Lerp(transparentColor, originalColor, elapsedTime / scaleAnimationDuration);
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
+        pauseMenuPanel.SetActive(false);
     }
     
     IEnumerator ClosePanelScaleAnimation(GameObject panel)
     {
         activePanel = pauseMenuPanel;
         
+        /*
         Vector3 originalScale = panel.transform.localScale;
         float elapsedTime = 0f;
         pauseMenuPanel.SetActive(true);
@@ -177,14 +195,30 @@ public class PauseMenuBehaviour : MonoBehaviour
             elapsedTime += Time.fixedDeltaTime;
             yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
         }
+        */
+        Image panelImage = panel.GetComponent<Image>();
+        Color originalColor = panelImage.color;
+        Color transparentColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+        pauseMenuPanel.SetActive(true);
+        float elapsedTime = 0;
+        while (elapsedTime < scaleAnimationDuration)
+        {
+            panelImage.color = Color.Lerp(originalColor, transparentColor, elapsedTime / scaleAnimationDuration);
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime);
+        }
+        
+        
         panel.SetActive(false);
-        panel.transform.localScale = originalScale;
+        //panel.transform.localScale = originalScale;
+        panelImage.color = originalColor;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(panelsFistButtons[pauseMenuPanel]);
     }
 
     public void RetryLevel()
     {
+        OpenClosePauseMenu(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

@@ -335,7 +335,7 @@ public class PlayerController : MonoBehaviour
         while (!mustExitBulletTime)
         {
             transform.position = Vector3.Lerp(transform.position, targetPoint, Time.deltaTime * moveSpeed);
-            Time.timeScale = Mathf.Lerp(Time.timeScale, 0f, Time.deltaTime * moveSpeed);
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 0.25f, Time.deltaTime * moveSpeed);
             if (Physics.Raycast(transform.position, targetPoint, Time.deltaTime * moveSpeed))
             {
                 break;

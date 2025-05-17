@@ -24850,6 +24850,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 95280557}
     m_Modifications:
+    - target: {fileID: 696537837783107447, guid: 0047c896113e64b4c89bade9b7320958, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b0e52b12e4b2cf8469225310bc274eac, type: 2}
     - target: {fileID: 2473798625326259203, guid: 0047c896113e64b4c89bade9b7320958, type: 3}
       propertyPath: m_Name
       value: Ronce_small_01
@@ -37955,6 +37959,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1612501929}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1612501930}
   m_SourcePrefab: {fileID: 100100000, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
 --- !u!1 &948642063 stripped
 GameObject:
@@ -44387,7 +44394,7 @@ PrefabInstance:
     - target: {fileID: 1293958262266746360, guid: eaed51b9b20bb474a9adf745480249c0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: d999c1d182cd2a24a957b6f94b488a62, type: 2}
+      objectReference: {fileID: 2100000, guid: b0e52b12e4b2cf8469225310bc274eac, type: 2}
     - target: {fileID: 2286540711590477363, guid: eaed51b9b20bb474a9adf745480249c0, type: 3}
       propertyPath: m_Name
       value: Ronce_medium_01 (2)
@@ -48250,7 +48257,7 @@ PrefabInstance:
     - target: {fileID: 6289343936645141191, guid: 454d466fd4351f44182049f0912e28a5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: d999c1d182cd2a24a957b6f94b488a62, type: 2}
+      objectReference: {fileID: 2100000, guid: b0e52b12e4b2cf8469225310bc274eac, type: 2}
     - target: {fileID: 8617644878517621299, guid: 454d466fd4351f44182049f0912e28a5, type: 3}
       propertyPath: m_Name
       value: Ronce_medium_00
@@ -64621,6 +64628,18 @@ MonoBehaviour:
           m_StringArgument: BeginDissolving()
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1612501930}
+        m_TargetAssemblyTypeName: DissolvingRonces, Assembly-CSharp
+        m_MethodName: BeginDissolving
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BeginDissolving()
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1612501923 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
@@ -64720,6 +64739,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 87bc958c0afbc3e42bf09b1ce50fac4d, type: 2}
   dissolveRate: 0.0045
+  refreshRate: 0.025
+  parameter: _DissolveAmount
+--- !u!114 &1612501930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612501919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb86111cba349624692a42d97e42a185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: b0e52b12e4b2cf8469225310bc274eac, type: 2}
+  dissolveRate: 0.002
   refreshRate: 0.025
   parameter: _DissolveAmount
 --- !u!1 &1612763657

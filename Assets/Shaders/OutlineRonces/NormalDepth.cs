@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-
+/*
 public class DepthNormalsFeature : ScriptableRendererFeature {
+    
+    
     class RenderPass : ScriptableRenderPass {
 
         private Material material;
@@ -62,3 +64,4 @@ public class DepthNormalsFeature : ScriptableRendererFeature {
         renderer.EnqueuePass(renderPass);
     }
 }
+*/

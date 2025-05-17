@@ -121,8 +121,8 @@ public class Grabbing : MonoBehaviour
                 direction = currentDirection * Vector3.forward;
             }
             
-            
-            Physics.BoxCast(transformToMove.position, transformToMove.localScale / 2 - transformToMove.localScale * 0.1f,direction , out RaycastHit pravisualisationHit, transformToMove.rotation, projectionForce);
+            Vector3 size = transformToMove.GetComponent<BoxCollider>().size;
+            Physics.BoxCast(transformToMove.position, size / 2 - size * 0.1f ,direction , out RaycastHit pravisualisationHit, transformToMove.rotation, projectionForce);
             Vector3 previsualisationPosition;
             if (pravisualisationHit.collider != null)
             {
@@ -186,7 +186,8 @@ public class Grabbing : MonoBehaviour
 
 
             Vector3 currentDirection = (target.position - previousPosition);
-            if (Physics.BoxCast(previousPosition, target.localScale / 2 - target.localScale * 0.1f, currentDirection, target.rotation, currentDirection.magnitude))
+            Vector3 size = target.GetComponent<BoxCollider>().size;
+            if (Physics.BoxCast(previousPosition, size / 2 - size * 0.1f, currentDirection, target.rotation, currentDirection.magnitude))
             {
                 target.position = previousPosition;
                 targetMovableObject.CollisionDetected();

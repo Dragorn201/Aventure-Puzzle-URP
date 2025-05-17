@@ -20,6 +20,8 @@ public class MovableObject : MonoBehaviour
     private float levitationSpeed;
     [SerializeField]private float levitationIntensity = 0.5f;
 
+    public float shrinkingFactor = 0.1f;
+
     private Vector3 point;
 
     void Awake()
@@ -34,7 +36,8 @@ public class MovableObject : MonoBehaviour
     public bool DetectCollision(Vector3 direction)
     {
         isMoving = true;
-        Physics.BoxCast(transform.position, transform.localScale / 2 - transform.localScale * 0.1f, direction, out hit, transform.rotation);
+        Vector3 size = transform.GetComponent<BoxCollider>().size;
+        Physics.BoxCast(transform.position, size / 2 - size * shrinkingFactor, direction, out hit, transform.rotation);
         Physics.Raycast(hit.point , -direction, out hitback, 1f);
         bool collision = (Vector3.Distance(hitback.point, hit.point) < blocWallDistance);
         

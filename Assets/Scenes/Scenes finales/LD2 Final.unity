@@ -841,6 +841,7 @@ MonoBehaviour:
   blocWallDistance: 0
   selfVelocity: 0
   levitationIntensity: 0.5
+  shrinkingFactor: 0.1
 --- !u!65 &27558438
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3674,6 +3675,7 @@ MonoBehaviour:
   blocWallDistance: 0
   selfVelocity: 0
   levitationIntensity: 0.5
+  shrinkingFactor: 0.1
 --- !u!65 &107116553
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45742,6 +45744,7 @@ MonoBehaviour:
   blocWallDistance: 0
   selfVelocity: 0
   levitationIntensity: 0.5
+  shrinkingFactor: 0.1
 --- !u!65 &1323896903
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51213,7 +51216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3939661747468645908, guid: 1b25967415be3624498f94982634f93c, type: 3}
       propertyPath: m_Size.y
-      value: 22
+      value: 17.972412
       objectReference: {fileID: 0}
     - target: {fileID: 3939661747468645908, guid: 1b25967415be3624498f94982634f93c, type: 3}
       propertyPath: m_Size.z
@@ -51221,15 +51224,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3939661747468645908, guid: 1b25967415be3624498f94982634f93c, type: 3}
       propertyPath: m_Center.x
-      value: -2.12
+      value: -2.1199996
       objectReference: {fileID: 0}
     - target: {fileID: 3939661747468645908, guid: 1b25967415be3624498f94982634f93c, type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: 2.0138164
       objectReference: {fileID: 0}
     - target: {fileID: 3939661747468645908, guid: 1b25967415be3624498f94982634f93c, type: 3}
       propertyPath: m_Center.z
-      value: 0
+      value: 2.4638494e-14
       objectReference: {fileID: 0}
     - target: {fileID: 5051579238544544557, guid: 1b25967415be3624498f94982634f93c, type: 3}
       propertyPath: m_LocalScale.x
@@ -63811,6 +63814,7 @@ MonoBehaviour:
   blocWallDistance: 0
   selfVelocity: 0
   levitationIntensity: 0.5
+  shrinkingFactor: 0.1
 --- !u!65 &1739745570
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73082,6 +73086,10 @@ PrefabInstance:
     - target: {fileID: 2385086136415313680, guid: e9fcb0ba427353444b0489ba50c0d523, type: 3}
       propertyPath: m_Center.z
       value: -0.051716924
+      objectReference: {fileID: 0}
+    - target: {fileID: 3585678976447314848, guid: e9fcb0ba427353444b0489ba50c0d523, type: 3}
+      propertyPath: shrinkingFactor
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4032494181592427665, guid: e9fcb0ba427353444b0489ba50c0d523, type: 3}
       propertyPath: m_Mesh

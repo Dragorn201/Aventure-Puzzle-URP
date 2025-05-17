@@ -43,6 +43,12 @@ public class Bell : MonoBehaviour
         currentCamera.transform.GetComponent<VisualObstacleRemover>().enabled = true;
     }
 
+    void OnApplicationQuit()
+    {
+        currentCamera.transform.GetComponent<CameraFollow>().enabled = true;
+        currentCamera.transform.GetComponent<VisualObstacleRemover>().enabled = true;
+    }
+
 
 
 }

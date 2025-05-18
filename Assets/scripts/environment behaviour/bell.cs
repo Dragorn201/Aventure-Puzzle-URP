@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Bell : MonoBehaviour
@@ -12,6 +13,8 @@ public class Bell : MonoBehaviour
     public Animation cameraRotation;
     
     public Animator animator;
+    
+    public UnityEvent onBell;
 
 
     void Start()
@@ -21,7 +24,7 @@ public class Bell : MonoBehaviour
     
     public void StartEvent()
     {
-
+        onBell.Invoke();
         currentCamera.transform.GetComponent<CameraFollow>().enabled = false;
         currentCamera.transform.GetComponent<VisualObstacleRemover>().enabled = false;
         cameraMovement.Play();

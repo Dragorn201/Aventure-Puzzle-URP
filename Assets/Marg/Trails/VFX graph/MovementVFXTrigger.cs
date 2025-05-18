@@ -4,14 +4,13 @@ using UnityEngine.VFX;
 
 public class MovementVFXTrigger : MonoBehaviour
 {
-    [Header("Références")]
+    [Header("Rï¿½fï¿½rences")]
     public VisualEffect vfxGraph;
 
-    [Header("Paramètres")]
+    [Header("Paramï¿½tres")]
     public float movementThreshold = 0.01f; // Ajuste selon le pas de ton perso
 
     private Vector3 lastPosition;
-    private bool wasMoving = false;
 
     private PlayerControls playerControls;
 
@@ -71,7 +70,7 @@ public class MovementVFXTrigger : MonoBehaviour
     {
         Vector3 currentPosition = transform.position;
 
-        // Ne prendre en compte que les déplacements horizontaux (ignore Y si au sol)
+        // Ne prendre en compte que les dï¿½placements horizontaux (ignore Y si au sol)
         Vector3 flatLastPosition = new Vector3(lastPosition.x, 0f, lastPosition.z);
         Vector3 flatCurrentPosition = new Vector3(currentPosition.x, 0f, currentPosition.z);
 

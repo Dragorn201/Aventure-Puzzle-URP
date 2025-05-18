@@ -30,10 +30,11 @@ public class MainMenuBehaviour : MonoBehaviour
     private Transform lightTarget;
 
     public GameObject videoPlayer;
-    private bool keyPressed = false;
+    public bool keyPressed = false;
 
     void Start()
     {
+        Time.timeScale = 1;
         keyPressed = false;
         foreach (ButtonIdentity button in buttonsIdentities)
         {
@@ -47,14 +48,13 @@ public class MainMenuBehaviour : MonoBehaviour
         _menuFirstButtons.Add(mainMenuPanel, mainMenuFirstButton);
         _menuFirstButtons.Add(settingsPanel, settingsFirstButton);
         
-        EventSystem.current.SetSelectedGameObject(null);
 
         StartCoroutine(StopVideoPlayer());
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Space))
         {
             keyPressed = true;
         }
@@ -63,7 +63,7 @@ public class MainMenuBehaviour : MonoBehaviour
     IEnumerator StopVideoPlayer()
     {
         RawImage videoPlayerImage = videoPlayer.GetComponent<RawImage>();
-        float elapsedTime = 0;
+        float elapsedTime = 0f;
         while (!keyPressed && elapsedTime < 12f)
         {
             elapsedTime += Time.fixedDeltaTime;
@@ -74,6 +74,7 @@ public class MainMenuBehaviour : MonoBehaviour
             }
             yield return new WaitForFixedUpdate();
         }
+        Debug.Log("coroutine finished");
         StartMenu();
     }
 
@@ -108,7 +109,7 @@ public class MainMenuBehaviour : MonoBehaviour
     
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneLoader.LoadGame();
     }
 
     public void QuitGame()

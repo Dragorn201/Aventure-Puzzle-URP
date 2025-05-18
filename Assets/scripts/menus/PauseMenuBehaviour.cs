@@ -72,14 +72,26 @@ public class PauseMenuBehaviour : MonoBehaviour
     IEnumerator StopVideoPlayer()
     {
 
+        float videoLength = 0;
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            videoLength = 20f;
+        }
+        else
+        {
+            videoLength = 7f;
+        }
+            
+        
+        
         RawImage videoPlayerImage = videoPlayer.GetComponent<RawImage>();
         float elapsedTime = 0;
-        while (!keyPressed && elapsedTime < 7f)
+        while (!keyPressed && elapsedTime < videoLength)
         {
             elapsedTime += Time.fixedDeltaTime;
-            if (elapsedTime >= 6f)
+            if (elapsedTime >= videoLength-1)
             {
-                float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - 6f));
+                float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - (videoLength-1)));
                 videoPlayerImage.color = new Color(videoPlayerImage.color.r, videoPlayerImage.color.g, videoPlayerImage.color.b, newAlpha);
             }
             yield return new WaitForFixedUpdate();

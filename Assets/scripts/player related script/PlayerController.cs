@@ -147,7 +147,14 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator WaitBeforeMoving(Vector3 directionToGo)
     {
-        if (canMove && directionToGo != Vector3.zero)
+        Physics.Raycast(transform.position, directionToGo,  out RaycastHit hit, tongLength);
+        MovableObject foreignMovable = hit.collider.GetComponent<MovableObject>();
+        bool canGo = true;
+        if (foreignMovable != null)
+        {
+            if(foreignMovable.isMoving)canGo = false;
+        }
+        if (canMove && directionToGo != Vector3.zero && canGo)
         {
             //ici, le joueur lance le grappin mais n'a pas encore commencé a bouger, c'est le temps que le grappin se colle au mur ou il veut aller
             animatorPlayerMovementState = 1;
@@ -167,6 +174,7 @@ public class PlayerController : MonoBehaviour
     public void ShootHook(Vector3 direction)
     {
         Physics.Raycast(transform.position, direction,  out RaycastHit hit, tongLength);
+
         if (canMove && direction != Vector3.zero)
         {
             if (hit.transform != null && hit.transform.GetComponent<NotGrabbable>() == null)

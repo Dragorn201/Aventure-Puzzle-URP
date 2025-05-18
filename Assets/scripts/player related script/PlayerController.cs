@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -52,6 +53,9 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public int animatorPlayerMovementState = 0;
     [HideInInspector] Animator playerAnimator;
+        
+    bool hasMoved = false;
+    RaycastHit actualPositionOnWall;
     
     private void Awake()
     {
@@ -88,6 +92,19 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
             if(movementInput != Vector3.zero)StartCoroutine(WaitBeforeMoving(directionToGo));
+        }
+
+        if (!isInMotion && hasMoved)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(true);
+            transform.GetChild(1).GetChild(1).rotation =
+                quaternion.LookRotation(actualPositionOnWall.normal, Vector3.up);
+        }
+        else if (isInMotion)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(false);
         }
         
 
@@ -153,6 +170,7 @@ public class PlayerController : MonoBehaviour
             animatorPlayerMovementState = 1;
             playerAnimator.SetInteger("AnimatorPlayerMovement", animatorPlayerMovementState);
             
+            hasMoved = true;
             initiateMotion = true;
             if (soundManager != null)soundManager.PlaySoundEffect(soundManager.playerTrhowingHook);
             if(!isWaitingForTheHook)onThrowingHook.Invoke();
@@ -175,6 +193,7 @@ public class PlayerController : MonoBehaviour
                 animatorPlayerMovementState = 2;
                 playerAnimator.SetInteger("AnimatorPlayerMovement", animatorPlayerMovementState);
                 
+                actualPositionOnWall = hit;
                 actualEncrage = hit.transform.gameObject;
                 directionAtStart = direction;
                 mustExitBulletTime = true;

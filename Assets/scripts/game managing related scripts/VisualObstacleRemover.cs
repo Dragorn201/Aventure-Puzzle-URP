@@ -61,7 +61,6 @@ public class VisualObstacleRemover : MonoBehaviour
             currentlyTransparent.Remove(rend);
         }
     }
-    
 
     private void StartFade(Renderer rend, float targetAlpha)
     {
@@ -75,29 +74,33 @@ public class VisualObstacleRemover : MonoBehaviour
     private IEnumerator FadeMaterial(Renderer rend, float targetAlpha)
     {
         Material mat = rend.material;
-        Color color = mat.color;
-        if (color != null)
+
+        // Vérifie si le shader a bien la propriété "_Color"
+        if (!mat.HasProperty("_Color"))
         {
-            float startAlpha = color.a;
-            
-            if (targetAlpha < 1f)
-                SetMaterialTransparent(mat);
-    
-            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
-            {
-                float alpha = Mathf.Lerp(startAlpha, targetAlpha, t / fadeDuration);
-                mat.color = new Color(color.r, color.g, color.b, alpha);
-                yield return null;
-            }
-    
-            mat.color = new Color(color.r, color.g, color.b, targetAlpha);
-    
-            if (targetAlpha >= 1f)
-                SetMaterialOpaque(mat);
-    
             activeFades.Remove(rend);
+            yield break;
         }
-        
+
+        Color color = mat.color;
+        float startAlpha = color.a;
+
+        if (targetAlpha < 1f)
+            SetMaterialTransparent(mat);
+
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, t / fadeDuration);
+            mat.color = new Color(color.r, color.g, color.b, alpha);
+            yield return null;
+        }
+
+        mat.color = new Color(color.r, color.g, color.b, targetAlpha);
+
+        if (targetAlpha >= 1f)
+            SetMaterialOpaque(mat);
+
+        activeFades.Remove(rend);
     }
 
     private void SetMaterialTransparent(Material mat)

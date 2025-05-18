@@ -78,7 +78,6 @@ public class HookManager : MonoBehaviour
 
     IEnumerator PlayerStartMoving()
     {
-        Debug.Log("player start moving");
         playerMoving = true;
         hookHand.SetActive(true);
         hookHand.transform.position = hit.point + hit.normal.normalized * 0.001f;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ public class PauseMenuBehaviour : MonoBehaviour
     
     public GameObject videoPlayer;
     private bool keyPressed = false;
+    
+    public UnityEvent onCinematicSkip;
 
     void Awake()
     {
@@ -75,7 +78,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         float videoLength = 0;
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            videoLength = 20f;
+            videoLength = 57f;
         }
         else
         {
@@ -95,6 +98,11 @@ public class PauseMenuBehaviour : MonoBehaviour
                 videoPlayerImage.color = new Color(videoPlayerImage.color.r, videoPlayerImage.color.g, videoPlayerImage.color.b, newAlpha);
             }
             yield return new WaitForFixedUpdate();
+        }
+
+        if (keyPressed)
+        {
+            onCinematicSkip.Invoke();
         }
         pauseMenuPanel.SetActive(false);
         videoPlayer.SetActive(false);

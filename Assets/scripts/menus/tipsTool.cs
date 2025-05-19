@@ -48,7 +48,7 @@ public class tipsTool : MonoBehaviour
         {
             case TipType.Deplacements:
                 tipImage.sprite = tips[0];
-                yield return new WaitForSeconds(7f);
+                yield return new WaitForSeconds(57f);
                 break;
             case TipType.Grab:
                 tipImage.sprite = tips[1];

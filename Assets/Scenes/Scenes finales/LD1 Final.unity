@@ -9053,11 +9053,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223319990}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &223583738 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1322335765571985630, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
-  m_PrefabInstance: {fileID: 6109284683912412930}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &223738265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45739,6 +45734,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8073177962748637988, guid: 3a87db2c660f4dd4aaec5c742e7b534c, type: 3}
   m_PrefabInstance: {fileID: 1132685649}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1132943879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4786696543233513206, guid: 5c2573134cac0604e81f3eccfe34f879, type: 3}
+  m_PrefabInstance: {fileID: 371993277}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9b39b6e3ad37247b6b3b71dd1415ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1133607125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91814,7 +91820,7 @@ PrefabInstance:
     - target: {fileID: 5484305447737096859, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_VideoClip
       value: 
-      objectReference: {fileID: 32900000, guid: ae93bb6e6f810214a8651efc4e4891d2, type: 3}
+      objectReference: {fileID: 32900000, guid: df0821643f8c527498513a9baa7b0337, type: 3}
     - target: {fileID: 5979463708174656226, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -91920,9 +91926,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7616680979335855207, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
-      propertyPath: videoPlayer
+      propertyPath: onCinematicSkip.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 223583738}
+      objectReference: {fileID: 1132943879}
     - target: {fileID: 8256864563904766614, guid: 659859960b5dfb14ba577b7a20ccce1a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

@@ -9,6 +9,7 @@ public class VisualObstacleRemover : MonoBehaviour
 
     private Dictionary<Renderer, Coroutine> activeFades = new();
     private HashSet<Renderer> currentlyTransparent = new();
+    private Dictionary<Renderer, Color> originalColors = new();
 
     public float fadeDuration = 0.5f;
     public float targetAlpha = 0.2f;
@@ -64,10 +65,16 @@ public class VisualObstacleRemover : MonoBehaviour
 
     private void StartFade(Renderer rend, float targetAlpha)
     {
+        if (!originalColors.ContainsKey(rend))
+        {
+            originalColors[rend] = rend.material.color;
+        }
+
         if (activeFades.TryGetValue(rend, out Coroutine current))
         {
             StopCoroutine(current);
         }
+
         activeFades[rend] = StartCoroutine(FadeMaterial(rend, targetAlpha));
     }
 
@@ -95,7 +102,15 @@ public class VisualObstacleRemover : MonoBehaviour
             yield return null;
         }
 
-        mat.color = new Color(color.r, color.g, color.b, targetAlpha);
+        if (targetAlpha >= 1f && originalColors.TryGetValue(rend, out Color originalColor))
+        {
+            mat.color = originalColor;
+            originalColors.Remove(rend);
+        }
+        else
+        {
+            mat.color = new Color(color.r, color.g, color.b, targetAlpha);
+        }
 
         if (targetAlpha >= 1f)
             SetMaterialOpaque(mat);

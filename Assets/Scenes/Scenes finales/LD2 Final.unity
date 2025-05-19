@@ -22458,7 +22458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
-      value: 0.000000045516273
+      value: -0.00000003077767
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[1].m_Value.x
@@ -22466,7 +22466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[1].m_Value.y
-      value: 0.000000045516273
+      value: -0.00000003077767
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[2].m_Value.x
@@ -22474,7 +22474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[2].m_Value.y
-      value: 0.000000045516273
+      value: -0.00000003077767
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.x
@@ -22482,7 +22482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.y
-      value: 0.000000045516273
+      value: -0.00000003077767
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.x
@@ -22490,7 +22490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.y
-      value: -0.20909089
+      value: -0.20909095
       objectReference: {fileID: 0}
     - target: {fileID: 536738942487503567, guid: d39637bb89a533f40ad48e34e1999d9a, type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.z
@@ -77366,7 +77366,7 @@ PrefabInstance:
     - target: {fileID: 6285342444651390109, guid: 2923d6ecb53e2324089da069d3684541, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 968178c55d68e2e4ebca0933ebda87a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 5dc4b418b44e5894cac7ccc24f0b5a19, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -80422,6 +80422,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2059223180}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2059223181}
   m_SourcePrefab: {fileID: 100100000, guid: d3d994460d9604f4ca9b1a1e0b4fb9f0, type: 3}
 --- !u!1 &2059223172 stripped
 GameObject:
@@ -80508,6 +80511,18 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2059223180}
+        m_TargetAssemblyTypeName: DissolvingRonces, Assembly-CSharp
+        m_MethodName: BeginDissolving
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2059223181}
         m_TargetAssemblyTypeName: DissolvingRonces, Assembly-CSharp
         m_MethodName: BeginDissolving
         m_Mode: 1
@@ -80607,6 +80622,22 @@ MonoBehaviour:
   dissolveRate: 0.0035
   refreshRate: 0.025
   parameter: _DissolveAmount
+--- !u!114 &2059223181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059223172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb86111cba349624692a42d97e42a185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 5dc4b418b44e5894cac7ccc24f0b5a19, type: 2}
+  dissolveRate: 0.005
+  refreshRate: 0.025
+  parameter: _Distance
 --- !u!1001 &2061829519
 PrefabInstance:
   m_ObjectHideFlags: 0

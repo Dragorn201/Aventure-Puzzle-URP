@@ -25,6 +25,8 @@ public class PauseMenuBehaviour : MonoBehaviour
     private bool keyPressed = false;
     
     public UnityEvent onCinematicSkip;
+    public UnityEvent onPause;
+    public UnityEvent onResume;
 
     void Awake()
     {
@@ -133,7 +135,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(panelsFistButtons[pauseMenuPanel]);
-        
+        onPause.Invoke();
         yield return new WaitForSecondsRealtime(0.5f);
     }
     
@@ -142,6 +144,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         animator.SetInteger("menuAnimationState", 2);
         Time.timeScale = 1f;
         isPaused = false;
+        onResume.Invoke();
         yield return new WaitForSecondsRealtime(0.5f);
         pauseMenuPanel.SetActive(false);
         

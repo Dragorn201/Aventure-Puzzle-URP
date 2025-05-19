@@ -104,4 +104,16 @@ public class tipsTool : MonoBehaviour
     {
         cinematicSkipped = true;
     }
+
+    public void Hide()
+    {
+        if(isActive)tipsCanvas.SetActive(false);
+        
+    }
+
+    public void Show()
+    {
+        if(isActive)tipsCanvas.SetActive(true);
+    }
+    
 }

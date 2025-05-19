@@ -8,7 +8,6 @@ public class CameraFollow : MonoBehaviour
     public float rotationSmoothSpeed = 3f;
     public Vector3 basicOffset;
     public Quaternion rotationOnPlayerFocus;
-    public float inputOffsetIntensity;
     public float camDelay;
 
     public AnimationCurve transitionCurve;
@@ -28,11 +27,6 @@ public class CameraFollow : MonoBehaviour
     private PlayerController playerController;
     private Quaternion actualBaseRotation;
 
-    private float angleStableTime = 0f;
-    public float requiredStableTime = 0.5f;
-    public float angleThreshold = 5f;
-    private Quaternion lastCheckedRotation;
-
     private Transform[] cinematicCamPos;
     private int cinematicStepIndex = 0;
 
@@ -45,6 +39,12 @@ public class CameraFollow : MonoBehaviour
     private Quaternion transitionStartRot;
     private Quaternion transitionEndRot;
 
+    // Rotation manuelle autour du joueur (XZ)
+    public float maxRotationSpeed = 10f; // degrés/seconde
+    private float rotationAroundPlayerSpeed = 0f;
+    private float rotationLerpSpeed = 5f;
+    private float currentRotationAngle = 0f;
+
     void Start()
     {
         playerController = player.GetComponent<PlayerController>();
@@ -53,89 +53,96 @@ public class CameraFollow : MonoBehaviour
         desiredRotation = transform.rotation;
         actualBaseRotation = transform.rotation;
         actualCamSpeed = positionSmoothSpeedWhenFollow;
-        lastCheckedRotation = player.rotation;
     }
 
     void LateUpdate()
+{
+    if (isInTransition)
     {
-        desiredRotation = actualBaseRotation;
+        transitionTime += Time.deltaTime;
+        float t = Mathf.Clamp01(transitionTime / transitionDuration);
+        float easedT = transitionCurve.Evaluate(t);
 
-        if (mustFollowPlayerPosition)
+        Vector3 targetPos = Vector3.Lerp(transitionStartPos, transitionEndPos, easedT);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 0.05f);
+
+        Quaternion targetRot = Quaternion.Slerp(transitionStartRot, transitionEndRot, easedT);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSmoothSpeed);
+
+        if (transitionTime >= transitionDuration)
         {
-            desiredPosition = player.position + actualCamOffset;
+            isInTransition = false;
+            rotationAroundPlayerSpeed = 0f;
         }
 
-        if (MustBeBasicRotation)
-        {
-            desiredRotation = rotationOnPlayerFocus;
-        }
+        return;
+    }
 
-        if (aimAtPlayer)
-        {
-            desiredRotation = Quaternion.LookRotation(player.position - transform.position);
-        }
+    desiredRotation = actualBaseRotation;
 
-        float angleDiffWithLast = Quaternion.Angle(lastCheckedRotation, player.rotation);
-        if (angleDiffWithLast < angleThreshold)
-        {
-            angleStableTime += Time.deltaTime;
-        }
-        else
-        {
-            angleStableTime = 0f;
-        }
+    if (mustFollowPlayerPosition)
+    {
+        // Lecture des inputs L1/R1 (ancien Input System)
+        bool rotateLeft = Input.GetKey(KeyCode.JoystickButton13); // L1
+        bool rotateRight = Input.GetKey(KeyCode.JoystickButton14); // R1
 
-        if (angleStableTime >= requiredStableTime && playerController.movementInput != Vector3.zero)
+        float targetSpeed = 0f;
+        if (rotateLeft) targetSpeed = -maxRotationSpeed;
+        if (rotateRight) targetSpeed = maxRotationSpeed;
+
+        rotationAroundPlayerSpeed = Mathf.Lerp(rotationAroundPlayerSpeed, targetSpeed, Time.deltaTime * rotationLerpSpeed);
+
+        // Mise à jour de l'angle courant
+        currentRotationAngle += rotationAroundPlayerSpeed * Time.deltaTime;
+
+        // Recalcul offset dans le plan XZ uniquement
+        Vector3 offsetXZ = new Vector3(basicOffset.x, 0f, basicOffset.z);
+        float radius = offsetXZ.magnitude;
+
+        Vector3 orbitOffset = new Vector3(
+            Mathf.Sin(currentRotationAngle * Mathf.Deg2Rad),
+            0f,
+            Mathf.Cos(currentRotationAngle * Mathf.Deg2Rad)
+        ) * radius;
+
+        // Remise de la hauteur d'origine
+        orbitOffset.y = basicOffset.y;
+
+        desiredPosition = player.position + orbitOffset;
+    }
+
+    if (MustBeBasicRotation)
+    {
+        desiredRotation = rotationOnPlayerFocus;
+    }
+
+    if (aimAtPlayer)
+    {
+        desiredRotation = Quaternion.LookRotation(player.position - transform.position);
+    }
+
+    actualPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
+    transform.position = actualPosition;
+
+    float angleDiff = Quaternion.Angle(transform.rotation, desiredRotation);
+    if (angleDiff > 0.1f)
+    {
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * rotationSmoothSpeed * 1 / Time.timeScale + 0.0000001f);
+    }
+    else
+    {
+        transform.rotation = desiredRotation;
+    }
+
+    if (isInCinematic)
+    {
+        if (Vector3.Distance(transform.position, desiredPosition) < 0.1f && transform.rotation == desiredRotation)
         {
-            Quaternion rotation = desiredRotation;
-            Vector3 inputDirection = playerController.movementInput.normalized;
-            Quaternion inputOffsetRotation = Quaternion.Euler(-inputOffsetIntensity * inputDirection.y, inputOffsetIntensity * inputDirection.x, 0);
-            desiredRotation = inputOffsetRotation * rotation;
-        }
-
-        lastCheckedRotation = player.rotation;
-
-        if (isInTransition)
-        {
-            transitionTime += Time.deltaTime;
-            float t = Mathf.Clamp01(transitionTime / transitionDuration);
-            float easedT = transitionCurve.Evaluate(t);
-            
-            Vector3 targetPos = Vector3.Lerp(transitionStartPos, transitionEndPos, easedT);
-            transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, 0.05f);
-            
-            Quaternion targetRot = Quaternion.Slerp(transitionStartRot, transitionEndRot, easedT);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * rotationSmoothSpeed);
-
-            if (transitionTime >= transitionDuration)
-            {
-                isInTransition = false;
-            }
-        }
-        else
-        {
-            actualPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, actualCamSpeed * 1 / Time.timeScale + 0.0000001f);
-            transform.position = actualPosition;
-
-            float angleDiff = Quaternion.Angle(transform.rotation, desiredRotation);
-            if (angleDiff > 0.1f)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, Time.deltaTime * rotationSmoothSpeed * 1 / Time.timeScale + 0.0000001f);
-            }
-            else
-            {
-                transform.rotation = desiredRotation;
-            }
-        }
-
-        if (isInCinematic)
-        {
-            if (Vector3.Distance(transform.position, desiredPosition) < 0.1f && transform.rotation == desiredRotation)
-            {
-                CinematicNextStep();
-            }
+            CinematicNextStep();
         }
     }
+}
+
 
     public void ChangeCamSpot(IEnumerator newCoroutine)
     {
@@ -200,6 +207,9 @@ public class CameraFollow : MonoBehaviour
         transitionDuration = duration;
         transitionTime = 0f;
         isInTransition = true;
+
+        // Reset de la rotation manuelle à la fin de la transition
+        rotationAroundPlayerSpeed = 0f;
     }
 
     public void StartCinematic(Transform[] newCinematicCamPos)

@@ -148,7 +148,11 @@ public class PlayerController : MonoBehaviour
     IEnumerator WaitBeforeMoving(Vector3 directionToGo)
     {
         Physics.Raycast(transform.position, directionToGo,  out RaycastHit hit, tongLength);
-        MovableObject foreignMovable = hit.collider.GetComponent<MovableObject>();
+        MovableObject foreignMovable = null;
+        if (hit.collider != null)
+        {
+            foreignMovable = hit.collider.GetComponent<MovableObject>();
+        }
         bool canGo = true;
         if (foreignMovable != null)
         {

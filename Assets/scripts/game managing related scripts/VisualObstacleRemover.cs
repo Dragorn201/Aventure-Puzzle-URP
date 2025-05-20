@@ -9,6 +9,7 @@ public class VisualObstacleRemover : MonoBehaviour
 
     private Dictionary<Renderer, Coroutine> activeFades = new();
     private HashSet<Renderer> currentlyTransparent = new();
+    private Dictionary<Renderer, Color> originalColors = new();
 
     public float fadeDuration = 0.5f;
     public float targetAlpha = 0.2f;
@@ -61,43 +62,60 @@ public class VisualObstacleRemover : MonoBehaviour
             currentlyTransparent.Remove(rend);
         }
     }
-    
 
     private void StartFade(Renderer rend, float targetAlpha)
     {
+        if (!originalColors.ContainsKey(rend))
+        {
+            originalColors[rend] = rend.material.color;
+        }
+
         if (activeFades.TryGetValue(rend, out Coroutine current))
         {
             StopCoroutine(current);
         }
+
         activeFades[rend] = StartCoroutine(FadeMaterial(rend, targetAlpha));
     }
 
     private IEnumerator FadeMaterial(Renderer rend, float targetAlpha)
     {
         Material mat = rend.material;
-        Color color = mat.color;
-        if (color != null)
+
+        // Vérifie si le shader a bien la propriété "_Color"
+        if (!mat.HasProperty("_Color"))
         {
-            float startAlpha = color.a;
-            
-            if (targetAlpha < 1f)
-                SetMaterialTransparent(mat);
-    
-            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
-            {
-                float alpha = Mathf.Lerp(startAlpha, targetAlpha, t / fadeDuration);
-                mat.color = new Color(color.r, color.g, color.b, alpha);
-                yield return null;
-            }
-    
-            mat.color = new Color(color.r, color.g, color.b, targetAlpha);
-    
-            if (targetAlpha >= 1f)
-                SetMaterialOpaque(mat);
-    
             activeFades.Remove(rend);
+            yield break;
         }
-        
+
+        Color color = mat.color;
+        float startAlpha = color.a;
+
+        if (targetAlpha < 1f)
+            SetMaterialTransparent(mat);
+
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, t / fadeDuration);
+            mat.color = new Color(color.r, color.g, color.b, alpha);
+            yield return null;
+        }
+
+        if (targetAlpha >= 1f && originalColors.TryGetValue(rend, out Color originalColor))
+        {
+            mat.color = originalColor;
+            originalColors.Remove(rend);
+        }
+        else
+        {
+            mat.color = new Color(color.r, color.g, color.b, targetAlpha);
+        }
+
+        if (targetAlpha >= 1f)
+            SetMaterialOpaque(mat);
+
+        activeFades.Remove(rend);
     }
 
     private void SetMaterialTransparent(Material mat)

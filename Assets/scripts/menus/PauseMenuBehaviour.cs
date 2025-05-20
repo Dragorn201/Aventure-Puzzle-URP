@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -22,6 +23,10 @@ public class PauseMenuBehaviour : MonoBehaviour
     
     public GameObject videoPlayer;
     private bool keyPressed = false;
+    
+    public UnityEvent onCinematicSkip;
+    public UnityEvent onPause;
+    public UnityEvent onResume;
 
     void Awake()
     {
@@ -72,17 +77,34 @@ public class PauseMenuBehaviour : MonoBehaviour
     IEnumerator StopVideoPlayer()
     {
 
+        float videoLength = 0;
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            videoLength = 57f;
+        }
+        else
+        {
+            videoLength = 7f;
+        }
+            
+        
+        
         RawImage videoPlayerImage = videoPlayer.GetComponent<RawImage>();
         float elapsedTime = 0;
-        while (!keyPressed && elapsedTime < 7f)
+        while (!keyPressed && elapsedTime < videoLength)
         {
             elapsedTime += Time.fixedDeltaTime;
-            if (elapsedTime >= 6f)
+            if (elapsedTime >= videoLength-1)
             {
-                float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - 6f));
+                float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - (videoLength-1)));
                 videoPlayerImage.color = new Color(videoPlayerImage.color.r, videoPlayerImage.color.g, videoPlayerImage.color.b, newAlpha);
             }
             yield return new WaitForFixedUpdate();
+        }
+
+        if (keyPressed)
+        {
+            onCinematicSkip.Invoke();
         }
         pauseMenuPanel.SetActive(false);
         videoPlayer.SetActive(false);
@@ -113,7 +135,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(panelsFistButtons[pauseMenuPanel]);
-        
+        onPause.Invoke();
         yield return new WaitForSecondsRealtime(0.5f);
     }
     
@@ -122,6 +144,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         animator.SetInteger("menuAnimationState", 2);
         Time.timeScale = 1f;
         isPaused = false;
+        onResume.Invoke();
         yield return new WaitForSecondsRealtime(0.5f);
         pauseMenuPanel.SetActive(false);
         

@@ -21,6 +21,8 @@ public class tipsTool : MonoBehaviour
     private bool isActive = false;
     private bool alreadyUsed = false;
     
+    bool cinematicSkipped = false;
+    
     void Start()
     {
         tipsCanvas.SetActive(false);
@@ -48,11 +50,18 @@ public class tipsTool : MonoBehaviour
         {
             case TipType.Deplacements:
                 tipImage.sprite = tips[0];
-                yield return new WaitForSeconds(7f);
+                float elapsedtime = 0f;
+                while (elapsedTime < 57f && !cinematicSkipped)
+                {
+                    elapsedTime += Time.fixedDeltaTime;
+                    yield return new WaitForFixedUpdate();
+                }
                 break;
+            
             case TipType.Grab:
                 tipImage.sprite = tips[1];
                 break;
+            
             case TipType.DestructionMurs:
                 tipImage.sprite = tips[2];
                 break;
@@ -90,4 +99,21 @@ public class tipsTool : MonoBehaviour
         }
         tipsCanvas.SetActive(false);
     }
+
+    public void CinematicSkip()
+    {
+        cinematicSkipped = true;
+    }
+
+    public void Hide()
+    {
+        if(isActive)tipsCanvas.SetActive(false);
+        
+    }
+
+    public void Show()
+    {
+        if(isActive)tipsCanvas.SetActive(true);
+    }
+    
 }

@@ -67,7 +67,7 @@ public class MainMenuBehaviour : MonoBehaviour
         while (!keyPressed && elapsedTime < 12f)
         {
             elapsedTime += Time.fixedDeltaTime;
-            if (elapsedTime >= 6f)
+            if (elapsedTime >= 11f)
             {
                 float newAlpha = Mathf.Lerp(1f, 0f, (elapsedTime - 11f));
                 videoPlayerImage.color = new Color(1f, 1f, 1f, newAlpha);

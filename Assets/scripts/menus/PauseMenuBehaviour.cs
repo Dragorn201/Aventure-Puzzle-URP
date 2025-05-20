@@ -80,7 +80,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         float videoLength = 0;
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            videoLength = 57f;
+            videoLength = 64f;
         }
         else
         {

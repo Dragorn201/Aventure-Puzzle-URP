@@ -51,7 +51,7 @@ public class tipsTool : MonoBehaviour
             case TipType.Deplacements:
                 tipImage.sprite = tips[0];
                 float elapsedtime = 0f;
-                while (elapsedTime < 57f && !cinematicSkipped)
+                while (elapsedTime < 63f && !cinematicSkipped)
                 {
                     elapsedTime += Time.fixedDeltaTime;
                     yield return new WaitForFixedUpdate();
@@ -67,10 +67,12 @@ public class tipsTool : MonoBehaviour
                 break;
         }
 
+        /*
         if (alreadyUsed)
         {
             yield break;
         }
+        */
         
         tipsCanvas.SetActive(true);
         while (isActive)

@@ -32,6 +32,9 @@ public class MainMenuBehaviour : MonoBehaviour
     public GameObject videoPlayer;
     public bool keyPressed = false;
 
+    public GameObject creditsVideo;
+    public float creditLength;
+
     void Start()
     {
         Time.timeScale = 1;
@@ -83,6 +86,7 @@ public class MainMenuBehaviour : MonoBehaviour
         mainMenuPanel.SetActive(true);
         videoPlayer.SetActive(false);
         lineLighter.gameObject.SetActive(true);
+        creditsVideo.SetActive(false);
         EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
         lightTarget = buttons[_menuFirstButtons[mainMenuPanel]].buttonTransform;
     }
@@ -131,6 +135,28 @@ public class MainMenuBehaviour : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
         panel.SetActive(false);
+    }
+
+    public void OpenCredits()
+    {
+        StartCoroutine(Credits());
+    }
+
+    IEnumerator Credits()
+    {
+        mainMenuPanel.SetActive(false);
+        creditsVideo.SetActive(true);
+        keyPressed = false;
+        
+        float elapsedTime = 0f;
+        while (elapsedTime < creditLength && !keyPressed)
+        {
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        
+        mainMenuPanel.SetActive(true);
+        creditsVideo.SetActive(false);
     }
 }
 

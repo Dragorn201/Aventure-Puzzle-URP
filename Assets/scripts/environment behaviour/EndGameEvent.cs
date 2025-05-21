@@ -9,6 +9,8 @@ public class EndGameEvent : MonoBehaviour
     public float cinematicTime;
     public GameObject creditPlayer;
     public float creditTime;
+    public GameObject soundManagerHolder;
+    
 
 
     private void Start()
@@ -25,6 +27,7 @@ public class EndGameEvent : MonoBehaviour
     {
         yield return new WaitForSeconds(cinematicTime);
         creditPlayer.SetActive(true);
+        soundManagerHolder.SetActive(false);
         yield return new WaitForSeconds(creditTime);
         SceneLoader.LoadMenu();
     }

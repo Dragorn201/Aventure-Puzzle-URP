@@ -24,6 +24,8 @@ public class PauseMenuBehaviour : MonoBehaviour
     public GameObject videoPlayer;
     private bool keyPressed = false;
     
+    public GameObject soundManagerHolder;
+    
     public UnityEvent onCinematicSkip;
     public UnityEvent onPause;
     public UnityEvent onResume;
@@ -42,6 +44,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         StartCoroutine(LoadVolume());
         StartCoroutine(StopVideoPlayer());
         videoPlayer.SetActive(true);
+        soundManagerHolder.SetActive(true);
     }
 
     IEnumerator LoadVolume()

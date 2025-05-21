@@ -49,6 +49,7 @@ public class MainMenuBehaviour : MonoBehaviour
         mainMenuPanel.SetActive(false);
         settingsPanel.SetActive(false);
         lineLighter.gameObject.SetActive(false);
+        creditsVideo.SetActive(false);
         
         _menuFirstButtons.Add(mainMenuPanel, mainMenuFirstButton);
         _menuFirstButtons.Add(settingsPanel, settingsFirstButton);

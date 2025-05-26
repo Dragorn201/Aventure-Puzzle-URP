@@ -841,6 +841,7 @@ MonoBehaviour:
   pauseMenuFirstButton: {fileID: 1618046785580836199}
   settingsMenuFirstButton: {fileID: 273294030203797132}
   videoPlayer: {fileID: 1322335765571985630}
+  soundManagerHolder: {fileID: 4395510578448851946}
   onCinematicSkip:
     m_PersistentCalls:
       m_Calls:
@@ -856,6 +857,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onPause:
+    m_PersistentCalls:
+      m_Calls: []
+  onResume:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &3364499694398850610
 Animator:
   serializedVersion: 7
